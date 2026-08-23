@@ -1,8 +1,8 @@
 ---
 title: OnoToolkit
 category: Full Stack / In-Browser ML
-description: Privacy-first suite of high-performance browser tools running entirely
-  client-side via WASM, ONNX Runtime Web, and WebGPU.
+description: Privacy-first utilities that keep file processing, model inference,
+  and recording inside the browser.
 featured: true
 order: 1
 liveUrl: https://onotoolkit.irfankurniawan.com/
@@ -10,61 +10,40 @@ githubUrl: https://github.com/prostiate/onotoolkit
 tags:
   - Nuxt 4
   - WASM
-  - ONNX WebGPU
-  - Ghostscript
+  - ONNX Runtime Web
   - IndexedDB
-  - Cloudflare Workers
-problemSolved: Heavy utilities (PDF compression, image background removal, watermark
-  removal, video recording, JWT debugging) traditionally require uploading sensitive
-  files and tokens to third-party cloud servers, introducing severe privacy and data
-  leak risks.
+problemSolved: Privacy-sensitive utilities process files, model inputs, recordings,
+  and developer tokens locally in the browser instead of uploading them.
 architecture:
-  - ONNX Runtime Web (WebGPU with WASM fallback) for background removal (@imgly/background-removal)
-    and MI-GAN inpainting watermark removal.
-  - Ghostscript-WASM integration for client-side PDF compression with instant before/after
-    preview sliders.
-  - Local-first screen recorder using getDisplayMedia, canvas compositing, and burned-in
-    annotation strokes into MediaRecorder stream.
-  - RFC 7519 JWT debugger built on jose with in-browser key-pair generation and EdDSA/ES/RS
-    signature verification.
-  - "Zero cloud storage: IndexedDB persistent local library with poster thumbnail caching."
+  - Browser-local PDF processing with Ghostscript-WASM and before-and-after previews.
+  - ONNX-powered image tools, including MI-GAN inpainting through ONNX Runtime Web
+    with WebGPU and a WASM fallback.
+  - Screen recording with browser media APIs, canvas compositing, and an IndexedDB library.
+  - RFC 7519 JWT debugging with JOSE-based signing and signature verification.
 ---
 
 ## Overview
 
-[OnoToolkit](https://onotoolkit.irfankurniawan.com/) is a privacy-first suite of high-performance utilities that run entirely in the browser. Unlike conventional online file converters that upload user files to remote servers, OnoToolkit executes all computational workloads locally on the client machine using **WebAssembly (WASM)**, **ONNX Runtime Web with WebGPU**, and **Canvas compositing APIs**.
+[OnoToolkit](https://onotoolkit.irfankurniawan.com/) is a privacy-first suite of browser utilities. File processing, model inference, screen recording, and JWT operations run locally in the browser, so the associated files, tokens, and secrets do not leave the device.
 
-Files, documents, and sensitive authentication tokens never leave the user's device.
+## Browser-Local Processing
 
----
+### PDF Tools
 
-## Architectural Deep Dive
+The PDF suite uses Ghostscript-WASM for compression and includes merge, split, rotate, image conversion, and document conversion workflows. Compression provides a before-and-after preview before download.
 
-### 1. In-Browser Machine Learning (ONNX & WebGPU)
+### Image Tools
 
-- **Background Removal**: Integrates `@imgly/background-removal` running neural network inference on the client. Automatically prioritizes hardware-accelerated **WebGPU** execution, gracefully falling back to multi-threaded WASM with SIMD instructions when GPU access is unavailable.
-- **Watermark Inpainting (MI-GAN)**: Runs deep generative inpainting client-side. Rather than accepting full image re-generation artifacts, the pipeline uses masked canvas compositing to guarantee that only user-painted bounding pixels are modified, leaving unaltered pixels 100% byte-identical.
+Background removal runs an ONNX model in the browser through `@imgly/background-removal`. Watermark removal uses MI-GAN inpainting through ONNX Runtime Web, with WebGPU and a WASM fallback, and composites the result over the user-painted region.
 
-### 2. Client-Side PDF Processing via Ghostscript-WASM
+### Screen Recording
 
-- Compiles Ghostscript to WebAssembly to provide production-grade PDF compression, linearization, and page manipulation in the browser.
-- Features a real-time before/after image comparison slider and live compression ratio telemetry prior to downloading.
+The recorder combines `getDisplayMedia`, `getUserMedia`, canvas compositing, `captureStream()`, and `MediaRecorder`. It supports a movable picture-in-picture webcam, burned-in annotations, mixed microphone and system audio, and a persistent IndexedDB recording library with poster thumbnails.
 
-### 3. Canvas-Composited Screen Recorder
+### JWT Debugging
 
-- Built on `getDisplayMedia` and `getUserMedia` streams with real-time `<canvas>` compositing.
-- Supports movable, circular picture-in-picture webcam bubbles and interactive vector annotation strokes burned directly into the output `MediaRecorder` stream at 60 FPS.
-- Integrates local IndexedDB storage with instant blob caching and poster thumbnails.
+The RFC 7519 debugger uses `jose` for decoding, signing, signature verification, and in-browser key-pair generation across HS, RS, PS, ES, and EdDSA algorithms.
 
-### 4. Zero-Trust RFC 7519 JWT Debugger
+## Verified Optimization
 
-- Implements cryptographic signature verification and keypair generation (HS256, RS256, ES256, EdDSA) via the `jose` library in memory.
-- Ensures developer API tokens, private keys, and authorization claims are never leaked across network boundaries.
-
----
-
-## Impact & Key Takeaways
-
-- **Zero Server Costs**: Zero backend processing servers required; deployed entirely on Cloudflare Workers/Pages static CDN.
-- **Absolute Data Sovereignty**: 100% client-side execution eliminates data privacy liabilities and server cold starts.
-- **Rollup Payload Optimization**: Reduced client bundle sizes by 45.7% (23 MB) by stripping unrequested WASM sub-payloads at build time.
+Build-time filtering removed 23 MB of unrequested WASM payloads from the client bundle.

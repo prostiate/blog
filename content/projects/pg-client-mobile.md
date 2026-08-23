@@ -1,8 +1,8 @@
 ---
 title: pg-client-mobile
 category: Mobile / Database Tooling
-description: Android-first Flutter GUI client for PostgreSQL with keystroke safety
-  guards and connection management.
+description: Android-first Flutter client for PostgreSQL with connection management,
+  object browsing, SQL editing, data grids, and execution logs.
 featured: true
 order: 3
 liveUrl: null
@@ -12,42 +12,22 @@ tags:
   - Dart
   - PostgreSQL
   - Android
-  - SQL Safety
-problemSolved: Managing production PostgreSQL instances from mobile devices often
-  leads to accidental destructive queries due to touch sensitivity and lack of execution
-  confirmation guards.
+problemSolved: Provides PostgreSQL workflows on Android while guarding shortcut-based
+  query execution from unintended keystrokes.
 architecture:
-  - Implemented shortcut-run protection and AST-based query inspection to prevent accidental
-    destructive table drops.
-  - Lightweight SQL editor with real-time syntax highlighting, result grid virtualization,
-    and execution telemetry.
-  - Native connection pool manager with encrypted local credential storage on device.
+  - Connection management and PostgreSQL object browsing.
+  - SQL editing with shortcut-run protection.
+  - Data grids, query execution logs, and application logs.
 ---
 
 ## Overview
 
-**pg-client-mobile** is an Android-first mobile PostgreSQL management tool built with **Flutter and Dart**. It allows backend engineers, DBAs, and platform administrators to inspect databases, run diagnostic queries, and analyze performance logs directly from mobile devices with built-in guardrails against destructive accidents.
+**pg-client-mobile** is an Android-first PostgreSQL client built with Flutter and Dart. It combines connection management, an object browser, a SQL editor, data grids, execution logs, and application logs in one mobile application.
 
----
+## Deliberate Query Execution
 
-## Safety-First Architecture
+The SQL editor includes shortcut-run protection so an unintended keystroke cannot execute a destructive statement.
 
-### 1. SQL Execution Safeguards
+## Ownership and Distribution
 
-- Running queries on a touchscreen carries high accidental click risk. pg-client-mobile parses SQL input before execution to detect potentially destructive statements (`DROP`, `TRUNCATE`, `DELETE` without `WHERE`).
-- Prompts a secondary confirmation modal with explicit schema and affected row estimates before dispatching dangerous operations.
-
-### 2. High-Performance Grid Virtualization
-
-- Query results with thousands of rows are rendered using a 2D virtualized scrolling grid, preventing memory spikes and maintaining smooth 60 FPS scrolling on budget Android smartphones.
-
-### 3. Encrypted Local Storage
-
-- Connection strings, SSL certificates, and SSH tunnel private keys are encrypted on-device using Android Keystore and AES-256 GCM.
-
----
-
-## Technical Highlights
-
-- **Commits & Ownership**: 100% solo design and development.
-- **Open Source**: Published under MIT License with comprehensive documentation and screenshot galleries.
+All 40 of the repository's 40 commits were authored by Irfan in March 2026. The project is published under the MIT License and includes a 14-image screenshot gallery.

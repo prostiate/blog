@@ -1,8 +1,8 @@
 ---
-title: Amazone In-House Auth & Token Service
+title: Amazone In-House Authentication Service
 category: Backend / Security
-description: High-security internal authentication service in Go with revocable session
-  tokens and RBAC middleware.
+description: Go and GraphQL authentication service with revocable server-side sessions,
+  rotating refresh tokens, per-app isolation, and auditable RBAC.
 featured: false
 order: 5
 liveUrl: null
@@ -11,49 +11,31 @@ tags:
   - Go
   - GraphQL / gqlgen
   - PostgreSQL
-  - Redis
-  - JWT
   - RBAC
-problemSolved: Firebase Auth lacked granular instant-revocation capabilities required
-  for cashier shift handovers, multi-outlet department permissions, and on-premise
-  compliance.
+problemSolved: Firebase Auth could not provide revocable server-side sessions, per-app
+  isolation, or the audit trail required for shared internal authentication.
 architecture:
-  - High-throughput Go GraphQL auth backend with dual-token (short-lived access + sliding
-    refresh) lifecycle.
-  - Redis-backed instant session blacklist for immediate operator offboarding across
-    all store cashiers.
-  - Role-based access control (RBAC) middleware verifying company, branch, and role
-    scopes on every resolver.
+  - Opaque revocable server-side sessions with rotating refresh tokens.
+  - bcrypt password hashing with an HMAC pepper and HttpOnly host-only cookies.
+  - Per-app session isolation, device binding, and RBAC role-creation scoping.
+  - Server-driven allowedMenus authorization and audit logging.
+  - PostgreSQL auth and master schema namespacing behind backward-compatible shims.
 ---
 
 ## Overview
 
-To secure retail cashier workstations, manager consoles, and internal backoffice services, this project replaced third-party hosted authentication (Firebase Auth) with an in-house **Go GraphQL authentication engine**.
+This in-house Go and gqlgen GraphQL service replaced Firebase Auth across 5 backends and 6 frontends. It provides shared authentication while preserving per-application session isolation.
 
-The system provides instant session revocation, strict role-based access control (RBAC), and sliding refresh token rotation across all company applications.
+## Session and Credential Design
 
----
+Authentication uses opaque, revocable server-side sessions and rotating refresh tokens. Passwords are protected with bcrypt and an HMAC pepper. Browser credentials use HttpOnly, host-only cookies, and sessions can be bound to a device identity.
 
-## Core Architecture
+## Authorization and Auditability
 
-### 1. Dual-Token Lifecycle
+RBAC includes role-creation scoping so administrators cannot create roles beyond their authority. A server-driven `allowedMenus` tree supplies application authorization, and audit logs record authentication activity.
 
-- **Access Tokens**: Short-lived (15 minutes), digitally signed JWTs containing user ID, role, outlet branches, and department permissions.
-- **Refresh Tokens**: Stored in PostgreSQL with hardware device fingerprints and IP validation, rotated upon every access token refresh.
+## Migration
 
-### 2. Instant Session Revocation via Redis
+Identity tables moved from `public.*` into namespaced `auth.*` and `master.*` PostgreSQL schemas. Backward-compatible shims kept legacy resolvers working during the cutover.
 
-- Cashier shift changes and employee offboarding require immediate authorization invalidation without waiting for access tokens to expire.
-- Built a high-speed Redis session blacklist queried by API gateway middleware in `<1ms`.
-
-### 3. Go GraphQL Engine (gqlgen)
-
-- Type-safe schema-first GraphQL API implemented in Go using `gqlgen`.
-- Fine-grained field-level directive authorization (`@hasPermission(scope: "RETAIL_WRITE")`) protecting administrative resolvers.
-
----
-
-## Results
-
-- **Full Data Sovereignty**: Eliminated recurring SaaS authentication bills and third-party vendor lock-in.
-- **Sub-Millisecond Auth Checks**: Redis token verification executed with near-zero latency overhead on backend endpoints.
+The migration covered 11 applications with zero service interruption.

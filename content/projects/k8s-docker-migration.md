@@ -1,8 +1,8 @@
 ---
-title: Baremetal CI/CD & Platform Modernization
+title: Baremetal Platform Modernization
 category: DevOps / Platform
-description: Health-gated rolling deployment pipeline on Docker Compose + Jenkins
-  after disciplined K3s storage benchmarking.
+description: A measured K3s and GitOps pilot followed by health-gated, multi-node
+  Docker Compose rollouts suited to the available storage hardware.
 featured: false
 order: 6
 liveUrl: null
@@ -12,46 +12,29 @@ tags:
   - Jenkins
   - K3s
   - Argo CD
-  - Prometheus
-  - Grafana
-problemSolved: Staging K3s/ArgoCD platform suffered frequent false-positive liveness
-  probe failures due to shared baremetal SAS HDD I/O saturation (10-15 MB/s).
+  - Argo Rollouts
+  - Harbor
+problemSolved: Load testing showed that the available shared storage could not support
+  the intended Kubernetes application platform reliably.
 architecture:
-  - Load-tested and benchmarked baremetal VM disk queues, proving storage hardware could
-    not sustain concurrent container image pulls.
-  - Architected a senior technical decision to cleanly retire K3s in favor of health-gated
-    multi-node Docker Compose deployments.
-  - Built automated Jenkins staging-to-production pipelines empowering backend teammates
-    to trigger zero-downtime rolling deploys.
+  - Piloted K3s, Argo CD, Argo Rollouts, Harbor, Infisical, and an observability stack.
+  - Measured 10-15 MB/s during concurrent image pulls from a single SAS HDD shared
+    between two VMs per server.
+  - Retired Kubernetes for application workloads on 3 June 2026.
+  - Rebuilt the rollout with health gates, one-node-at-a-time deployment, per-node
+    rollback, and post-deployment smoke tests on Docker Compose.
 ---
 
 ## Overview
 
-Following the deployment of a staging Kubernetes (K3s + Argo CD) cluster on on-premise baremetal virtualization infrastructure, the platform experienced frequent deployment stalls and false-positive probe failures.
+The platform pilot combined K3s, Argo CD, Argo Rollouts, Harbor, Infisical, and Loki, Alloy, and Prometheus observability. It was designed and load-tested as a possible application platform, not operated as the production deployment system.
 
-Rather than blaming Kubernetes or ignoring the symptoms, rigorous disk queue benchmarking revealed that the underlying SAS HDD storage subsystem was saturating during concurrent layer pulls. This led to an engineering decision to retire K3s and build equivalent automated rolling deployment guarantees using **Docker Compose, Jenkins, and Nginx**.
+## Storage Evidence and Decision
 
----
+A production dry run exposed the underlying constraint: each baremetal server had a single SAS HDD shared between two VMs. Under concurrent image pulls, measured throughput was 10-15 MB/s.
 
-## Engineering Investigation & Resolution
+The Kubernetes approach was formally retired for application workloads on 3 June 2026, with the investigation and conditions for reconsidering it documented.
 
-### 1. Root Cause Storage Analysis
+## Docker Compose Rollout
 
-- Measured disk queue depth and I/O wait times under load using `fio` and Prometheus storage exporters.
-- Discovered that concurrent K3s image pulls on multi-node VMs easily consumed 100% of the shared SAS HDD array throughput (10-15 MB/s), causing health probes to time out and triggering cascade pod restarts.
-
-### 2. Health-Gated Rolling Deployments
-
-- Designed a blue-green / rolling deployment harness in Jenkins and Bash for Docker Compose.
-- Deploys new container versions side-by-side on isolated ports, verifies HTTP `/healthz` endpoints before swapping upstream Nginx reverse-proxy routes, and tears down deprecated containers only after verification.
-
-### 3. Teammate Empowerment
-
-- Automated staging-to-production promotion pipelines in Jenkins, enabling backend developers to deploy updates safely with zero downtime without needing complex Kubernetes manifests.
-
----
-
-## Takeaways
-
-- **Measure First**: Real-world hardware limits dictate software architecture, not industry trends.
-- **Operational Simplicity**: Replaced a complex 20-component K8s stack with a transparent, observable Docker Compose pipeline that has operated with 100% uptime.
+Equivalent release guarantees were rebuilt with a deliberately triggered Jenkins and Docker Compose process. Deployments proceed one node at a time, require health checks before continuing, isolate rollback per node, and finish with post-deployment smoke tests.
