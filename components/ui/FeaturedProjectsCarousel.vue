@@ -35,9 +35,7 @@ function tabId(index: number) {
   return `featured-project-tab-${index}`
 }
 
-function panelId(index: number) {
-  return `featured-project-panel-${index}`
-}
+const panelId = 'featured-project-panel'
 
 async function selectProject(index: number, focusTab = false) {
   activeIndex.value = wrapProjectIndex(index, props.projects.length)
@@ -137,7 +135,7 @@ function cancelSwipe() {
         type="button"
         role="tab"
         :id="tabId(index)"
-        :aria-controls="panelId(index)"
+        :aria-controls="panelId"
         :aria-selected="activeIndex === index"
         :tabindex="activeIndex === index ? 0 : -1"
         class="mono-font relative shrink-0 rounded-lg border px-3 py-2 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
@@ -149,11 +147,19 @@ function cancelSwipe() {
         @click="selectProject(index)"
       >
         {{ project.title }}
-        <motion.span
-          v-if="activeIndex === index"
-          layout-id="featured-project-active-tab"
-          class="absolute inset-x-3 -bottom-px h-px bg-emerald-500"
-        />
+        <template v-if="activeIndex === index">
+          <span
+            v-if="prefersReducedMotion"
+            data-active-tab-indicator="static"
+            class="absolute inset-x-3 -bottom-px h-px bg-emerald-500"
+          />
+          <motion.span
+            v-else
+            data-active-tab-indicator="motion"
+            layout-id="featured-project-active-tab"
+            class="absolute inset-x-3 -bottom-px h-px bg-emerald-500"
+          />
+        </template>
       </button>
     </div>
 
@@ -188,7 +194,7 @@ function cancelSwipe() {
         v-if="currentProject"
         :key="currentProject.path || currentProject.title"
         role="tabpanel"
-        :id="panelId(activeIndex)"
+        :id="panelId"
         :aria-labelledby="tabId(activeIndex)"
         :initial="panelMotion.initial"
         :animate="panelMotion.animate"
@@ -223,7 +229,8 @@ function cancelSwipe() {
         </div>
 
         <div
-          class="space-y-5 p-6 sm:p-8"
+          data-swipe-zone="text"
+          class="touch-pan-y space-y-5 p-6 sm:p-8"
           @pointerdown="startSwipe"
           @pointerup="finishSwipe"
           @pointercancel="cancelSwipe"
