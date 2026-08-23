@@ -60,6 +60,7 @@ function onPointerCancel(event: PointerEvent) {
 }
 
 function onSliderKeydown(event: KeyboardEvent) {
+  if (!props.productAvailable) return
   const next =
     event.key === 'ArrowLeft'
       ? revealPercent.value - 5
@@ -118,6 +119,7 @@ onBeforeUnmount(() => {
         aria-valuemax="100"
         :aria-valuenow="revealPercent"
         :aria-label="label"
+        :aria-disabled="!productAvailable"
         class="project-xray__handle"
         :style="{ left: `${revealPercent}%` }"
         @keydown="onSliderKeydown"

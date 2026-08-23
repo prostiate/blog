@@ -49,8 +49,20 @@ describe('ProjectXray', () => {
   it('falls back to the full architecture layer when product media fails', async () => {
     const wrapper = mountXray()
     await wrapper.setProps({ productAvailable: false })
-    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('0')
+    const slider = wrapper.get('[role="slider"]')
+    expect(slider.attributes('aria-valuenow')).toBe('0')
+    expect(slider.attributes('aria-disabled')).toBe('true')
     expect(wrapper.get('[data-layer="product"]').attributes()).toHaveProperty('disabled')
+  })
+
+  it('prevents keyboard input from changing the architecture fallback', async () => {
+    const wrapper = mountXray()
+    await wrapper.setProps({ productAvailable: false })
+    const slider = wrapper.get('[role="slider"]')
+
+    await slider.trigger('keydown', { key: 'ArrowRight' })
+
+    expect(slider.attributes('aria-valuenow')).toBe('0')
   })
 
   it('updates the reveal using the clamped stage pointer position', async () => {
@@ -78,6 +90,25 @@ describe('ProjectXray', () => {
 
     expect(setPointerCapture).toHaveBeenCalledWith(7)
     expect(releasePointerCapture).toHaveBeenCalledWith(7)
+  })
+
+  it('updates active drags and releases capture on pointer completion', async () => {
+    const wrapper = mountXray()
+    const stage = wrapper.get('.project-xray__stage')
+    const element = stage.element as HTMLElement
+    const releasePointerCapture = vi.fn()
+    element.setPointerCapture = vi.fn()
+    element.releasePointerCapture = releasePointerCapture
+    setStageBounds(element)
+
+    await stage.trigger('pointerdown', { clientX: 200, pointerId: 9 })
+    await stage.trigger('pointermove', { clientX: 460, pointerId: 9 })
+
+    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('90')
+
+    await stage.trigger('pointerup', { pointerId: 9 })
+
+    expect(releasePointerCapture).toHaveBeenCalledWith(9)
   })
 
   it('releases active pointer capture on unmount', async () => {
