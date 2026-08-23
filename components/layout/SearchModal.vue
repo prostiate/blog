@@ -23,11 +23,11 @@
           />
         </svg>
         <input
+          ref="inputRef"
           v-model="searchQuery"
           type="text"
           placeholder="Search projects, blog posts, technologies..."
           class="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
-          autofocus
         />
         <button
           @click="closeSearch"
@@ -215,6 +215,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, watch, nextTick, onMounted } from 'vue'
+
 const { isSearchOpen, searchQuery, closeSearch } = useSearch()
 
 const suggestedItems = [
@@ -349,12 +351,21 @@ const staticIndex = [
   }
 ]
 
+const inputRef = ref<HTMLInputElement | null>(null)
+
 const searchResults = computed(() => {
   if (!searchQuery.value.trim()) return []
   const q = searchQuery.value.toLowerCase()
   return staticIndex.filter(
     (item) => item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q)
   )
+})
+
+watch(isSearchOpen, async (open) => {
+  if (open) {
+    await nextTick()
+    inputRef.value?.focus()
+  }
 })
 
 onMounted(() => {
