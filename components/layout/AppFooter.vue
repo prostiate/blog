@@ -7,9 +7,6 @@
     >
       <div>
         <p>© 2026 Muhammad Irfan Kurniawan</p>
-        <p class="text-[11px] text-[var(--text-dim)]">
-          High-Legibility Minimalist · Warm Monochrome
-        </p>
       </div>
 
       <div class="mono-font flex flex-wrap items-center gap-4 text-[11px]">
