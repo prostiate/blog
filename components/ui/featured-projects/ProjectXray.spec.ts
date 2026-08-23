@@ -1,0 +1,97 @@
+import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
+import { percentageFromPointer } from '../../../utils/xray'
+import ProjectXray from './ProjectXray.vue'
+
+const mountXray = () =>
+  mount(ProjectXray, {
+    props: { label: 'OnoToolkit architecture reveal' },
+    slots: { product: 'Product layer', architecture: 'Architecture layer' }
+  })
+
+function setStageBounds(stage: HTMLElement, left = 100, width = 400) {
+  Object.defineProperty(stage, 'getBoundingClientRect', {
+    configurable: true,
+    value: () => ({ left, width })
+  })
+}
+
+describe('ProjectXray', () => {
+  it('starts at a 70 percent product reveal', () => {
+    expect(mountXray().get('[role="slider"]').attributes('aria-valuenow')).toBe('70')
+  })
+
+  it('supports explicit layer controls', async () => {
+    const wrapper = mountXray()
+    await wrapper.get('[data-layer="architecture"]').trigger('click')
+    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('0')
+    await wrapper.get('[data-layer="product"]').trigger('click')
+    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('100')
+  })
+
+  it('supports slider keyboard controls', async () => {
+    const wrapper = mountXray()
+    const slider = wrapper.get('[role="slider"]')
+    await slider.trigger('keydown', { key: 'ArrowLeft' })
+    expect(slider.attributes('aria-valuenow')).toBe('65')
+    await slider.trigger('keydown', { key: 'Home' })
+    expect(slider.attributes('aria-valuenow')).toBe('0')
+    await slider.trigger('keydown', { key: 'End' })
+    expect(slider.attributes('aria-valuenow')).toBe('100')
+  })
+
+  it('clamps pointer positions to the visual bounds', () => {
+    expect(percentageFromPointer(50, 100, 400)).toBe(0)
+    expect(percentageFromPointer(300, 100, 400)).toBe(50)
+    expect(percentageFromPointer(600, 100, 400)).toBe(100)
+  })
+
+  it('falls back to the full architecture layer when product media fails', async () => {
+    const wrapper = mountXray()
+    await wrapper.setProps({ productAvailable: false })
+    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('0')
+    expect(wrapper.get('[data-layer="product"]').attributes()).toHaveProperty('disabled')
+  })
+
+  it('updates the reveal using the clamped stage pointer position', async () => {
+    const wrapper = mountXray()
+    const stage = wrapper.get('.project-xray__stage')
+    setStageBounds(stage.element as HTMLElement)
+
+    await stage.trigger('pointerdown', { clientX: 350, pointerId: 1 })
+
+    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('63')
+  })
+
+  it('releases pointer capture after pointer cancellation', async () => {
+    const wrapper = mountXray()
+    const stage = wrapper.get('.project-xray__stage')
+    const element = stage.element as HTMLElement
+    const setPointerCapture = vi.fn()
+    const releasePointerCapture = vi.fn()
+    element.setPointerCapture = setPointerCapture
+    element.releasePointerCapture = releasePointerCapture
+    setStageBounds(element)
+
+    await stage.trigger('pointerdown', { clientX: 200, pointerId: 7 })
+    await stage.trigger('pointercancel', { pointerId: 7 })
+
+    expect(setPointerCapture).toHaveBeenCalledWith(7)
+    expect(releasePointerCapture).toHaveBeenCalledWith(7)
+  })
+
+  it('releases active pointer capture on unmount', async () => {
+    const wrapper = mountXray()
+    const stage = wrapper.get('.project-xray__stage')
+    const element = stage.element as HTMLElement
+    const releasePointerCapture = vi.fn()
+    element.setPointerCapture = vi.fn()
+    element.releasePointerCapture = releasePointerCapture
+    setStageBounds(element)
+
+    await stage.trigger('pointerdown', { clientX: 200, pointerId: 8 })
+    wrapper.unmount()
+
+    expect(releasePointerCapture).toHaveBeenCalledWith(8)
+  })
+})
