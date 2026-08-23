@@ -87,9 +87,14 @@
       </div>
     </section>
 
-    <!-- Section 1: Featured Projects Carousel -->
+    <!-- Option 3: Featured Projects Carousel (Interactive Architecture Console) -->
     <section>
       <UiFeaturedProjectsCarousel :projects="featuredProjectsList" />
+    </section>
+
+    <!-- Option 2: Featured Projects Showcase (Three.js WebGL 3D Mesh) -->
+    <section>
+      <UiFeaturedProjectsThree :projects="featuredProjectsList" />
     </section>
 
     <!-- Section 2: Blog Posts -->
