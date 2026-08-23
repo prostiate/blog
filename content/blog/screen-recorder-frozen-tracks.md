@@ -1,10 +1,10 @@
 ---
-title: One Canvas, Two Frozen Tracks: A Screen Recorder That Changes Its Mind Mid-Recording
-description: MediaRecorder will not let you swap tracks mid-session, so I stopped swapping them. The design, the four bugs it caused, and the four benchmarks that priced it.
-date: 2026-08-15
-readTime: 17 min read
+title: "One Canvas, Two Frozen Tracks: A Screen Recorder That Changes Its Mind Mid-Recording"
+description: "MediaRecorder will not let you swap tracks mid-session, so I stopped swapping them. The design, the four bugs it caused, and the four benchmarks that priced it."
+date: "2026-08-15"
+readTime: "17 min read"
 tags: ["Architecture","Frontend","Nuxt"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

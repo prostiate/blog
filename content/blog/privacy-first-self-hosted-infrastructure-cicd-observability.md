@@ -1,10 +1,10 @@
 ---
-title: Self-Hosting the Delivery Loop on a Tight Resource Budget
-description: How I joined builds, a private registry, secret delivery, object storage, logs, metrics, and cautious multi-node releases without turning a small platform into a second full-time product.
-date: 2026-08-03
-readTime: 9 min read
+title: "Self-Hosting the Delivery Loop on a Tight Resource Budget"
+description: "How I joined builds, a private registry, secret delivery, object storage, logs, metrics, and cautious multi-node releases without turning a small platform into a second full-time product."
+date: "2026-08-03"
+readTime: "9 min read"
 tags: ["DevOps","Observability","CI/CD","Self-Hosting"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

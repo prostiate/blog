@@ -1,10 +1,10 @@
 ---
-title: Replacing Hosted Authentication Without Replacing It With Wishful Thinking
-description: Removing an authentication SDK is easy. Replacing the system behind it is not. The old integration touched login pages, backend middleware, user administration, password reset,…
-date: 2026-08-14
-readTime: 9 min read
+title: "Replacing Hosted Authentication Without Replacing It With Wishful Thinking"
+description: "Removing an authentication SDK is easy. Replacing the system behind it is not. The old integration touched login pages, backend middleware, user administration, password reset,…"
+date: "2026-08-14"
+readTime: "9 min read"
 tags: ["Go","Nuxt","Authentication","Security"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

@@ -1,10 +1,10 @@
 ---
-title: You Cannot Polyfill `@property`
-description: At 14:49 I shipped legacy browser support to three applications. At 15:57 I reverted it. In between, it broke every modern browser the staff were actually on, and it turned out it…
-date: 2026-08-12
-readTime: 7 min read
+title: "You Cannot Polyfill `@property`"
+description: "At 14:49 I shipped legacy browser support to three applications. At 15:57 I reverted it. In between, it broke every modern browser the staff were actually on, and it turned out it…"
+date: "2026-08-12"
+readTime: "7 min read"
 tags: ["Post-Mortem","Frontend","Nuxt"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

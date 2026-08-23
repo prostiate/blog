@@ -1,10 +1,10 @@
 ---
-title: The Kubernetes Deployment That Taught Me to Measure the Disk
-description: The Kubernetes experiment did not fail because Kubernetes was broken. The cluster scheduled workloads, pulled images, ran startup probes, and held a blue green promotion gate…
-date: 2026-07-25
-readTime: 10 min read
+title: "The Kubernetes Deployment That Taught Me to Measure the Disk"
+description: "The Kubernetes experiment did not fail because Kubernetes was broken. The cluster scheduled workloads, pulled images, ran startup probes, and held a blue green promotion gate…"
+date: "2026-07-25"
+readTime: "10 min read"
 tags: ["DevOps","Kubernetes","Post-Mortem","Storage"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

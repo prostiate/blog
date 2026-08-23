@@ -1,10 +1,10 @@
 ---
-title: Lessons Learned from 13 Rounds of Production Iterations: Mistakes, Hotfixes, and Architectural Evolution
-description: A transparent post-mortem of real production mistakes, auth traps, edge-case hotfixes, and performance balancing across 13 iterative rounds of engineering.
-date: 2026-07-23
-readTime: 4 min read
+title: "Lessons Learned from 13 Rounds of Production Iterations: Mistakes, Hotfixes, and Architectural Evolution"
+description: "A transparent post-mortem of real production mistakes, auth traps, edge-case hotfixes, and performance balancing across 13 iterative rounds of engineering."
+date: "2026-07-23"
+readTime: "4 min read"
 tags: ["Architecture","PostgreSQL","Cloudflare","Security"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

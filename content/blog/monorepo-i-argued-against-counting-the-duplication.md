@@ -1,10 +1,10 @@
 ---
-title: I Spent a Day Building a Monorepo I'd Argued Against
-description: Two commits, in two different Git repositories, twenty seconds apart. The subject lines were identical  -  both said I had aligned that application's shared base components against…
-date: 2026-08-09
-readTime: 8 min read
+title: "I Spent a Day Building a Monorepo I'd Argued Against"
+description: "Two commits, in two different Git repositories, twenty seconds apart. The subject lines were identical  -  both said I had aligned that application's shared base components against…"
+date: "2026-08-09"
+readTime: "8 min read"
 tags: ["Monorepo","Architecture","Frontend","Nuxt"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

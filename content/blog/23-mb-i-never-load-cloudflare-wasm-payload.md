@@ -1,10 +1,10 @@
 ---
-title: 23 MB I Never Load: What Shipping Ghostscript and ONNX to Cloudflare Costs
-description: The largest file in my production build was one the app never requests. A 14-line Rollup plugin deleted it and cut the client payload by 45.7 percent.
-date: 2026-08-15
-readTime: 8 min read
+title: "23 MB I Never Load: What Shipping Ghostscript and ONNX to Cloudflare Costs"
+description: "The largest file in my production build was one the app never requests. A 14-line Rollup plugin deleted it and cut the client payload by 45.7 percent."
+date: "2026-08-15"
+readTime: "8 min read"
 tags: ["Cloudflare","Frontend","Nuxt"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

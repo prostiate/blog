@@ -1,10 +1,10 @@
 ---
-title: An Inpainting Model That Is Only Allowed to Touch the Pixels You Painted
-description: MI-GAN returns a whole new image and I throw almost all of it away on purpose. The guarantee, the ONNX plumbing, and the 88 MB my own comment said was 40 MB.
-date: 2026-08-15
-readTime: 10 min read
+title: "An Inpainting Model That Is Only Allowed to Touch the Pixels You Painted"
+description: "MI-GAN returns a whole new image and I throw almost all of it away on purpose. The guarantee, the ONNX plumbing, and the 88 MB my own comment said was 40 MB."
+date: "2026-08-15"
+readTime: "10 min read"
 tags: ["Architecture","Frontend"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

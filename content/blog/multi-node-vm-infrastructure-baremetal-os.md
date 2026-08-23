@@ -1,10 +1,10 @@
 ---
-title: Building a Small VM Platform Without Pretending It Is a Cloud
-description: There is a tempting way to describe a small on premise platform: borrow the vocabulary of a public cloud, draw enough boxes, and make it sound larger than it is. I prefer the…
-date: 2026-08-06
-readTime: 9 min read
+title: "Building a Small VM Platform Without Pretending It Is a Cloud"
+description: "There is a tempting way to describe a small on premise platform: borrow the vocabulary of a public cloud, draw enough boxes, and make it sound larger than it is. I prefer the…"
+date: "2026-08-06"
+readTime: "9 min read"
 tags: ["Infrastructure","DevOps","Linux","Operations"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 

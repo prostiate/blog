@@ -1,10 +1,10 @@
 ---
-title: From Copy-Pasted Frontends to One Shared Nuxt Layer
-description: Why I extracted a cashier application, rebuilt an operations portal, and eventually combined three Nuxt frontends around a shared layer without erasing their domain boundaries.
-date: 2026-08-03
-readTime: 8 min read
+title: "From Copy-Pasted Frontends to One Shared Nuxt Layer"
+description: "Why I extracted a cashier application, rebuilt an operations portal, and eventually combined three Nuxt frontends around a shared layer without erasing their domain boundaries."
+date: "2026-08-03"
+readTime: "8 min read"
 tags: ["Architecture","Monorepo","Nuxt","Frontend"]
-status: PUBLISHED
+status: "PUBLISHED"
 featured: true
 ---
 
