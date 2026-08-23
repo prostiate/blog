@@ -225,13 +225,13 @@ const suggestedItems = [
     link: '/projects'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'The Kubernetes Deployment That Taught Me to Measure the Disk',
     subtitle: 'Why baremetal SAS HDD I/O saturation led to retiring K3s in favor of Docker Compose',
     link: '/blog/kubernetes-storage-postmortem-multi-vm-blue-green-automation'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: '23 MB I Never Load: Ghostscript & ONNX to Cloudflare',
     subtitle: 'How a 14-line Rollup plugin deleted unrequested payloads and cut client size by 45%',
     link: '/blog/23-mb-i-never-load-cloudflare-wasm-payload'
@@ -282,67 +282,67 @@ const staticIndex = [
     link: '/projects'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: '23 MB I Never Load: Ghostscript & ONNX to Cloudflare',
     subtitle: 'How a 14-line Rollup plugin deleted unrequested payloads and cut client size by 45%',
     link: '/blog/23-mb-i-never-load-cloudflare-wasm-payload'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'An Inpainting Model That Only Touches Painted Pixels',
     subtitle: 'MI-GAN inpainting through ONNX Runtime Web with byte-identical raster guarantees',
     link: '/blog/inpainting-only-touches-painted-pixels'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'One Canvas, Two Frozen Tracks: Screen Recorder Architecture',
     subtitle: 'Overcoming MediaRecorder track limitations during mid-session recording transitions',
     link: '/blog/screen-recorder-frozen-tracks'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'You Cannot Polyfill @property',
     subtitle: 'Why shipping legacy CSS polyfills broke modern browsers and how we fixed it',
     link: '/blog/you-cannot-polyfill-css-property-legacy-browser-support'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'I Spent a Day Building a Monorepo I Argued Against',
     subtitle: 'Eliminating duplicate UI components across 3 Nuxt applications with Bun & Turborepo',
     link: '/blog/monorepo-i-argued-against-counting-the-duplication'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'The Kubernetes Deployment That Taught Me to Measure the Disk',
     subtitle: 'Why baremetal SAS HDD I/O saturation led to retiring K3s in favor of Docker Compose',
     link: '/blog/kubernetes-storage-postmortem-multi-vm-blue-green-automation'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'From Copy-Pasted Frontends to One Shared Nuxt Layer',
     subtitle: 'Extracting cashier applications and combining retail frontends cleanly',
     link: '/blog/micro-frontend-evolution-cashier-backoffice-v2-nuxt-monorepo'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'Replacing Hosted Authentication Without Wishful Thinking',
     subtitle: 'Migrating from Firebase Auth to in-house Go GraphQL auth with revocable JWTs',
     link: '/blog/replacing-firebase-auth-custom-golang-nuxt-engine'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'Self-Hosting the Delivery Loop on a Tight Resource Budget',
     subtitle: 'Joining builds, private registry, secret delivery, and multi-node releases',
     link: '/blog/privacy-first-self-hosted-infrastructure-cicd-observability'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'Building a Small VM Platform Without Pretending It Is a Cloud',
     subtitle: 'Managing baremetal Linux VMs and resilient operations with transparency',
     link: '/blog/multi-node-vm-infrastructure-baremetal-os'
   },
   {
-    type: 'Essay',
+    type: 'Blog',
     title: 'Lessons Learned from 13 Rounds of Production Iterations',
     subtitle: 'Mistakes, hotfixes, and architectural evolution across 13 release cycles',
     link: '/blog/lessons-learned-from-13-rounds-of-production-iterations'

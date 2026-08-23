@@ -5,7 +5,7 @@
       to="/blog"
       class="mb-8 flex items-center gap-1 text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
     >
-      ← Back to all essays
+      ← Back to all posts
     </NuxtLink>
 
     <div v-if="post" class="flex flex-col items-start justify-between gap-10 lg:flex-row xl:gap-16">
@@ -95,7 +95,7 @@
           </nav>
 
           <div class="border-t border-[var(--border-subtle)] pt-4">
-            <span class="mb-1.5 block text-[11px] text-[var(--text-muted)]">Share this essay:</span>
+            <span class="mb-1.5 block text-[11px] text-[var(--text-muted)]">Share this post:</span>
             <button
               @click="copyArticleLink"
               class="mono-font flex w-full items-center justify-between rounded border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-left text-[11px] text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-code)]"
@@ -113,7 +113,7 @@
 
     <!-- 404 fallback if not found -->
     <div v-else class="space-y-4 py-20 text-center">
-      <h2 class="text-xl font-bold text-[var(--text-primary)]">Essay not found</h2>
+      <h2 class="text-xl font-bold text-[var(--text-primary)]">Post not found</h2>
       <p class="text-sm text-[var(--text-secondary)]">
         The requested article could not be located.
       </p>
