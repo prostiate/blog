@@ -2,13 +2,7 @@
   <div class="animate-fade-up mx-auto max-w-4xl space-y-16 px-4 py-8 sm:px-6 sm:py-12">
     <!-- Minimal Hero Section -->
     <section class="space-y-5 border-b border-[var(--border-subtle)] pb-8">
-      <div class="flex flex-wrap items-center gap-3">
-        <span
-          class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1 text-xs font-medium text-[var(--text-secondary)]"
-        >
-          <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-500"></span>
-          Building local-first tools
-        </span>
+      <div class="flex items-center gap-2">
         <span class="mono-font text-xs text-[var(--text-muted)]">Jakarta, Indonesia</span>
       </div>
 
