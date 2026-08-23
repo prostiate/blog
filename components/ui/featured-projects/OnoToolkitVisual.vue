@@ -27,24 +27,55 @@ const productAvailable = ref(true)
           Local file to WebGPU / WASM to Canvas output to Download. IndexedDB stores browser-local
           application data.
         </p>
-        <svg class="architecture-lines" viewBox="0 0 600 300" aria-hidden="true">
+        <svg class="architecture-lines ono-lines--desktop" viewBox="0 0 600 300" aria-hidden="true">
           <defs>
             <marker id="ono-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
               <path d="M0,0 L8,4 L0,8 Z" />
             </marker>
           </defs>
-          <path d="M125 110 H220" marker-end="url(#ono-arrow)" />
-          <path d="M380 110 H475" marker-end="url(#ono-arrow)" />
-          <path d="M300 140 V205" marker-end="url(#ono-arrow)" />
+          <path data-edge="local-to-wasm" d="M125 100 H220" marker-end="url(#ono-arrow)" />
+          <path data-edge="wasm-to-canvas" d="M275 100 H370" marker-end="url(#ono-arrow)" />
+          <path data-edge="canvas-to-download" d="M425 100 H520" marker-end="url(#ono-arrow)" />
+          <path data-edge="wasm-to-indexeddb" d="M300 130 V215" marker-end="url(#ono-arrow)" />
         </svg>
-        <div class="ono-flow">
+        <svg class="architecture-lines ono-lines--mobile" viewBox="0 0 400 360" aria-hidden="true">
+          <defs>
+            <marker
+              id="ono-mobile-arrow"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M0,0 L8,4 L0,8 Z" />
+            </marker>
+          </defs>
+          <path data-edge="local-to-wasm" d="M140 85 H260" marker-end="url(#ono-mobile-arrow)" />
+          <path
+            data-edge="wasm-to-canvas"
+            d="M300 115 L100 180"
+            marker-end="url(#ono-mobile-arrow)"
+          />
+          <path
+            data-edge="canvas-to-download"
+            d="M140 210 H260"
+            marker-end="url(#ono-mobile-arrow)"
+          />
+          <path
+            data-edge="wasm-to-indexeddb"
+            d="M300 115 L200 285"
+            marker-end="url(#ono-mobile-arrow)"
+          />
+        </svg>
+        <div class="ono-flow" aria-hidden="true">
           <span class="scene-node">Local file</span>
           <span class="scene-node scene-node--accent">WebGPU / WASM</span>
           <span class="scene-node">Canvas output</span>
           <span class="scene-node">Download</span>
           <span class="scene-node ono-indexeddb">IndexedDB</span>
         </div>
-        <p class="architecture-caption">Files stay on this device</p>
+        <p class="architecture-caption" aria-hidden="true">Files stay on this device</p>
       </div>
     </template>
   </ProjectXray>
@@ -93,6 +124,10 @@ const productAvailable = ref(true)
   fill: #22c55e;
 }
 
+.ono-lines--mobile {
+  display: none;
+}
+
 .ono-flow {
   position: relative;
   display: grid;
@@ -136,13 +171,23 @@ const productAvailable = ref(true)
 }
 
 @media (max-width: 639px) {
+  .ono-lines--desktop {
+    display: none;
+  }
+
+  .ono-lines--mobile {
+    display: block;
+  }
+
   .ono-flow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, 4.5rem);
+    gap: 0.75rem 0.5rem;
   }
 
   .ono-indexeddb {
     grid-column: 1 / -1;
-    margin-top: 3.5rem;
+    margin-top: 0;
   }
 }
 </style>

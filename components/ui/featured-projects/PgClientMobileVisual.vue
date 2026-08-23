@@ -26,18 +26,48 @@ const productAvailable = ref(true)
         <p class="sr-only">
           Connection to Object browser to SQL editor to Shortcut guard to Results and logs.
         </p>
-        <svg class="architecture-lines" viewBox="0 0 600 220" aria-hidden="true">
+        <svg class="architecture-lines pg-lines--desktop" viewBox="0 0 600 220" aria-hidden="true">
           <defs>
             <marker id="pg-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
               <path d="M0,0 L8,4 L0,8 Z" />
             </marker>
           </defs>
-          <path d="M105 110 H140" marker-end="url(#pg-arrow)" />
-          <path d="M225 110 H260" marker-end="url(#pg-arrow)" />
-          <path d="M345 110 H380" marker-end="url(#pg-arrow)" />
-          <path d="M465 110 H500" marker-end="url(#pg-arrow)" />
+          <path data-edge="connection-to-browser" d="M105 110 H140" marker-end="url(#pg-arrow)" />
+          <path data-edge="browser-to-editor" d="M225 110 H260" marker-end="url(#pg-arrow)" />
+          <path data-edge="editor-to-guard" d="M345 110 H380" marker-end="url(#pg-arrow)" />
+          <path data-edge="guard-to-results" d="M465 110 H500" marker-end="url(#pg-arrow)" />
         </svg>
-        <div class="pg-flow">
+        <svg class="architecture-lines pg-lines--mobile" viewBox="0 0 400 320" aria-hidden="true">
+          <defs>
+            <marker
+              id="pg-mobile-arrow"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="4"
+              orient="auto"
+            >
+              <path d="M0,0 L8,4 L0,8 Z" />
+            </marker>
+          </defs>
+          <path
+            data-edge="connection-to-browser"
+            d="M140 70 H260"
+            marker-end="url(#pg-mobile-arrow)"
+          />
+          <path
+            data-edge="browser-to-editor"
+            d="M300 100 L100 160"
+            marker-end="url(#pg-mobile-arrow)"
+          />
+          <path data-edge="editor-to-guard" d="M140 190 H260" marker-end="url(#pg-mobile-arrow)" />
+          <path
+            data-edge="guard-to-results"
+            d="M300 215 L200 270"
+            marker-end="url(#pg-mobile-arrow)"
+          />
+        </svg>
+        <div class="pg-flow" aria-hidden="true">
           <span class="scene-node">Connection</span>
           <span class="scene-node">Object browser</span>
           <span class="scene-node">SQL editor</span>
@@ -95,6 +125,10 @@ const productAvailable = ref(true)
   fill: #22c55e;
 }
 
+.pg-lines--mobile {
+  display: none;
+}
+
 .pg-flow {
   position: relative;
   display: grid;
@@ -122,8 +156,22 @@ const productAvailable = ref(true)
 }
 
 @media (max-width: 639px) {
+  .pg-lines--desktop {
+    display: none;
+  }
+
+  .pg-lines--mobile {
+    display: block;
+  }
+
   .pg-flow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, 4.5rem);
+    gap: 0.75rem 0.5rem;
+  }
+
+  .pg-flow .scene-node {
+    min-height: 4.5rem;
   }
 
   .pg-flow .scene-node:last-child {

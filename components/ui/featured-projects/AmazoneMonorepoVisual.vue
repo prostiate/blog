@@ -42,7 +42,7 @@ import ProjectXray from './ProjectXray.vue'
           <path d="M300 190 L500 235" marker-end="url(#amazone-arrow)" />
           <path d="M300 280 V315" marker-end="url(#amazone-arrow)" />
         </svg>
-        <div class="amazone-flow">
+        <div class="amazone-flow" aria-hidden="true">
           <span class="scene-node">Backoffice</span>
           <span class="scene-node">Auth Login</span>
           <span class="scene-node">Cashier</span>

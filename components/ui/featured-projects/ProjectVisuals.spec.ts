@@ -14,6 +14,46 @@ describe('project-specific X-ray visuals', () => {
     expect(ono.text()).toContain('Local file to WebGPU / WASM to Canvas output to Download')
   })
 
+  it('renders every directed OnoToolkit desktop edge in the decorative connector', () => {
+    const ono = mount(OnoToolkitVisual)
+    const desktopLines = ono.get('.ono-lines--desktop')
+
+    expect(desktopLines.attributes('aria-hidden')).toBe('true')
+    expect(desktopLines.get('[data-edge="local-to-wasm"]').attributes('d')).toBe('M125 100 H220')
+    expect(desktopLines.get('[data-edge="wasm-to-canvas"]').attributes('d')).toBe('M275 100 H370')
+    expect(desktopLines.get('[data-edge="canvas-to-download"]').attributes('d')).toBe(
+      'M425 100 H520'
+    )
+    expect(desktopLines.get('[data-edge="wasm-to-indexeddb"]').attributes('d')).toBe(
+      'M300 130 V215'
+    )
+  })
+
+  it('provides mobile connector geometry for reflowed OnoToolkit and pg-client workflows', () => {
+    const ono = mount(OnoToolkitVisual)
+    const pg = mount(PgClientMobileVisual)
+
+    expect(
+      ono.findAll('.ono-lines--mobile [data-edge]').map((edge) => edge.attributes('data-edge'))
+    ).toEqual(['local-to-wasm', 'wasm-to-canvas', 'canvas-to-download', 'wasm-to-indexeddb'])
+    expect(
+      pg.findAll('.pg-lines--desktop [data-edge]').map((edge) => edge.attributes('data-edge'))
+    ).toEqual(['connection-to-browser', 'browser-to-editor', 'editor-to-guard', 'guard-to-results'])
+    expect(
+      pg.findAll('.pg-lines--mobile [data-edge]').map((edge) => edge.attributes('data-edge'))
+    ).toEqual(['connection-to-browser', 'browser-to-editor', 'editor-to-guard', 'guard-to-results'])
+  })
+
+  it('hides visual node diagrams from assistive technology when flow descriptions are present', () => {
+    const ono = mount(OnoToolkitVisual)
+    const amazone = mount(AmazoneMonorepoVisual)
+    const pg = mount(PgClientMobileVisual)
+
+    expect(ono.get('.ono-flow').attributes('aria-hidden')).toBe('true')
+    expect(amazone.get('.amazone-flow').attributes('aria-hidden')).toBe('true')
+    expect(pg.get('.pg-flow').attributes('aria-hidden')).toBe('true')
+  })
+
   it('uses an abstract, public-safe Amazone visual without an image or sensitive data', () => {
     const amazone = mount(AmazoneMonorepoVisual)
 
