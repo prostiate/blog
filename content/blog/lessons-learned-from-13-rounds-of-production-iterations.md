@@ -3,7 +3,7 @@ title: "Lessons Learned from 13 Rounds of Production Iterations: Mistakes, Hotfi
 description: "A transparent post-mortem of real production mistakes, auth traps, edge-case hotfixes, and performance balancing across 13 iterative rounds of engineering."
 date: "2026-07-23"
 readTime: "4 min read"
-tags: ["Architecture","PostgreSQL","Cloudflare","Security"]
+tags: ["Architecture", "PostgreSQL", "Cloudflare", "Security"]
 status: "PUBLISHED"
 featured: true
 ---
@@ -35,11 +35,11 @@ When a superadmin signed in with Google, their Firebase email was `User.Email@gm
 
 ```ts
 // The Bug
-const [allow] = await sql`SELECT active FROM superadmin_allowlist WHERE email = ${email}`;
+const [allow] = await sql`SELECT active FROM superadmin_allowlist WHERE email = ${email}`
 
 // The Fix: Always normalize emails before querying or inserting
-const normalizedEmail = email.trim().toLowerCase();
-const [allow] = await sql`SELECT active FROM superadmin_allowlist WHERE email = ${normalizedEmail}`;
+const normalizedEmail = email.trim().toLowerCase()
+const [allow] = await sql`SELECT active FROM superadmin_allowlist WHERE email = ${normalizedEmail}`
 ```
 
 ---
@@ -58,12 +58,12 @@ Under high broadcast rates, write queues backed up, causing memory consumption t
 ```ts
 for (const socket of Array.from(this.sockets)) {
   try {
-    socket.send(payload);
+    socket.send(payload)
   } catch (err) {
     // Dead connection detected - clean up instantly
-    this.sockets.delete(socket);
+    this.sockets.delete(socket)
     try {
-      socket.close(1011, "Connection lost");
+      socket.close(1011, "Connection lost")
     } catch {}
   }
 }
@@ -81,9 +81,9 @@ Defending public APIs against automated abuse without harming user experience re
 
 ```ts
 // Cloudflare Rate Limiter check inside Hono middleware
-const { success } = await c.env.AUTH_RATE_LIMITER.limit({ key: clientIp });
+const { success } = await c.env.AUTH_RATE_LIMITER.limit({ key: clientIp })
 if (!success) {
-  return c.json({ error: "Too many requests. Please slow down." }, 429);
+  return c.json({ error: "Too many requests. Please slow down." }, 429)
 }
 ```
 

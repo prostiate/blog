@@ -3,7 +3,7 @@ title: "The Kubernetes Deployment That Taught Me to Measure the Disk"
 description: "The Kubernetes experiment did not fail because Kubernetes was broken. The cluster scheduled workloads, pulled images, ran startup probes, and held a blue green promotion gate…"
 date: "2026-07-25"
 readTime: "10 min read"
-tags: ["DevOps","Kubernetes","Post-Mortem","Storage"]
+tags: ["DevOps", "Kubernetes", "Post-Mortem", "Storage"]
 status: "PUBLISHED"
 featured: true
 ---
@@ -36,7 +36,7 @@ The two pods came from the same build, carried the same image tag, and were sche
 | Startup probe failures       | 4 consecutive, about 20 s      | none        |
 | Final state                  | healthy                        | healthy     |
 
-Total pipeline time to the promotion gate was about 4 minutes 46 seconds  -  and that was a fully cached build. Nothing was compiled that had not already been compiled. The time went into moving 150 MiB onto a worker that had not seen it.
+Total pipeline time to the promotion gate was about 4 minutes 46 seconds - and that was a fully cached build. Nothing was compiled that had not already been compiled. The time went into moving 150 MiB onto a worker that had not seen it.
 
 Method: both rows come from the same rollout. Pull durations are the container runtime's own pull events for the two preview pods; the probe counts are the rollout controller's event stream for the same window. Same image, same minute, one variable.
 
@@ -110,13 +110,13 @@ I also ran tests concurrently on sibling VMs. A single quiet-node benchmark cann
 
 This is the measurement the whole investigation turns on. A worker sharing one physical spindle with a second VM that was issuing large sequential reads at the same time read at **13.0 MB/s**. A worker that was the only VM on its spindle read at **161 MB/s**. Same class of disk, same benchmark, same afternoon. The difference was the neighbour.
 
-One worker measured 15, then 91, then 192 MB/s across three runs of the same test. Part of that spread is page cache  -  only the first run reliably reached the disk  -  and part is variable contention from the VM beside it. I could not cleanly separate the two contributions, and the spread is itself the finding: a disk whose sequential read throughput moves by more than an order of magnitude between runs is not a disk you can plan a release pipeline around.
+One worker measured 15, then 91, then 192 MB/s across three runs of the same test. Part of that spread is page cache - only the first run reliably reached the disk - and part is variable contention from the VM beside it. I could not cleanly separate the two contributions, and the spread is itself the finding: a disk whose sequential read throughput moves by more than an order of magnitude between runs is not a disk you can plan a release pipeline around.
 
 One early result stayed marked uncertain, because an interactive privilege prompt delayed the cache-drop step and the number may be partly cache-assisted. I did not remove it and I did not promote it. That uncertainty stayed in the record. Post-mortems become dangerous when rough observations are promoted into universal performance facts.
 
 ## What the probes were saying
 
-The startup probe waited 45 seconds before its first attempt, then retried every 5 seconds with a 5-second timeout. On the cold worker, the combined image extraction and application initialization exceeded that comfortable window, and four attempts in a row timed out  -  about 20 seconds of failures. The warm worker recorded none.
+The startup probe waited 45 seconds before its first attempt, then retried every 5 seconds with a 5-second timeout. On the cold worker, the combined image extraction and application initialization exceeded that comfortable window, and four attempts in a row timed out - about 20 seconds of failures. The warm worker recorded none.
 
 The probe failures were real timeouts but not an outage. The generous failure threshold prevented a restart loop, and the blue-green controller prevented promotion.
 

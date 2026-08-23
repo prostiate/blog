@@ -1,0 +1,12 @@
+.nuxt
+.output
+dist
+node_modules
+.data
+.wrangler
+pnpm-lock.yaml
+*.ico
+*.png
+*.jpg
+*.jpeg
+*.svg

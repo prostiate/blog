@@ -3,7 +3,7 @@ title: "From Copy-Pasted Frontends to One Shared Nuxt Layer"
 description: "Why I extracted a cashier application, rebuilt an operations portal, and eventually combined three Nuxt frontends around a shared layer without erasing their domain boundaries."
 date: "2026-08-03"
 readTime: "8 min read"
-tags: ["Architecture","Monorepo","Nuxt","Frontend"]
+tags: ["Architecture", "Monorepo", "Nuxt", "Frontend"]
 status: "PUBLISHED"
 featured: true
 ---
@@ -127,22 +127,22 @@ For shared components, props and emits described intent:
 
 ```ts
 type ConfirmIntent = {
-  title: string;
-  body: string;
-  confirmLabel: string;
-  tone: "neutral" | "danger";
-};
+  title: string
+  body: string
+  confirmLabel: string
+  tone: "neutral" | "danger"
+}
 
 const props = defineProps<{
-  open: boolean;
-  intent: ConfirmIntent;
-  pending?: boolean;
-}>();
+  open: boolean
+  intent: ConfirmIntent
+  pending?: boolean
+}>()
 
 const emit = defineEmits<{
-  confirm: [];
-  cancel: [];
-}>();
+  confirm: []
+  cancel: []
+}>()
 ```
 
 The example contains no project-specific code. It shows why explicit shared contracts age better than a component that accepts an arbitrary object and reaches into unknown fields.

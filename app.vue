@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col justify-between">
+  <div class="flex min-h-screen flex-col justify-between">
     <!-- Top Reading Progress Indicator -->
     <LayoutReadingProgress v-if="isBlogPost" />
 
@@ -7,7 +7,7 @@
     <LayoutAppHeader />
 
     <!-- Main Dynamic Route View -->
-    <main class="flex-grow w-full">
+    <main class="w-full flex-grow">
       <NuxtPage />
     </main>
 

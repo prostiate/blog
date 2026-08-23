@@ -3,7 +3,7 @@ title: "23 MB I Never Load: What Shipping Ghostscript and ONNX to Cloudflare Cos
 description: "The largest file in my production build was one the app never requests. A 14-line Rollup plugin deleted it and cut the client payload by 45.7 percent."
 date: "2026-08-15"
 readTime: "8 min read"
-tags: ["Cloudflare","Frontend","Nuxt"]
+tags: ["Cloudflare", "Frontend", "Nuxt"]
 status: "PUBLISHED"
 featured: true
 ---
@@ -28,7 +28,7 @@ Nothing is uploaded, which means Ghostscript, pdf.js, ONNX Runtime and four imag
 
 The server bundle is 6.53 MB (1.86 MB gzipped).
 
-Two-thirds of what I ship is WebAssembly, and Ghostscript alone is 59% of it. Nobody downloads 27 MB  -  these are lazy chunks, and a visitor who formats some JSON fetches none of them. But the total is the wrong number to watch anyway. Cloudflare's constraint is **per asset**, so the file that can break a deploy is the biggest single one, not the sum.
+Two-thirds of what I ship is WebAssembly, and Ghostscript alone is 59% of it. Nobody downloads 27 MB - these are lazy chunks, and a visitor who formats some JSON fetches none of them. But the total is the wrong number to watch anyway. Cloudflare's constraint is **per asset**, so the file that can break a deploy is the biggest single one, not the sum.
 
 Which is how I ended up looking closely at a file I'd never asked for.
 
@@ -37,10 +37,10 @@ Which is how I ended up looking closely at a file I'd never asked for.
 ONNX Runtime Web references its `.wasm` binaries the idiomatic way:
 
 ```js
-new URL("ort-wasm-simd-threaded.jsep.wasm", import.meta.url);
+new URL("ort-wasm-simd-threaded.jsep.wasm", import.meta.url)
 ```
 
-Vite understands that pattern. It resolves the URL at build time and copies the target into the output directory, because that's what the pattern means  -  the file is a build-time asset dependency of the module.
+Vite understands that pattern. It resolves the URL at build time and copies the target into the output directory, because that's what the pattern means - the file is a build-time asset dependency of the module.
 
 The problem is that my app doesn't load the runtime from there. It loads it from a pinned jsDelivr URL, set on `ort.env.wasm.wasmPaths`, because the wasm has to be ABI-matched to the exact `onnxruntime-web` dev build the app depends on. So Vite dutifully emits multi-megabyte binaries that no code path will ever request. Importing lazily does not help: lazy import controls when the _module_ is fetched, not whether its declared assets are emitted.
 
@@ -54,22 +54,22 @@ function dropOnnxWasm(): BundleDropPlugin {
     generateBundle(_options, bundle) {
       for (const fileName of Object.keys(bundle)) {
         if (fileName.includes("ort-wasm") && fileName.endsWith(".wasm")) {
-          Reflect.deleteProperty(bundle, fileName);
+          Reflect.deleteProperty(bundle, fileName)
         }
       }
     }
-  };
+  }
 }
 ```
 
-`generateBundle` runs after Rollup has decided everything it will emit and before anything is written. The `bundle` argument is a plain object keyed by output filename, so removing an output is `delete`. There is no clever API here and that's the appeal  -  it's a filter over a map, registered as `vite.plugins`.
+`generateBundle` runs after Rollup has decided everything it will emit and before anything is written. The `bundle` argument is a plain object keyed by output filename, so removing an output is `delete`. There is no clever API here and that's the appeal - it's a filter over a map, registered as `vite.plugins`.
 
 To find out what it was actually worth, I built the app twice, identically, with the plugin registered and then not:
 
 |                     | Client `.output/public` | Largest single asset                                          |
 | ------------------- | ----------------------: | ------------------------------------------------------------- |
-| Plugin on (shipped) |            27,396,717 B | `gs.wasm`  -  16,177,271 B (15.43 MiB)                          |
-| Plugin off          |            50,409,826 B | `ort-wasm-simd-threaded.jsep.wasm`  -  23,013,109 B (21.95 MiB) |
+| Plugin on (shipped) |            27,396,717 B | `gs.wasm` - 16,177,271 B (15.43 MiB)                          |
+| Plugin off          |            50,409,826 B | `ort-wasm-simd-threaded.jsep.wasm` - 23,013,109 B (21.95 MiB) |
 | Difference          |  −23,013,109 B (−45.7%) |                                                               |
 
 Nearly half the client payload was one unreferenced file.
@@ -96,7 +96,7 @@ The fix is one line:
 sourcemap: false,
 ```
 
-Source maps are proportional to the code they map, and a 16 MB Ghostscript build plus seven codec modules plus an ONNX runtime is a lot of code to map. The commit that shipped this reproduced the OOM locally under a constrained 1.6 GB heap first, which is the part I'd repeat  -  an OOM you can only observe in someone else's CI is an OOM you fix by guessing. It reported server output dropping from 7.9 MB to 6.3 MB; my build today measures 6.53 MB, consistent with 6.3 MB plus the tools added since.
+Source maps are proportional to the code they map, and a 16 MB Ghostscript build plus seven codec modules plus an ONNX runtime is a lot of code to map. The commit that shipped this reproduced the OOM locally under a constrained 1.6 GB heap first, which is the part I'd repeat - an OOM you can only observe in someone else's CI is an OOM you fix by guessing. It reported server output dropping from 7.9 MB to 6.3 MB; my build today measures 6.53 MB, consistent with 6.3 MB plus the tools added since.
 
 I lose production stack traces. For a client-side toolkit with no error reporting service that was never much of a loss, but it is a real one and it's the trade.
 
@@ -115,7 +115,7 @@ export default defineNuxtConfig({
       }
     }
   }
-});
+})
 ```
 
 esbuild's default target for the Worker build is es2019, which predates BigInt literals. A dependency used one. The runtime supports it fine; only the transpiler disagreed.
@@ -133,7 +133,7 @@ const optimizeDeps = {
     "@jsquash/oxipng",
     "konva"
   ]
-};
+}
 ```
 
 These are browser-only and dynamically imported. Letting Vite's dependency optimiser pre-bundle them means paying for them on every dev server cold start regardless of which tool you're working on.
@@ -147,7 +147,7 @@ So `crossOriginIsolated` is false in the browser. Which means no `SharedArrayBuf
 - jSquash falls back to its non-parallel oxipng build, so PNG optimisation is single-threaded.
 - ONNX Runtime's `ort.env.wasm.numThreads = 1` isn't a conservative default I chose. It's the only value that can work.
 
-I could set those headers. COEP would then require every cross-origin resource  -  including the jsDelivr runtime and the Hugging Face model download  -  to opt in with CORP or CORS headers I don't control. That's the real trade, and until I need the threads I'm not making it. What I like about this chain is how far it reaches: a decision about response headers on a static host ends up as an integer in a machine-learning config object three layers down.
+I could set those headers. COEP would then require every cross-origin resource - including the jsDelivr runtime and the Hugging Face model download - to opt in with CORP or CORS headers I don't control. That's the real trade, and until I need the threads I'm not making it. What I like about this chain is how far it reaches: a decision about response headers on a static host ends up as an integer in a machine-learning config object three layers down.
 
 ## The licence, since it's a consequence of the same choices
 
@@ -165,6 +165,6 @@ Then comment out `dropOnnxWasm()` from `vite.plugins` in `apps/web/nuxt.config.t
 
 The thing I'd hand to someone else from this is narrow: `new URL(..., import.meta.url)` is a build-time asset declaration, not a runtime fetch, and no amount of lazy importing will stop a bundler from emitting what it declares. If you load a dependency's binaries from a CDN instead, you are shipping them twice until you go and look.
 
-I'm still carrying 16 MB of Ghostscript, and I don't have a way around that one  -  it's the thing doing the work, and a per-asset limit I'm currently 9 MiB clear of is the sort of margin that gets eaten by a dependency upgrade I didn't read carefully.
+I'm still carrying 16 MB of Ghostscript, and I don't have a way around that one - it's the thing doing the work, and a per-asset limit I'm currently 9 MiB clear of is the sort of margin that gets eaten by a dependency upgrade I didn't read carefully.
 
 Source: [github.com/prostiate/onotoolkit](https://github.com/prostiate/onotoolkit). The tools: [onotoolkit.irfankurniawan.com](https://onotoolkit.irfankurniawan.com).

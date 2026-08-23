@@ -1,8 +1,8 @@
 <template>
-  <div 
-    id="reading-progress" 
+  <div
+    id="reading-progress"
     :style="{ width: `${progress}%` }"
-    class="fixed top-0 left-0 h-[2.5px] bg-[var(--text-primary)] z-50 transition-all duration-75"
+    class="fixed left-0 top-0 z-50 h-[2.5px] bg-[var(--text-primary)] transition-all duration-75"
   ></div>
 </template>
 

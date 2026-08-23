@@ -3,7 +3,7 @@ title: "Replacing Hosted Authentication Without Replacing It With Wishful Thinki
 description: "Removing an authentication SDK is easy. Replacing the system behind it is not. The old integration touched login pages, backend middleware, user administration, password reset,…"
 date: "2026-08-14"
 readTime: "9 min read"
-tags: ["Go","Nuxt","Authentication","Security"]
+tags: ["Go", "Nuxt", "Authentication", "Security"]
 status: "PUBLISHED"
 featured: true
 ---
@@ -121,13 +121,13 @@ The frontend retried an application request once after a `401`. The retry logic 
 
 ```ts
 async function fetchWithRefresh(input: RequestInfo, init?: RequestInit): Promise<Response> {
-  const first = await fetch(input, { ...init, credentials: "include" });
-  if (first.status !== 401) return first;
+  const first = await fetch(input, { ...init, credentials: "include" })
+  if (first.status !== 401) return first
 
-  const refreshed = await refreshSession();
-  if (!refreshed) return first;
+  const refreshed = await refreshSession()
+  if (!refreshed) return first
 
-  return fetch(input, { ...init, credentials: "include" });
+  return fetch(input, { ...init, credentials: "include" })
 }
 ```
 
