@@ -121,7 +121,7 @@
         to="/blog"
         class="inline-block rounded-lg bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-[var(--bg-canvas)]"
       >
-        Return to Writing
+        Return to Blog
       </NuxtLink>
     </div>
   </div>

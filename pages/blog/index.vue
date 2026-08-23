@@ -1,12 +1,10 @@
 <template>
   <div class="animate-fade-up mx-auto max-w-4xl space-y-8 px-4 py-8 sm:px-6 sm:py-12">
     <div class="space-y-2 border-b border-[var(--border-subtle)] pb-6">
-      <h1 class="text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-        Writing & Essays
-      </h1>
+      <h1 class="text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-3xl">Blog</h1>
       <p class="text-sm text-[var(--text-secondary)]">
-        Deep-dives into browser performance, systems architecture, real-world hardware limits, and
-        local-first software.
+        Personal notes, engineering thoughts, and honest post-mortems. Might be right, might be
+        wrong - take what helps and decide for yourself.
       </p>
 
       <!-- Tag Filters -->
@@ -83,11 +81,11 @@ const filteredPosts = computed(() => {
 })
 
 useSeoMeta({
-  title: 'Writing & Essays - Muhammad Irfan Kurniawan',
+  title: 'Blog - Muhammad Irfan Kurniawan',
   description:
-    'Technical essays, browser performance deep-dives, and systems architecture notes by Muhammad Irfan Kurniawan.',
-  ogTitle: 'Writing & Essays - Muhammad Irfan Kurniawan',
+    'Personal notes, engineering thoughts, and honest post-mortems by Muhammad Irfan Kurniawan.',
+  ogTitle: 'Blog - Muhammad Irfan Kurniawan',
   ogDescription:
-    'Technical essays, browser performance deep-dives, and systems architecture notes by Muhammad Irfan Kurniawan.'
+    'Personal notes, engineering thoughts, and honest post-mortems by Muhammad Irfan Kurniawan.'
 })
 </script>

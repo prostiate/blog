@@ -230,17 +230,17 @@
       </div>
     </section>
 
-    <!-- Section 2: Writing & Essays -->
+    <!-- Section 2: Blog Posts -->
     <section class="space-y-6">
       <div class="flex items-center justify-between">
         <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)]">
-          Writing & Engineering Notes
+          Recent Blog Posts
         </h2>
         <NuxtLink
           to="/blog"
           class="flex items-center gap-1 text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
-          All articles →
+          All blog posts →
         </NuxtLink>
       </div>
 

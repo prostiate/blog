@@ -44,7 +44,7 @@
               : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
           ]"
         >
-          Writing
+          Blog
         </NuxtLink>
         <NuxtLink
           to="/about"
@@ -117,7 +117,7 @@
             ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
             : 'text-[var(--text-secondary)]'
         ]"
-        >Writing</NuxtLink
+        >Blog</NuxtLink
       >
       <NuxtLink
         to="/about"
