@@ -54,10 +54,17 @@ const staticIndex = [
   { type: 'Project', title: 'pg-client-mobile', subtitle: 'Android-first Flutter GUI client for PostgreSQL with SQL safety guards', link: '/projects' },
   { type: 'Project', title: 'AccessButtons', subtitle: 'Premium floating media volume controller for Android built with Kotlin & Compose', link: '/projects' },
   { type: 'Project', title: 'Amazone Auth Service', subtitle: 'In-house Go GraphQL authentication backend with revocable JWTs', link: '/projects' },
-  { type: 'Essay', title: 'Retiring Kubernetes', subtitle: 'Why we moved 6 production services back to Docker Compose', link: '/blog/retiring-kubernetes-docker-compose-production' },
-  { type: 'Essay', title: 'Running ONNX Models in Browser', subtitle: 'Zero-server privacy architecture with WebGPU & WASM', link: '/blog/in-browser-onnx-webgpu-privacy-tools' },
-  { type: 'Essay', title: 'Designing for Chrome 109 on Windows 7', subtitle: 'Solving real-world UI thread freezes on 10-year-old cashier machines', link: '/blog/designing-for-chrome-109-windows-7-retail-pos' },
-  { type: 'Essay', title: 'Edge-First Architecture with Cloudflare & Neon', subtitle: 'Multi-tenant local-first sync pipeline with sub-50ms latency', link: '/blog/edge-first-architecture-cloudflare-hono-neon' }
+  { type: 'Essay', title: '23 MB I Never Load: Ghostscript & ONNX to Cloudflare', subtitle: 'How a 14-line Rollup plugin deleted unrequested payloads and cut client size by 45%', link: '/blog/23-mb-i-never-load-cloudflare-wasm-payload' },
+  { type: 'Essay', title: 'An Inpainting Model That Only Touches Painted Pixels', subtitle: 'MI-GAN inpainting through ONNX Runtime Web with byte-identical raster guarantees', link: '/blog/inpainting-only-touches-painted-pixels' },
+  { type: 'Essay', title: 'One Canvas, Two Frozen Tracks: Screen Recorder Architecture', subtitle: 'Overcoming MediaRecorder track limitations during mid-session recording transitions', link: '/blog/screen-recorder-frozen-tracks' },
+  { type: 'Essay', title: 'You Cannot Polyfill @property', subtitle: 'Why shipping legacy CSS polyfills broke modern browsers and how we fixed it', link: '/blog/you-cannot-polyfill-css-property-legacy-browser-support' },
+  { type: 'Essay', title: 'I Spent a Day Building a Monorepo I Argued Against', subtitle: 'Eliminating duplicate UI components across 3 Nuxt applications with Bun & Turborepo', link: '/blog/monorepo-i-argued-against-counting-the-duplication' },
+  { type: 'Essay', title: 'The Kubernetes Deployment That Taught Me to Measure the Disk', subtitle: 'Why baremetal SAS HDD I/O saturation led to retiring K3s in favor of Docker Compose', link: '/blog/kubernetes-storage-postmortem-multi-vm-blue-green-automation' },
+  { type: 'Essay', title: 'From Copy-Pasted Frontends to One Shared Nuxt Layer', subtitle: 'Extracting cashier applications and combining retail frontends cleanly', link: '/blog/micro-frontend-evolution-cashier-backoffice-v2-nuxt-monorepo' },
+  { type: 'Essay', title: 'Replacing Hosted Authentication Without Wishful Thinking', subtitle: 'Migrating from Firebase Auth to in-house Go GraphQL auth with revocable JWTs', link: '/blog/replacing-firebase-auth-custom-golang-nuxt-engine' },
+  { type: 'Essay', title: 'Self-Hosting the Delivery Loop on a Tight Resource Budget', subtitle: 'Joining builds, private registry, secret delivery, and multi-node releases', link: '/blog/privacy-first-self-hosted-infrastructure-cicd-observability' },
+  { type: 'Essay', title: 'Building a Small VM Platform Without Pretending It Is a Cloud', subtitle: 'Managing baremetal Linux VMs and resilient operations with transparency', link: '/blog/multi-node-vm-infrastructure-baremetal-os' },
+  { type: 'Essay', title: 'Lessons Learned from 13 Rounds of Production Iterations', subtitle: 'Mistakes, hotfixes, and architectural evolution across 13 release cycles', link: '/blog/lessons-learned-from-13-rounds-of-production-iterations' }
 ]
 
 const searchResults = computed(() => {
