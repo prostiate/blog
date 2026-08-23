@@ -78,12 +78,6 @@ const staticIndex = [
   },
   {
     type: 'Project',
-    title: 'onowarung',
-    subtitle: 'Local-first multi-tenant POS SaaS for Indonesian warungs',
-    link: '/projects'
-  },
-  {
-    type: 'Project',
     title: 'Amazone Monorepo',
     subtitle: 'Unified Bun + Turborepo monorepo powering 6 production retail apps',
     link: '/projects'
