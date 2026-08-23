@@ -110,7 +110,7 @@
     <div
       class="mono-font space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-code)] p-6 text-center text-xs"
     >
-      <p class="font-semibold text-[var(--text-primary)]">Jakarta, Indonesia · +62 813-8545-8341</p>
+      <p class="font-semibold text-[var(--text-primary)]">Jakarta, Indonesia</p>
       <div
         class="flex flex-wrap items-center justify-center gap-4 text-xs text-[var(--text-secondary)]"
       >
