@@ -3,6 +3,7 @@ import { nextTick } from 'vue'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { percentageFromPointer } from '../../../utils/xray'
 import ProjectXray from './ProjectXray.vue'
+import projectXraySource from './ProjectXray.vue?raw'
 
 function mountXray(mobile = false) {
   vi.stubGlobal(
@@ -71,6 +72,32 @@ describe('ProjectXray', () => {
     expect(slider.attributes('aria-valuenow')).toBe('0')
     await slider.trigger('keydown', { key: 'End' })
     expect(slider.attributes('aria-valuenow')).toBe('100')
+  })
+
+  it('keeps the focused slider treatment inside the handle bounds', () => {
+    const componentDocument = new DOMParser().parseFromString(projectXraySource, 'text/html')
+    const styleElement = document.createElement('style')
+    styleElement.textContent = Array.from(componentDocument.querySelectorAll('style'))
+      .map((style) => style.textContent)
+      .join('\n')
+    document.head.append(styleElement)
+
+    const focusRule = Array.from(styleElement.sheet?.cssRules ?? []).find(
+      (rule): rule is CSSStyleRule =>
+        'selectorText' in rule && rule.selectorText === '.project-xray__handle:focus-visible'
+    )
+
+    try {
+      expect(
+        focusRule?.style
+          .getPropertyValue('outline')
+          .split(/\s+/)
+          .every((value) => value === 'none')
+      ).toBe(true)
+      expect(focusRule?.style.getPropertyValue('box-shadow').split(/\s+/)).toContain('inset')
+    } finally {
+      styleElement.remove()
+    }
   })
 
   it('clamps pointer positions to the visual bounds', () => {
