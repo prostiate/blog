@@ -1,7 +1,7 @@
 <template>
   <div class="flex min-h-screen flex-col justify-between">
     <!-- Top Reading Progress Indicator -->
-    <LayoutReadingProgress v-if="isBlogPost" />
+    <LayoutReadingProgress v-if="isReadingPage" />
 
     <!-- Navigation Header -->
     <LayoutAppHeader />
@@ -23,7 +23,12 @@
 const route = useRoute()
 const { initTheme } = useTheme()
 
-const isBlogPost = computed(() => route.path.startsWith('/blog/'))
+const isReadingPage = computed(() => {
+  const p = route.path
+  return (
+    (p.startsWith('/blog/') && p !== '/blog') || (p.startsWith('/projects/') && p !== '/projects')
+  )
+})
 
 onMounted(() => {
   initTheme()

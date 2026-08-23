@@ -229,7 +229,12 @@ useSeoMeta({
   title: computed(() => `${project.value?.title || 'Project'} - Muhammad Irfan Kurniawan`),
   description: computed(() => project.value?.description || ''),
   ogTitle: computed(() => `${project.value?.title || 'Project'} - Muhammad Irfan Kurniawan`),
-  ogDescription: computed(() => project.value?.description || '')
+  ogDescription: computed(() => project.value?.description || ''),
+  ogType: 'article',
+  ogUrl: computed(() => `https://irfankurniawan.com${route.path}`),
+  twitterCard: 'summary_large_image',
+  twitterTitle: computed(() => `${project.value?.title || 'Project'} - Muhammad Irfan Kurniawan`),
+  twitterDescription: computed(() => project.value?.description || '')
 })
 
 const copyProjectLink = () => {
