@@ -52,6 +52,7 @@ const staticIndex = [
   { type: 'Project', title: 'onowarung', subtitle: 'Local-first multi-tenant POS SaaS for Indonesian warungs', link: '/projects' },
   { type: 'Project', title: 'Amazone Monorepo', subtitle: 'Unified Bun + Turborepo monorepo powering 6 production retail apps', link: '/projects' },
   { type: 'Project', title: 'pg-client-mobile', subtitle: 'Android-first Flutter GUI client for PostgreSQL with SQL safety guards', link: '/projects' },
+  { type: 'Project', title: 'AccessButtons', subtitle: 'Premium floating media volume controller for Android built with Kotlin & Compose', link: '/projects' },
   { type: 'Project', title: 'Amazone Auth Service', subtitle: 'In-house Go GraphQL authentication backend with revocable JWTs', link: '/projects' },
   { type: 'Essay', title: 'Retiring Kubernetes', subtitle: 'Why we moved 6 production services back to Docker Compose', link: '/blog/retiring-kubernetes-docker-compose-production' },
   { type: 'Essay', title: 'Running ONNX Models in Browser', subtitle: 'Zero-server privacy architecture with WebGPU & WASM', link: '/blog/in-browser-onnx-webgpu-privacy-tools' },

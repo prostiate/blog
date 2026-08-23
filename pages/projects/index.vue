@@ -10,7 +10,7 @@
       <!-- Category Filter Tabs -->
       <div class="flex flex-wrap gap-1.5 pt-4">
         <button 
-          v-for="cat in ['All', 'Full Stack', 'Frontend', 'Backend', 'DevOps / Platform']" 
+          v-for="cat in ['All', 'Full Stack', 'Frontend', 'Mobile', 'Backend', 'DevOps / Platform']" 
           :key="cat"
           @click="activeCategory = cat"
           :class="['px-3 py-1.5 rounded-lg text-xs font-medium transition-colors', activeCategory === cat ? 'bg-[var(--text-primary)] text-[var(--bg-canvas)]' : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]']"

@@ -1,6 +1,6 @@
 ---
 title: "pg-client-mobile"
-category: "Frontend"
+category: "Mobile"
 description: "Android-first Flutter GUI client for PostgreSQL with keystroke safety guards and connection management."
 featured: true
 order: 5
