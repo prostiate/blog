@@ -256,7 +256,7 @@ const staticIndex = [
   {
     type: 'Project',
     title: 'Amazone Monorepo',
-    subtitle: 'Unified Bun + Turborepo monorepo powering 6 production retail apps',
+    subtitle: 'Bun + Turborepo workspace for three production Nuxt applications',
     link: '/projects/fe-amazone-monorepo'
   },
   {

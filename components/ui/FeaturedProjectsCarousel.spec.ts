@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { renderToString } from 'vue/server-renderer'
+import { createSSRApp, defineComponent, h, nextTick } from 'vue'
 import type { ProjectItem } from '../../types/project'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import FeaturedProjectsCarousel from './FeaturedProjectsCarousel.vue'
@@ -77,6 +78,32 @@ describe('FeaturedProjectsCarousel', () => {
     expect(wrapper.get('[role="tabpanel"]').text()).toContain('OnoToolkit')
   })
 
+  it('server-renders the initial project panel without a hidden Motion entrance state', async () => {
+    const app = createSSRApp({
+      render: () => h(FeaturedProjectsCarousel, { projects })
+    })
+    app.component(
+      'NuxtLink',
+      defineComponent({
+        props: { to: { type: String, required: true } },
+        setup(linkProps, { slots }) {
+          return () => h('a', { href: linkProps.to }, slots.default?.())
+        }
+      })
+    )
+
+    const html = await renderToString(app)
+    const document = new DOMParser().parseFromString(html, 'text/html')
+    const panel = document.querySelector('[role="tabpanel"]')
+
+    expect(panel).not.toBeNull()
+    expect(panel?.getAttribute('style') ?? '').not.toMatch(/opacity:\s*0/)
+    expect(panel?.getAttribute('style') ?? '').not.toMatch(/translateY/)
+    expect(panel?.querySelector('a[href="/projects/onotoolkit"]')?.textContent).toContain(
+      'Read case study'
+    )
+  })
+
   it('uses one stable panel relationship for every tab', async () => {
     const wrapper = mountCarousel()
     const panel = wrapper.get('[role="tabpanel"]')
@@ -151,7 +178,9 @@ describe('FeaturedProjectsCarousel', () => {
 
     expect(wrapper.get('img').attributes('alt')).toBe('OnoToolkit browser tools home screen')
     await selectTab(wrapper, 1)
-    expect(wrapper.text()).toContain('6 production apps')
+    expect(wrapper.text()).toContain('3 production Nuxt apps')
+    expect(wrapper.text()).toContain('Separate desktop package')
+    expect(wrapper.text()).not.toContain('6 production apps')
     await selectTab(wrapper, 2)
     expect(wrapper.get('img').attributes('alt')).toBe(
       'pg-client-mobile SQL editor and command menu'
@@ -172,11 +201,17 @@ describe('FeaturedProjectsCarousel', () => {
     expect(fallback.find('.project-xray').exists()).toBe(false)
   })
 
-  it('uses a static active-tab indicator when motion is reduced', async () => {
+  it('keeps the hydrated initial panel visible and uses a static indicator when motion is reduced', async () => {
     const animatedWrapper = mountCarousel()
     expect(
       animatedWrapper.get('[data-active-tab-indicator]').attributes('data-active-tab-indicator')
     ).toBe('motion')
+    expect(animatedWrapper.get('[role="tabpanel"]').attributes('style')).not.toContain('opacity: 0')
+    expect(animatedWrapper.get('[role="tabpanel"]').attributes('style')).not.toContain(
+      'translateY(8px)'
+    )
+
+    await selectTab(animatedWrapper, 1)
     expect(animatedWrapper.get('[role="tabpanel"]').attributes('style')).toContain(
       'translateY(8px)'
     )

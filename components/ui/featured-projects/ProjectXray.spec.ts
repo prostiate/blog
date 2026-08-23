@@ -162,6 +162,24 @@ describe('ProjectXray', () => {
     expect(wrapper.get('.project-xray__product').attributes('style')).toContain('0%')
   })
 
+  it('associates the named mobile control group with its updating reveal status', async () => {
+    const wrapper = mountXray(true)
+    await nextTick()
+    const controls = wrapper.get('[role="group"][aria-label="Visual layer"]')
+    const statusId = controls.attributes('aria-describedby')
+
+    expect(statusId).toBeTruthy()
+    expect(wrapper.get(`#${statusId}`).attributes('role')).toBe('status')
+    expect(wrapper.get(`#${statusId}`).text()).toBe('70% product, 30% architecture')
+    expect(wrapper.find('[role="slider"]').exists()).toBe(false)
+
+    await wrapper.get('[data-layer="architecture"]').trigger('click')
+    expect(wrapper.get(`#${statusId}`).text()).toBe('0% product, 100% architecture')
+
+    await wrapper.get('[data-layer="product"]').trigger('click')
+    expect(wrapper.get(`#${statusId}`).text()).toBe('100% product, 0% architecture')
+  })
+
   it('releases pointer capture after pointer cancellation', async () => {
     const wrapper = mountXray()
     const stage = wrapper.get('.project-xray__stage')

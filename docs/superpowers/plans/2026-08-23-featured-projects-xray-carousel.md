@@ -49,6 +49,7 @@
 - `package.json` - Motion and test dependencies plus test scripts
 - `pnpm-lock.yaml` - resolved dependency graph; retain Three.js because `TopologyCanvas.client.vue` uses it in article content
 - `components/ui/FeaturedProjectsCarousel.vue` - single X-ray carousel orchestrator
+- `components/layout/SearchModal.vue` - verified Amazone project search summary
 - `pages/index.vue` - featured-only query and removal of the Three.js section
 - `content/projects/onotoolkit.md` - concise verified content
 - `content/projects/fe-amazone-monorepo.md` - verified metrics and architecture
@@ -344,8 +345,8 @@ featured: true
 tags: [Nuxt 4, WASM, ONNX Runtime Web, IndexedDB]
 
 # fe-amazone-monorepo.md
-description: Shared Bun and Turborepo workspace powering 6 production web applications
-  through a reusable Nuxt layer.
+description: Shared Bun and Turborepo workspace for three production Nuxt applications,
+  with a separately packaged Cashier Desktop build.
 featured: true
 tags: [Vue 3, Nuxt, Bun, Turborepo, Chrome 109]
 
@@ -368,9 +369,9 @@ Use `../../irfan/all-irfan-cv/base-knowledge/04-skills-matrix.md`,
 sources. Apply these exact content boundaries:
 
 - OnoToolkit: keep browser-local PDF, ONNX, WebGPU with WASM fallback, MI-GAN, screen
-  recording, IndexedDB, JOSE, and the verified 23 MB bundle reduction. Remove claims about
-  server liability, guaranteed hardware behavior, or implementation details not stated in
-  the evidence source.
+  recording, IndexedDB, and JOSE. Remove the precise 23 MB bundle-reduction claim because it
+  is absent from the CV source of truth, along with claims about server liability, guaranteed
+  hardware behavior, or implementation details not stated in the evidence source.
 - Monorepo: describe three consolidated Nuxt frontends, the shared `@amazone/base` layer with
   27 components, Bun workspaces, Turborepo, the parameterized Docker build, and the verified
   median pipeline changes of 3.5 to 1.7 minutes in staging and 5.9 to 3.0 minutes in
@@ -540,7 +541,12 @@ The template must include:
 
 ```vue
 <div class="project-xray" :aria-label="label">
-  <div class="project-xray__controls" aria-label="Visual layer">
+  <div
+    class="project-xray__controls"
+    role="group"
+    aria-label="Visual layer"
+    :aria-describedby="revealStatusId"
+  >
     <button
       type="button"
       data-layer="product"
@@ -553,6 +559,9 @@ The template must include:
       Architecture
     </button>
   </div>
+  <p :id="revealStatusId" class="sr-only" role="status" aria-live="polite">
+    {{ revealPercent }}% product, {{ 100 - revealPercent }}% architecture
+  </p>
   <div ref="stage" class="project-xray__stage">
     <div class="project-xray__architecture"><slot name="architecture" /></div>
     <div
@@ -579,8 +588,8 @@ The template must include:
 
 Use pointer capture on the stage for `pointerdown`, `pointermove`, `pointerup`, and
 `pointercancel`. Calculate each update from `stage.getBoundingClientRect()`. Release capture
-on completion and unmount. Hide the draggable handle below the mobile breakpoint while
-leaving the two explicit buttons visible.
+on completion and unmount. Do not render the slider below the mobile breakpoint. Keep the two
+explicit buttons in a named group associated with the updating current reveal status.
 
 - [ ] **Step 4: Run the X-ray tests**
 
@@ -620,7 +629,9 @@ expect(ono.text()).toContain("Files stay on this device")
 expect(ono.find("img").attributes("src")).toBe("/assets/projects/onotoolkit-showcase.webp")
 
 expect(amazone.text()).toContain("@amazone/base")
-expect(amazone.text()).toContain("6 production apps")
+expect(amazone.text()).toContain("3 production Nuxt apps")
+expect(amazone.text()).toContain("Separate desktop package")
+expect(amazone.text()).not.toContain("6 production apps")
 expect(amazone.find("img").exists()).toBe(false)
 expect(amazone.html()).not.toMatch(/revenue|cashier data|employee|customer/i)
 
@@ -652,8 +663,9 @@ hidden text.
 
 - [ ] **Step 4: Implement the Amazone monorepo scene**
 
-The product slot uses six neutral window outlines labeled only `App 1` through `App 6` and the
-caption `6 production apps`. The architecture slot uses these exact public-safe nodes:
+The product slot uses three neutral Nuxt application shells plus one distinct neutral shell for
+the separately packaged Cashier Desktop build. Its captions are `3 production Nuxt apps` and
+`Separate desktop package`. The architecture slot uses these exact public-safe nodes:
 
 ```text
 Backoffice   Auth Login   Cashier
@@ -911,8 +923,8 @@ Open `/` and exercise this sequence at 1440, 1024, 768, 390, and 320 CSS pixels:
 7. Enable reduced motion and repeat project navigation.
 8. Open `/projects` and confirm AccessButtons is still present.
 9. Open each of the three featured case-study routes.
-10. Disable JavaScript, reload `/`, and confirm the first project description and links remain
-    readable in the prerendered HTML.
+10. Disable JavaScript, reload `/`, and confirm the first panel has non-zero computed opacity,
+    visible computed visibility, and non-zero link geometry in the prerendered page.
 
 - [ ] **Step 2: Check exact visual requirements**
 

@@ -204,7 +204,7 @@ function cancelSwipe() {
         role="tabpanel"
         :id="panelId"
         :aria-labelledby="tabId(activeIndex)"
-        :initial="panelMotion.initial"
+        :initial="motionPreferenceReady ? panelMotion.initial : false"
         :animate="panelMotion.animate"
         :exit="panelMotion.exit"
         :transition="panelMotion.transition"

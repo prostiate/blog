@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue'
 import { percentageFromPointer } from '../../../utils/xray'
 
 const props = withDefaults(
@@ -9,6 +9,10 @@ const props = withDefaults(
 
 const stage = ref<HTMLElement | null>(null)
 const revealPercent = ref(Math.min(100, Math.max(0, props.initialPercent)))
+const revealStatusId = `project-xray-status-${useId()}`
+const revealStatus = computed(
+  () => `${revealPercent.value}% product, ${100 - revealPercent.value}% architecture`
+)
 const isMobile = ref(false)
 let activePointerId: number | null = null
 let mobileQuery: MediaQueryList | null = null
@@ -100,7 +104,12 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="project-xray" :aria-label="label">
-    <div class="project-xray__controls" aria-label="Visual layer">
+    <div
+      class="project-xray__controls"
+      role="group"
+      aria-label="Visual layer"
+      :aria-describedby="revealStatusId"
+    >
       <button
         type="button"
         data-layer="product"
@@ -121,6 +130,9 @@ onBeforeUnmount(() => {
         Architecture
       </button>
     </div>
+    <p :id="revealStatusId" class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+      {{ revealStatus }}
+    </p>
     <div
       ref="stage"
       class="project-xray__stage"

@@ -298,7 +298,10 @@ describe('project-specific X-ray visuals', () => {
     const amazone = mount(AmazoneMonorepoVisual)
 
     expect(amazone.text()).toContain('@amazone/base')
-    expect(amazone.text()).toContain('6 production apps')
+    expect(amazone.text()).toContain('3 production Nuxt apps')
+    expect(amazone.text()).toContain('Separate desktop package')
+    expect(amazone.text()).not.toContain('6 production apps')
+    expect(amazone.findAll('.app-window')).toHaveLength(4)
     expect(amazone.find('img').exists()).toBe(false)
     expect(amazone.html()).not.toMatch(/revenue|cashier data|employee|customer/i)
   })

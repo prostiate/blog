@@ -1,8 +1,8 @@
 ---
 title: Amazone Retail & POS Monorepo
 category: Frontend / Architecture
-description: Shared Bun and Turborepo workspace powering 6 production web applications
-  through a reusable Nuxt layer.
+description: Shared Bun and Turborepo workspace for three production Nuxt applications,
+  with a separately packaged Cashier Desktop build.
 featured: true
 order: 2
 liveUrl: null
@@ -17,6 +17,7 @@ problemSolved: Three separately maintained Nuxt frontends duplicated shared chan
   and drifted apart, while large data-entry forms froze on ageing in-store hardware.
 architecture:
   - Consolidated three Nuxt frontends with Bun workspaces and Turborepo.
+  - Packages Cashier Desktop separately from the three production Nuxt applications.
   - Shared a reusable @amazone/base Nuxt layer containing 27 components.
   - Used one parameterized Docker build to produce three independent application images.
   - Reworked the form interaction into server-paginated pages after virtualization
@@ -25,7 +26,7 @@ architecture:
 
 ## Overview
 
-The Amazone frontend workspace supports 6 production web applications. Three independently maintained Nuxt frontends were consolidated into a Bun workspaces and Turborepo monorepo so common frontend capabilities could be maintained in one place while each application continued to ship independently.
+The workspace consolidates Backoffice, Auth Login, and Cashier, which are three production Nuxt applications, and includes the separately packaged Cashier Desktop build. The three Nuxt applications were previously maintained independently. Bun workspaces and Turborepo now keep common frontend capabilities in one place while each application continues to ship independently.
 
 ## Shared Nuxt Architecture
 

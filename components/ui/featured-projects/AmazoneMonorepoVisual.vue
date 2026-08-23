@@ -6,12 +6,22 @@ import ProjectXray from './ProjectXray.vue'
   <ProjectXray label="Amazone monorepo shared layer architecture">
     <template #product>
       <div class="product-scene app-scene">
-        <p class="sr-only">Six abstract production application shells.</p>
-        <div v-for="app in 6" :key="app" class="app-window">
+        <p class="sr-only">
+          Three abstract production Nuxt application shells and one separately packaged desktop
+          shell.
+        </p>
+        <div v-for="app in 3" :key="app" class="app-window">
           <span class="app-window__bar" aria-hidden="true"><i /><i /><i /></span>
-          <span>App {{ app }}</span>
+          <span>Nuxt App {{ app }}</span>
         </div>
-        <p class="product-caption">6 production apps</p>
+        <div class="app-window">
+          <span class="app-window__bar" aria-hidden="true"><i /><i /><i /></span>
+          <span>Desktop package</span>
+        </div>
+        <p class="product-caption">
+          <span>3 production Nuxt apps</span>
+          <span>Separate desktop package</span>
+        </p>
       </div>
     </template>
 
@@ -66,7 +76,7 @@ import ProjectXray from './ProjectXray.vue'
 
 .app-scene {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.75rem;
   align-content: center;
   padding: 2rem;
@@ -102,6 +112,10 @@ import ProjectXray from './ProjectXray.vue'
 
 .product-caption {
   grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 0.75rem;
   margin: 0.25rem 0 0;
   color: #16a34a;
   text-align: center;

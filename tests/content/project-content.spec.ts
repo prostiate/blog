@@ -49,11 +49,29 @@ describe('project portfolio claims', () => {
       '@hasPermission',
       'Sub-Millisecond Auth Checks',
       '20-component K8s stack',
-      '100% uptime'
+      '100% uptime',
+      '23 MB',
+      '6 production web applications',
+      '6 production apps'
     ]
 
     for (const phrase of forbidden) expect(all).not.toContain(phrase)
     expect(all).not.toContain('\u2014')
+  })
+
+  it('describes the Amazone monorepo at its verified package scope', () => {
+    const monorepo = read('fe-amazone-monorepo')
+
+    expect(monorepo).toContain('three production Nuxt applications')
+    expect(monorepo).toContain('Backoffice, Auth Login, and Cashier')
+    expect(monorepo).toContain('separately packaged Cashier Desktop')
+  })
+
+  it('keeps the public project search summary within the same verified scope', () => {
+    const searchModal = readFileSync('components/layout/SearchModal.vue', 'utf8')
+
+    expect(searchModal).toContain('three production Nuxt applications')
+    expect(searchModal).not.toMatch(/monorepo powering 6 production retail apps/i)
   })
 
   it('stores showcase assets locally', () => {

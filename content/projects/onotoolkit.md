@@ -43,7 +43,3 @@ The recorder combines `getDisplayMedia`, `getUserMedia`, canvas compositing, `ca
 ### JWT Debugging
 
 The RFC 7519 debugger uses `jose` for decoding, signing, signature verification, and in-browser key-pair generation across HS, RS, PS, ES, and EdDSA algorithms.
-
-## Verified Optimization
-
-Build-time filtering removed 23 MB of unrequested WASM payloads from the client bundle.
