@@ -4,10 +4,9 @@
   >
     <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
       <div>
-        <span
-          class="mono-font block text-[11px] uppercase tracking-wider text-[var(--text-muted)]"
-          >{{ project.category }}</span
-        >
+        <span class="mono-font block text-xs uppercase tracking-wider text-[var(--text-muted)]">{{
+          project.category
+        }}</span>
         <NuxtLink
           v-if="project.path"
           :to="project.path"
@@ -102,7 +101,7 @@
         <span
           v-for="tag in project.tags"
           :key="tag"
-          class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+          class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-xs text-[var(--text-secondary)]"
         >
           {{ tag }}
         </span>

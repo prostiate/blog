@@ -21,7 +21,9 @@
 
     <!-- Career Trajectory -->
     <section class="space-y-6">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)]">Career Trajectory</h2>
+      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)] sm:text-2xl">
+        Career Trajectory
+      </h2>
       <div
         class="relative space-y-8 pl-6 before:absolute before:bottom-2 before:left-2 before:top-2 before:w-[2px] before:bg-[var(--border-medium)]"
       >
@@ -29,7 +31,7 @@
           <span
             class="absolute -left-[29px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-[var(--bg-canvas)] bg-[var(--text-primary)]"
           ></span>
-          <div class="space-y-1">
+          <div class="space-y-1.5">
             <div class="flex flex-wrap items-baseline justify-between gap-1">
               <h3 class="text-base font-bold text-[var(--text-primary)]">
                 {{ job.role }} ·
@@ -37,10 +39,10 @@
               </h3>
               <span class="mono-font text-xs text-[var(--text-muted)]">{{ job.period }}</span>
             </div>
-            <p class="text-xs leading-relaxed text-[var(--text-secondary)]">{{ job.summary }}</p>
+            <p class="text-sm leading-relaxed text-[var(--text-secondary)]">{{ job.summary }}</p>
             <ul
               v-if="job.highlights"
-              class="list-disc space-y-1 pl-4 pt-1 text-xs text-[var(--text-secondary)]"
+              class="list-disc space-y-1 pl-4 pt-1 text-sm text-[var(--text-secondary)]"
             >
               <li v-for="(hl, hIdx) in job.highlights" :key="hIdx">{{ hl }}</li>
             </ul>
@@ -51,32 +53,34 @@
 
     <!-- Engineering Values -->
     <section class="space-y-6">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)]">
+      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)] sm:text-2xl">
         Engineering Values
       </h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div
           v-for="(val, idx) in engineeringValues"
           :key="idx"
-          class="space-y-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4"
+          class="space-y-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5"
         >
-          <h3 class="text-sm font-semibold text-[var(--text-primary)]">{{ val.title }}</h3>
-          <p class="text-xs leading-relaxed text-[var(--text-secondary)]">{{ val.desc }}</p>
+          <h3 class="text-base font-bold text-[var(--text-primary)]">{{ val.title }}</h3>
+          <p class="text-sm leading-relaxed text-[var(--text-secondary)]">{{ val.desc }}</p>
         </div>
       </div>
     </section>
 
     <!-- Setup & Workflows -->
     <section class="space-y-6">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)]">Setup & Workflows</h2>
+      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)] sm:text-2xl">
+        Setup & Workflows
+      </h2>
       <div
-        class="space-y-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 text-xs"
+        class="space-y-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 text-sm"
       >
         <div>
           <span class="mb-1.5 block font-semibold text-[var(--text-primary)]"
             >Hardware & Cloud Estate:</span
           >
-          <ul class="list-disc space-y-1 pl-4 text-[var(--text-secondary)]">
+          <ul class="list-disc space-y-1.5 pl-4 text-[var(--text-secondary)]">
             <li>Primary Machine: Modern Linux / Unix Development Environment</li>
             <li>
               Personal Infrastructure: 2-node AWS EC2 cluster (m7i-flex.large, Ubuntu 24.04) running
@@ -85,11 +89,11 @@
             <li>Display & Input: Ergonomic warm-tone high-legibility display calibration</li>
           </ul>
         </div>
-        <div class="border-t border-[var(--border-subtle)] pt-3">
+        <div class="border-t border-[var(--border-subtle)] pt-4">
           <span class="mb-1.5 block font-semibold text-[var(--text-primary)]"
             >Software & Tooling:</span
           >
-          <ul class="list-disc space-y-1 pl-4 text-[var(--text-secondary)]">
+          <ul class="list-disc space-y-1.5 pl-4 text-[var(--text-secondary)]">
             <li>Editor: VS Code / Cursor / Neovim with Geist Mono font</li>
             <li>Terminal: Tmux, zsh, Tailscale mesh networking</li>
             <li>Edge & Runtime: Bun, Node.js, Cloudflare Workers, Docker</li>

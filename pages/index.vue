@@ -215,14 +215,14 @@
         <div
           v-for="project in secondaryProjects"
           :key="project.title"
-          class="flex flex-col justify-between space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-canvas)] p-5 transition-colors hover:bg-[var(--bg-surface)]"
+          class="flex flex-col justify-between space-y-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-canvas)] p-5 transition-colors hover:bg-[var(--bg-surface)]"
         >
           <div class="space-y-2">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-2">
               <NuxtLink
                 v-if="project.path"
                 :to="project.path"
-                class="group inline-flex items-center gap-1"
+                class="group inline-flex items-center gap-1.5"
               >
                 <h4 class="text-base font-bold text-[var(--text-primary)] group-hover:underline">
                   {{ project.title }}
@@ -235,20 +235,18 @@
               <h4 v-else class="text-base font-bold text-[var(--text-primary)]">
                 {{ project.title }}
               </h4>
-              <span class="mono-font text-[11px] text-[var(--text-muted)]">{{
-                project.category
-              }}</span>
+              <span class="mono-font text-xs text-[var(--text-muted)]">{{ project.category }}</span>
             </div>
-            <p class="text-xs leading-relaxed text-[var(--text-secondary)]">
+            <p class="text-sm leading-relaxed text-[var(--text-secondary)]">
               {{ project.description }}
             </p>
           </div>
           <div class="flex items-center justify-between pt-1">
-            <div class="flex flex-wrap gap-1">
+            <div class="flex flex-wrap gap-1.5">
               <span
                 v-for="tag in (project.tags || []).slice(0, 3)"
                 :key="tag"
-                class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]"
+                class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-xs text-[var(--text-secondary)]"
               >
                 {{ tag }}
               </span>
@@ -256,7 +254,7 @@
             <NuxtLink
               v-if="project.path"
               :to="project.path"
-              class="mono-font text-[11px] font-semibold text-[var(--text-primary)] hover:underline"
+              class="mono-font text-xs font-semibold text-[var(--text-primary)] hover:underline"
             >
               Details →
             </NuxtLink>
@@ -285,16 +283,16 @@
           :key="post.path || post.title"
           class="group cursor-pointer py-4"
         >
-          <NuxtLink :to="post.path" class="block">
-            <div class="mb-1 flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-              <h3 class="text-base font-semibold text-[var(--text-primary)] group-hover:underline">
+          <NuxtLink :to="post.path" class="block space-y-1">
+            <div class="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
+              <h3 class="text-base font-bold text-[var(--text-primary)] group-hover:underline">
                 {{ post.title }}
               </h3>
               <div class="mono-font whitespace-nowrap text-xs text-[var(--text-muted)]">
                 {{ post.date }} · {{ post.readTime }}
               </div>
             </div>
-            <p class="line-clamp-2 text-xs text-[var(--text-secondary)]">
+            <p class="line-clamp-2 text-sm leading-relaxed text-[var(--text-secondary)]">
               {{ post.description }}
             </p>
           </NuxtLink>

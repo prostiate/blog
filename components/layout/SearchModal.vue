@@ -62,32 +62,32 @@
             <div class="mb-0.5 flex items-center justify-between">
               <span class="font-semibold text-[var(--text-primary)]">{{ item.title }}</span>
               <span
-                class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]"
+                class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-xs text-[var(--text-muted)]"
               >
                 {{ item.type }}
               </span>
             </div>
-            <p class="line-clamp-1 text-[11px] text-[var(--text-secondary)]">{{ item.subtitle }}</p>
+            <p class="line-clamp-1 text-xs text-[var(--text-secondary)]">{{ item.subtitle }}</p>
           </NuxtLink>
         </div>
 
         <!-- Default State: Quick Navigation & Suggestions when Query is Empty -->
-        <div v-else class="space-y-4 p-1">
+        <div v-else class="space-y-5 p-1">
           <!-- Section 1: Navigation -->
           <div>
             <span
-              class="mono-font mb-1.5 block px-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]"
+              class="mono-font mb-2 block px-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]"
             >
               Quick Navigation
             </span>
-            <div class="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+            <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
               <NuxtLink
                 to="/"
                 @click="closeSearch"
-                class="flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
+                class="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
               >
                 <svg
-                  class="h-3.5 w-3.5 text-[var(--text-muted)]"
+                  class="h-4 w-4 text-[var(--text-muted)]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -104,10 +104,10 @@
               <NuxtLink
                 to="/projects"
                 @click="closeSearch"
-                class="flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
+                class="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
               >
                 <svg
-                  class="h-3.5 w-3.5 text-[var(--text-muted)]"
+                  class="h-4 w-4 text-[var(--text-muted)]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -126,10 +126,10 @@
               <NuxtLink
                 to="/blog"
                 @click="closeSearch"
-                class="flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
+                class="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
               >
                 <svg
-                  class="h-3.5 w-3.5 text-[var(--text-muted)]"
+                  class="h-4 w-4 text-[var(--text-muted)]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -147,10 +147,10 @@
               <NuxtLink
                 to="/about"
                 @click="closeSearch"
-                class="flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
+                class="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
               >
                 <svg
-                  class="h-3.5 w-3.5 text-[var(--text-muted)]"
+                  class="h-4 w-4 text-[var(--text-muted)]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -170,7 +170,7 @@
           <!-- Section 2: Recommended Deep Dives -->
           <div>
             <span
-              class="mono-font mb-1.5 block px-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]"
+              class="mono-font mb-2 block px-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]"
             >
               Suggested Reading & Projects
             </span>
@@ -185,12 +185,12 @@
                 <div class="mb-0.5 flex items-center justify-between">
                   <span class="font-semibold text-[var(--text-primary)]">{{ item.title }}</span>
                   <span
-                    class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]"
+                    class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-xs text-[var(--text-muted)]"
                   >
                     {{ item.type }}
                   </span>
                 </div>
-                <p class="line-clamp-1 text-[11px] text-[var(--text-secondary)]">
+                <p class="line-clamp-1 text-xs text-[var(--text-secondary)]">
                   {{ item.subtitle }}
                 </p>
               </NuxtLink>

@@ -48,7 +48,7 @@
             <span
               v-for="tag in post.tags"
               :key="tag"
-              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[10px] text-[var(--text-muted)]"
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-xs text-[var(--text-secondary)]"
             >
               #{{ tag }}
             </span>

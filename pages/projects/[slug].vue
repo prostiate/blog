@@ -89,16 +89,16 @@
         <!-- Problem Solved Section -->
         <div
           v-if="project.problemSolved"
-          class="space-y-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4 text-xs"
+          class="space-y-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 text-sm"
         >
           <span class="block font-bold text-[var(--text-primary)]">Problem Solved:</span>
           <p class="leading-relaxed text-[var(--text-secondary)]">{{ project.problemSolved }}</p>
         </div>
 
         <!-- Architecture Highlights -->
-        <div v-if="project.architecture && project.architecture.length" class="space-y-2 text-xs">
+        <div v-if="project.architecture && project.architecture.length" class="space-y-2 text-sm">
           <span class="block font-bold text-[var(--text-primary)]">Architecture Highlights:</span>
-          <ul class="list-disc space-y-1 pl-4 text-[var(--text-secondary)]">
+          <ul class="list-disc space-y-1.5 pl-4 text-[var(--text-secondary)]">
             <li v-for="(arch, idx) in project.architecture" :key="idx">{{ arch }}</li>
           </ul>
         </div>
@@ -108,7 +108,7 @@
           <span
             v-for="tag in project.tags"
             :key="tag"
-            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-xs text-[var(--text-secondary)]"
           >
             {{ tag }}
           </span>

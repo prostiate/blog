@@ -9,17 +9,17 @@
         <p>© 2026 Muhammad Irfan Kurniawan</p>
       </div>
 
-      <div class="mono-font flex flex-wrap items-center gap-4 text-[11px]">
+      <div class="mono-font flex flex-wrap items-center gap-4 text-xs">
         <NuxtLink to="/logo" class="hover:text-[var(--text-primary)] hover:underline"
           >Brand & Logo</NuxtLink
         >
         <span>·</span>
         <a
           href="mailto:mail@irfankurniawan.com"
-          class="flex items-center gap-1 hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
         >
           <svg
-            class="h-3 w-3"
+            class="h-3.5 w-3.5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -37,10 +37,10 @@
           href="https://github.com/prostiate"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1 hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
         >
           <svg
-            class="h-3 w-3"
+            class="h-3.5 w-3.5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -60,10 +60,10 @@
           href="https://www.linkedin.com/in/muhammad-irfan-kurniawan/"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1 hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
         >
           <svg
-            class="h-3 w-3"
+            class="h-3.5 w-3.5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

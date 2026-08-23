@@ -28,7 +28,7 @@
             <span
               v-for="tag in post.tags"
               :key="tag"
-              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-xs text-[var(--text-secondary)]"
             >
               #{{ tag }}
             </span>
@@ -50,12 +50,12 @@
               <h4 class="text-sm font-semibold text-[var(--text-primary)]">
                 Muhammad Irfan Kurniawan
               </h4>
-              <p class="text-xs text-[var(--text-secondary)]">
+              <p class="text-xs text-[var(--text-muted)]">
                 Senior Full Stack Engineer · Jakarta, Indonesia
               </p>
             </div>
           </div>
-          <p class="text-xs leading-relaxed text-[var(--text-secondary)]">
+          <p class="text-sm leading-relaxed text-[var(--text-secondary)]">
             Writing about production architecture, frontend ergonomics, browser performance, and
             practical systems engineering.
           </p>
