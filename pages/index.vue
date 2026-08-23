@@ -112,14 +112,7 @@
               <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:underline">
                 OnoToolkit
               </h3>
-              <span class="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
-                >→</span
-              >
             </NuxtLink>
-            <span
-              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-canvas)] px-2 py-0.5 text-xs text-[var(--text-muted)]"
-              >Featured</span
-            >
           </div>
           <div class="mono-font flex items-center gap-3 text-xs">
             <a
@@ -227,15 +220,10 @@
                 <h4 class="text-base font-bold text-[var(--text-primary)] group-hover:underline">
                   {{ project.title }}
                 </h4>
-                <span
-                  class="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
-                  >→</span
-                >
               </NuxtLink>
               <h4 v-else class="text-base font-bold text-[var(--text-primary)]">
                 {{ project.title }}
               </h4>
-              <span class="mono-font text-xs text-[var(--text-muted)]">{{ project.category }}</span>
             </div>
             <p class="text-sm leading-relaxed text-[var(--text-secondary)]">
               {{ project.description }}

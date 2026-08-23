@@ -15,9 +15,6 @@
           <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:underline">
             {{ project.title }}
           </h3>
-          <span class="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
-            >→</span
-          >
         </NuxtLink>
         <h3 v-else class="text-lg font-bold text-[var(--text-primary)]">{{ project.title }}</h3>
       </div>
