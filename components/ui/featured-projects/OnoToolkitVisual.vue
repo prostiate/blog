@@ -27,7 +27,12 @@ const productAvailable = ref(true)
           Local file to WebGPU / WASM to Canvas output to Download. IndexedDB stores browser-local
           application data.
         </p>
-        <svg class="architecture-lines ono-lines--desktop" viewBox="0 0 600 300" aria-hidden="true">
+        <svg
+          class="architecture-lines ono-lines--desktop"
+          viewBox="0 0 600 300"
+          aria-hidden="true"
+          data-layout="desktop"
+        >
           <defs>
             <marker id="ono-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
               <path d="M0,0 L8,4 L0,8 Z" />
@@ -36,9 +41,14 @@ const productAvailable = ref(true)
           <path data-edge="local-to-wasm" d="M125 100 H220" marker-end="url(#ono-arrow)" />
           <path data-edge="wasm-to-canvas" d="M275 100 H370" marker-end="url(#ono-arrow)" />
           <path data-edge="canvas-to-download" d="M425 100 H520" marker-end="url(#ono-arrow)" />
-          <path data-edge="wasm-to-indexeddb" d="M300 130 V215" marker-end="url(#ono-arrow)" />
+          <path data-edge="wasm-to-indexeddb" d="M225 130 V215" marker-end="url(#ono-arrow)" />
         </svg>
-        <svg class="architecture-lines ono-lines--mobile" viewBox="0 0 400 360" aria-hidden="true">
+        <svg
+          class="architecture-lines ono-lines--mobile"
+          viewBox="0 0 400 340"
+          aria-hidden="true"
+          data-layout="mobile"
+        >
           <defs>
             <marker
               id="ono-mobile-arrow"
@@ -51,22 +61,38 @@ const productAvailable = ref(true)
               <path d="M0,0 L8,4 L0,8 Z" />
             </marker>
           </defs>
-          <path data-edge="local-to-wasm" d="M140 85 H260" marker-end="url(#ono-mobile-arrow)" />
-          <path
-            data-edge="wasm-to-canvas"
-            d="M300 115 L100 180"
-            marker-end="url(#ono-mobile-arrow)"
-          />
+          <path data-edge="local-to-wasm" d="M95 70 V100" marker-end="url(#ono-mobile-arrow)" />
+          <path data-edge="wasm-to-canvas" d="M95 150 V180" marker-end="url(#ono-mobile-arrow)" />
           <path
             data-edge="canvas-to-download"
-            d="M140 210 H260"
+            d="M95 230 V260"
             marker-end="url(#ono-mobile-arrow)"
           />
           <path
             data-edge="wasm-to-indexeddb"
-            d="M300 115 L200 285"
+            d="M170 125 H220"
             marker-end="url(#ono-mobile-arrow)"
           />
+          <g class="mobile-node" data-node="local-file">
+            <rect x="20" y="20" width="150" height="50" rx="10" />
+            <text x="95" y="45">Local file</text>
+          </g>
+          <g class="mobile-node mobile-node--accent" data-node="webgpu-wasm">
+            <rect x="20" y="100" width="150" height="50" rx="10" />
+            <text x="95" y="125">WebGPU / WASM</text>
+          </g>
+          <g class="mobile-node" data-node="canvas-output">
+            <rect x="20" y="180" width="150" height="50" rx="10" />
+            <text x="95" y="205">Canvas output</text>
+          </g>
+          <g class="mobile-node" data-node="download">
+            <rect x="20" y="260" width="150" height="50" rx="10" />
+            <text x="95" y="285">Download</text>
+          </g>
+          <g class="mobile-node" data-node="indexeddb">
+            <rect x="220" y="100" width="150" height="50" rx="10" />
+            <text x="295" y="125">IndexedDB</text>
+          </g>
         </svg>
         <div class="ono-flow" aria-hidden="true">
           <span class="scene-node">Local file</span>
@@ -122,6 +148,28 @@ const productAvailable = ref(true)
 
 .architecture-lines marker path {
   fill: #22c55e;
+}
+
+.mobile-node rect {
+  fill: var(--bg-surface);
+  stroke: var(--border-medium);
+  stroke-width: 1;
+}
+
+.mobile-node text {
+  fill: var(--text-primary);
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.mobile-node--accent rect {
+  stroke: rgb(34 197 94 / 0.65);
+}
+
+.mobile-node--accent text {
+  fill: #16a34a;
 }
 
 .ono-lines--mobile {
@@ -180,14 +228,7 @@ const productAvailable = ref(true)
   }
 
   .ono-flow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(3, 4.5rem);
-    gap: 0.75rem 0.5rem;
-  }
-
-  .ono-indexeddb {
-    grid-column: 1 / -1;
-    margin-top: 0;
+    display: none;
   }
 }
 </style>

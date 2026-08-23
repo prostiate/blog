@@ -25,23 +25,54 @@ describe('project-specific X-ray visuals', () => {
       'M425 100 H520'
     )
     expect(desktopLines.get('[data-edge="wasm-to-indexeddb"]').attributes('d')).toBe(
-      'M300 130 V215'
+      'M225 130 V215'
     )
   })
 
-  it('provides mobile connector geometry for reflowed OnoToolkit and pg-client workflows', () => {
+  it('uses breakpoint-specific connector variants for OnoToolkit and pg-client workflows', () => {
     const ono = mount(OnoToolkitVisual)
     const pg = mount(PgClientMobileVisual)
 
-    expect(
-      ono.findAll('.ono-lines--mobile [data-edge]').map((edge) => edge.attributes('data-edge'))
-    ).toEqual(['local-to-wasm', 'wasm-to-canvas', 'canvas-to-download', 'wasm-to-indexeddb'])
-    expect(
-      pg.findAll('.pg-lines--desktop [data-edge]').map((edge) => edge.attributes('data-edge'))
-    ).toEqual(['connection-to-browser', 'browser-to-editor', 'editor-to-guard', 'guard-to-results'])
-    expect(
-      pg.findAll('.pg-lines--mobile [data-edge]').map((edge) => edge.attributes('data-edge'))
-    ).toEqual(['connection-to-browser', 'browser-to-editor', 'editor-to-guard', 'guard-to-results'])
+    expect(ono.get('.ono-lines--desktop').attributes('data-layout')).toBe('desktop')
+    expect(ono.get('.ono-lines--mobile').attributes('data-layout')).toBe('mobile')
+    expect(pg.get('.pg-lines--desktop').attributes('data-layout')).toBe('desktop')
+    expect(pg.get('.pg-lines--mobile').attributes('data-layout')).toBe('mobile')
+  })
+
+  it('anchors mobile connectors to the OnoToolkit diagram card edges', () => {
+    const ono = mount(OnoToolkitVisual)
+    const mobileLines = ono.get('.ono-lines--mobile')
+
+    expect(mobileLines.findAll('[data-node]').map((node) => node.attributes('data-node'))).toEqual([
+      'local-file',
+      'webgpu-wasm',
+      'canvas-output',
+      'download',
+      'indexeddb'
+    ])
+    expect(mobileLines.get('[data-edge="local-to-wasm"]').attributes('d')).toBe('M95 70 V100')
+    expect(mobileLines.get('[data-edge="wasm-to-canvas"]').attributes('d')).toBe('M95 150 V180')
+    expect(mobileLines.get('[data-edge="canvas-to-download"]').attributes('d')).toBe('M95 230 V260')
+    expect(mobileLines.get('[data-edge="wasm-to-indexeddb"]').attributes('d')).toBe('M170 125 H220')
+  })
+
+  it('anchors mobile connectors to the pg-client workflow card edges', () => {
+    const pg = mount(PgClientMobileVisual)
+    const mobileLines = pg.get('.pg-lines--mobile')
+
+    expect(mobileLines.findAll('[data-node]').map((node) => node.attributes('data-node'))).toEqual([
+      'connection',
+      'object-browser',
+      'sql-editor',
+      'shortcut-guard',
+      'results-and-logs'
+    ])
+    expect(mobileLines.get('[data-edge="connection-to-browser"]').attributes('d')).toBe(
+      'M170 42 H230'
+    )
+    expect(mobileLines.get('[data-edge="browser-to-editor"]').attributes('d')).toBe('M305 65 V105')
+    expect(mobileLines.get('[data-edge="editor-to-guard"]').attributes('d')).toBe('M230 127 H170')
+    expect(mobileLines.get('[data-edge="guard-to-results"]').attributes('d')).toBe('M95 150 V190')
   })
 
   it('hides visual node diagrams from assistive technology when flow descriptions are present', () => {

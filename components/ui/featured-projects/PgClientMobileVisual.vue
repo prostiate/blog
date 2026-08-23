@@ -26,7 +26,12 @@ const productAvailable = ref(true)
         <p class="sr-only">
           Connection to Object browser to SQL editor to Shortcut guard to Results and logs.
         </p>
-        <svg class="architecture-lines pg-lines--desktop" viewBox="0 0 600 220" aria-hidden="true">
+        <svg
+          class="architecture-lines pg-lines--desktop"
+          viewBox="0 0 600 220"
+          aria-hidden="true"
+          data-layout="desktop"
+        >
           <defs>
             <marker id="pg-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
               <path d="M0,0 L8,4 L0,8 Z" />
@@ -37,7 +42,12 @@ const productAvailable = ref(true)
           <path data-edge="editor-to-guard" d="M345 110 H380" marker-end="url(#pg-arrow)" />
           <path data-edge="guard-to-results" d="M465 110 H500" marker-end="url(#pg-arrow)" />
         </svg>
-        <svg class="architecture-lines pg-lines--mobile" viewBox="0 0 400 320" aria-hidden="true">
+        <svg
+          class="architecture-lines pg-lines--mobile"
+          viewBox="0 0 400 280"
+          aria-hidden="true"
+          data-layout="mobile"
+        >
           <defs>
             <marker
               id="pg-mobile-arrow"
@@ -52,20 +62,32 @@ const productAvailable = ref(true)
           </defs>
           <path
             data-edge="connection-to-browser"
-            d="M140 70 H260"
+            d="M170 42 H230"
             marker-end="url(#pg-mobile-arrow)"
           />
-          <path
-            data-edge="browser-to-editor"
-            d="M300 100 L100 160"
-            marker-end="url(#pg-mobile-arrow)"
-          />
-          <path data-edge="editor-to-guard" d="M140 190 H260" marker-end="url(#pg-mobile-arrow)" />
-          <path
-            data-edge="guard-to-results"
-            d="M300 215 L200 270"
-            marker-end="url(#pg-mobile-arrow)"
-          />
+          <path data-edge="browser-to-editor" d="M305 65 V105" marker-end="url(#pg-mobile-arrow)" />
+          <path data-edge="editor-to-guard" d="M230 127 H170" marker-end="url(#pg-mobile-arrow)" />
+          <path data-edge="guard-to-results" d="M95 150 V190" marker-end="url(#pg-mobile-arrow)" />
+          <g class="mobile-node" data-node="connection">
+            <rect x="20" y="20" width="150" height="45" rx="10" />
+            <text x="95" y="42">Connection</text>
+          </g>
+          <g class="mobile-node" data-node="object-browser">
+            <rect x="230" y="20" width="150" height="45" rx="10" />
+            <text x="305" y="42">Object browser</text>
+          </g>
+          <g class="mobile-node" data-node="sql-editor">
+            <rect x="230" y="105" width="150" height="45" rx="10" />
+            <text x="305" y="127">SQL editor</text>
+          </g>
+          <g class="mobile-node mobile-node--accent" data-node="shortcut-guard">
+            <rect x="20" y="105" width="150" height="45" rx="10" />
+            <text x="95" y="127">Shortcut guard</text>
+          </g>
+          <g class="mobile-node" data-node="results-and-logs">
+            <rect x="20" y="190" width="360" height="45" rx="10" />
+            <text x="200" y="212">Results and logs</text>
+          </g>
         </svg>
         <div class="pg-flow" aria-hidden="true">
           <span class="scene-node">Connection</span>
@@ -125,6 +147,28 @@ const productAvailable = ref(true)
   fill: #22c55e;
 }
 
+.mobile-node rect {
+  fill: var(--bg-surface);
+  stroke: var(--border-medium);
+  stroke-width: 1;
+}
+
+.mobile-node text {
+  fill: var(--text-primary);
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.mobile-node--accent rect {
+  stroke: rgb(34 197 94 / 0.65);
+}
+
+.mobile-node--accent text {
+  fill: #16a34a;
+}
+
 .pg-lines--mobile {
   display: none;
 }
@@ -165,17 +209,7 @@ const productAvailable = ref(true)
   }
 
   .pg-flow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(3, 4.5rem);
-    gap: 0.75rem 0.5rem;
-  }
-
-  .pg-flow .scene-node {
-    min-height: 4.5rem;
-  }
-
-  .pg-flow .scene-node:last-child {
-    grid-column: 1 / -1;
+    display: none;
   }
 }
 </style>
