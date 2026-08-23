@@ -13,6 +13,30 @@ export default defineNuxtConfig({
     }
   },
 
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (nitroConfig.prerender) {
+        nitroConfig.prerender.routes = nitroConfig.prerender.routes || []
+        const fs = await import('node:fs')
+        const path = await import('node:path')
+        const blogDir = path.resolve(process.cwd(), 'content/blog')
+        if (fs.existsSync(blogDir)) {
+          const blogFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith('.md'))
+          blogFiles.forEach((file) => {
+            nitroConfig.prerender!.routes!.push(`/blog/${file.replace(/\.md$/, '')}`)
+          })
+        }
+        const projDir = path.resolve(process.cwd(), 'content/projects')
+        if (fs.existsSync(projDir)) {
+          const projFiles = fs.readdirSync(projDir).filter((f) => f.endsWith('.md'))
+          projFiles.forEach((file) => {
+            nitroConfig.prerender!.routes!.push(`/projects/${file.replace(/\.md$/, '')}`)
+          })
+        }
+      }
+    }
+  },
+
   site: {
     url: 'https://irfankurniawan.com',
     name: 'Muhammad Irfan Kurniawan - Senior Full Stack Engineer'

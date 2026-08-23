@@ -7,7 +7,7 @@
       <NuxtLink to="/" class="group flex items-center gap-2.5">
         <UiLogoMark />
         <span class="text-sm font-semibold tracking-tight text-[var(--text-primary)]"
-          >Irfan Kurniawan</span
+          >Muhammad Irfan Kurniawan</span
         >
       </NuxtLink>
 
