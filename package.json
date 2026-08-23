@@ -13,7 +13,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "nuxi prepare && vue-tsc --noEmit",
-    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm generate",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate": "pnpm format:check && pnpm lint && pnpm test && pnpm typecheck && pnpm generate",
     "deploy": "pnpm validate && wrangler pages deploy dist --project-name=irfankurniawan-blog --branch=main --commit-dirty=true"
   },
   "keywords": [],
@@ -36,10 +38,13 @@
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^26.2.0",
     "@types/three": "^0.185.4",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/test-utils": "^2.4.11",
     "better-sqlite3": "^13.0.3",
     "eslint": "^10.9.0",
     "eslint-plugin-vue": "^10.10.0",
     "globals": "^17.11.0",
+    "happy-dom": "^20.11.6",
     "lucide-vue-next": "^1.0.0",
     "nuxt": "^4.5.2",
     "prettier": "^3.9.6",
@@ -48,10 +53,14 @@
     "three": "^0.185.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.67.0",
+    "vitest": "^4.1.11",
     "vue": "^3.5.41",
     "vue-eslint-parser": "^10.4.1",
     "vue-router": "^5.2.0",
     "vue-tsc": "^3.3.11",
     "wrangler": "^4.125.0"
+  },
+  "dependencies": {
+    "motion-v": "^2.4.0"
   }
 }
