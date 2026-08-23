@@ -254,8 +254,8 @@ onBeforeUnmount(() => {
 }
 
 .project-xray__handle:focus-visible {
-  outline: 2px solid #10b981;
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px #10b981;
 }
 
 .project-xray__handle--start {
