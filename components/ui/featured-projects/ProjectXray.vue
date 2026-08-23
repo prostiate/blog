@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { percentageFromPointer } from '../../../utils/xray'
 
 const props = withDefaults(
@@ -9,7 +9,9 @@ const props = withDefaults(
 
 const stage = ref<HTMLElement | null>(null)
 const revealPercent = ref(Math.min(100, Math.max(0, props.initialPercent)))
+const isMobile = ref(false)
 let activePointerId: number | null = null
+let mobileQuery: MediaQueryList | null = null
 
 watch(
   () => props.productAvailable,
@@ -40,14 +42,14 @@ function finishPointer(pointerId: number) {
 }
 
 function onPointerDown(event: PointerEvent) {
-  if (!props.productAvailable || !stage.value) return
+  if (isMobile.value || !props.productAvailable || !stage.value) return
   activePointerId = event.pointerId
   stage.value.setPointerCapture(event.pointerId)
   setRevealFromPointer(event.clientX)
 }
 
 function onPointerMove(event: PointerEvent) {
-  if (activePointerId !== event.pointerId) return
+  if (isMobile.value || activePointerId !== event.pointerId) return
   setRevealFromPointer(event.clientX)
 }
 
@@ -76,8 +78,23 @@ function onSliderKeydown(event: KeyboardEvent) {
   revealPercent.value = Math.min(100, Math.max(0, next))
 }
 
+function updateMobileInput() {
+  isMobile.value = mobileQuery?.matches ?? false
+  if (isMobile.value && activePointerId !== null) {
+    releasePointerCapture(activePointerId)
+    activePointerId = null
+  }
+}
+
+onMounted(() => {
+  mobileQuery = window.matchMedia('(max-width: 639px)')
+  updateMobileInput()
+  mobileQuery.addEventListener('change', updateMobileInput)
+})
+
 onBeforeUnmount(() => {
   if (activePointerId !== null) releasePointerCapture(activePointerId)
+  mobileQuery?.removeEventListener('change', updateMobileInput)
 })
 </script>
 
@@ -121,6 +138,7 @@ onBeforeUnmount(() => {
         <slot name="product" />
       </div>
       <div
+        v-if="!isMobile"
         role="slider"
         tabindex="0"
         aria-valuemin="0"
@@ -129,6 +147,10 @@ onBeforeUnmount(() => {
         :aria-label="label"
         :aria-disabled="!productAvailable"
         class="project-xray__handle"
+        :class="{
+          'project-xray__handle--start': revealPercent === 0,
+          'project-xray__handle--end': revealPercent === 100
+        }"
         :style="{ left: `${revealPercent}%` }"
         @keydown="onSliderKeydown"
       />
@@ -236,14 +258,39 @@ onBeforeUnmount(() => {
   outline-offset: 2px;
 }
 
+.project-xray__handle--start {
+  transform: none;
+}
+
+.project-xray__handle--start::before,
+.project-xray__handle--start::after {
+  left: 0;
+}
+
+.project-xray__handle--start::after {
+  transform: translate(0, -50%);
+}
+
+.project-xray__handle--end {
+  transform: translateX(-100%);
+}
+
+.project-xray__handle--end::before,
+.project-xray__handle--end::after {
+  left: 100%;
+}
+
+.project-xray__handle--end::after {
+  transform: translate(-100%, -50%);
+}
+
 @media (max-width: 639px) {
-  .project-xray__handle {
-    opacity: 0;
-    pointer-events: none;
+  .project-xray__stage {
+    touch-action: pan-y;
   }
 
-  .project-xray__handle:focus-visible {
-    opacity: 1;
+  .project-xray__handle {
+    display: none;
   }
 }
 </style>

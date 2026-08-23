@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import type { ProjectItem } from '../../types/project'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import FeaturedProjectsCarousel from './FeaturedProjectsCarousel.vue'
@@ -181,6 +182,7 @@ describe('FeaturedProjectsCarousel', () => {
     )
 
     const wrapper = mountCarousel(projects, true)
+    await nextTick()
 
     expect(wrapper.get('[data-active-tab-indicator]').attributes('data-active-tab-indicator')).toBe(
       'static'

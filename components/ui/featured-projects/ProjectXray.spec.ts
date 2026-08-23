@@ -1,13 +1,25 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { percentageFromPointer } from '../../../utils/xray'
 import ProjectXray from './ProjectXray.vue'
 
-const mountXray = () =>
-  mount(ProjectXray, {
+function mountXray(mobile = false) {
+  vi.stubGlobal(
+    'matchMedia',
+    vi.fn().mockImplementation((query: string) => ({
+      matches: query === '(max-width: 639px)' ? mobile : false,
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn()
+    }))
+  )
+
+  return mount(ProjectXray, {
     props: { label: 'OnoToolkit architecture reveal' },
     slots: { product: 'Product layer', architecture: 'Architecture layer' }
   })
+}
 
 function setStageBounds(stage: HTMLElement, left = 100, width = 400) {
   Object.defineProperty(stage, 'getBoundingClientRect', {
@@ -17,6 +29,10 @@ function setStageBounds(stage: HTMLElement, left = 100, width = 400) {
 }
 
 describe('ProjectXray', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
   it('starts at a 70 percent product reveal', () => {
     expect(mountXray().get('[role="slider"]').attributes('aria-valuenow')).toBe('70')
   })
@@ -90,6 +106,33 @@ describe('ProjectXray', () => {
     await stage.trigger('pointerdown', { clientX: 350, pointerId: 1 })
 
     expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('63')
+  })
+
+  it('ignores stage pointer input and removes the reveal slider on mobile', async () => {
+    const wrapper = mountXray(true)
+    const stage = wrapper.get('.project-xray__stage')
+    const element = stage.element as HTMLElement
+    element.setPointerCapture = vi.fn()
+    element.releasePointerCapture = vi.fn()
+    setStageBounds(element)
+    await nextTick()
+
+    await stage.trigger('pointerdown', { clientX: 140, pointerId: 11 })
+    await stage.trigger('pointermove', { clientX: 460, pointerId: 11 })
+    await stage.trigger('pointerup', { pointerId: 11 })
+
+    expect(wrapper.get('.project-xray__product').attributes('style')).toContain('30%')
+    expect(wrapper.find('[role="slider"]').exists()).toBe(false)
+  })
+
+  it('keeps explicit mobile layer controls available without the slider', async () => {
+    const wrapper = mountXray(true)
+    await nextTick()
+
+    await wrapper.get('[data-layer="architecture"]').trigger('click')
+    expect(wrapper.get('.project-xray__product').attributes('style')).toContain('100%')
+    await wrapper.get('[data-layer="product"]').trigger('click')
+    expect(wrapper.get('.project-xray__product').attributes('style')).toContain('0%')
   })
 
   it('releases pointer capture after pointer cancellation', async () => {

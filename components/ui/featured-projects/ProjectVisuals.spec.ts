@@ -32,7 +32,9 @@ function stubViewport(initialMobile: boolean) {
       isMobile = matches
       for (const listener of listeners) listener({ matches } as MediaQueryListEvent)
     },
-    removeEventListener
+    listenerCount() {
+      return listeners.size
+    }
   }
 }
 
@@ -127,7 +129,7 @@ describe('project-specific X-ray visuals', () => {
 
     desktopOno.unmount()
     desktopPg.unmount()
-    expect(viewport.removeEventListener).toHaveBeenCalledTimes(2)
+    expect(viewport.listenerCount()).toBe(0)
   })
 
   it('anchors mobile connectors to the OnoToolkit diagram card edges', async () => {

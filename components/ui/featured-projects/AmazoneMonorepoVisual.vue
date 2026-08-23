@@ -166,7 +166,18 @@ import ProjectXray from './ProjectXray.vue'
 @media (max-width: 639px) {
   .app-scene {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 1rem;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .app-window {
+    min-height: 4.25rem;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .product-caption {
+    margin-top: 0;
   }
 
   .amazone-flow {

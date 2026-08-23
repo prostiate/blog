@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { AnimatePresence, motion, useReducedMotion } from 'motion-v'
 import type { ProjectItem } from '../../types/project'
 import {
@@ -23,13 +23,21 @@ const activeIndex = ref(0)
 const tabRefs = ref<HTMLButtonElement[]>([])
 const swipeStartX = ref<number | null>(null)
 const prefersReducedMotion = useReducedMotion()
+const motionPreferenceReady = ref(false)
 
 const currentProject = computed(() => props.projects[activeIndex.value])
 const activeVisual = computed(() => {
   const id = getFeaturedVisualId(currentProject.value?.path)
   return id ? visualComponents[id] : null
 })
+const reducedMotionEnabled = computed(
+  () => motionPreferenceReady.value && Boolean(prefersReducedMotion.value)
+)
 const panelMotion = computed(() => getPanelMotion(Boolean(prefersReducedMotion.value)))
+
+onMounted(() => {
+  motionPreferenceReady.value = true
+})
 
 function tabId(index: number) {
   return `featured-project-tab-${index}`
@@ -149,7 +157,7 @@ function cancelSwipe() {
         {{ project.title }}
         <template v-if="activeIndex === index">
           <span
-            v-if="prefersReducedMotion"
+            v-if="reducedMotionEnabled"
             data-active-tab-indicator="static"
             class="absolute inset-x-3 -bottom-px h-px bg-emerald-500"
           />
