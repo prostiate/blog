@@ -68,44 +68,6 @@
       </div>
     </section>
 
-    <!-- Setup & Workflows -->
-    <section class="space-y-6">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-        Setup & Workflows
-      </h2>
-      <div
-        class="space-y-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 text-sm"
-      >
-        <div>
-          <span class="mb-1.5 block font-semibold text-[var(--text-primary)]"
-            >Hardware & Cloud Estate:</span
-          >
-          <ul class="list-disc space-y-1.5 pl-4 text-[var(--text-secondary)]">
-            <li>Primary Machine: Modern Linux / Unix Development Environment</li>
-            <li>
-              Personal Infrastructure: 2-node AWS EC2 cluster (m7i-flex.large, Ubuntu 24.04) running
-              AI agent harnesses and Tailscale mesh
-            </li>
-            <li>Display & Input: Ergonomic warm-tone high-legibility display calibration</li>
-          </ul>
-        </div>
-        <div class="border-t border-[var(--border-subtle)] pt-4">
-          <span class="mb-1.5 block font-semibold text-[var(--text-primary)]"
-            >Software & Tooling:</span
-          >
-          <ul class="list-disc space-y-1.5 pl-4 text-[var(--text-secondary)]">
-            <li>Editor: VS Code / Cursor / Neovim with Geist Mono font</li>
-            <li>Terminal: Tmux, zsh, Tailscale mesh networking</li>
-            <li>Edge & Runtime: Bun, Node.js, Cloudflare Workers, Docker</li>
-            <li>
-              AI Practice: Deliberate AI-assisted development (Claude Code, Gemini, Copilot) for
-              elevated engineering throughput
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <!-- Canonical Contact Block -->
     <div
       class="mono-font space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-code)] p-6 text-center text-xs"

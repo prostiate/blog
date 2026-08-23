@@ -10,10 +10,6 @@
       </div>
 
       <div class="mono-font flex flex-wrap items-center gap-4 text-xs">
-        <NuxtLink to="/logo" class="hover:text-[var(--text-primary)] hover:underline"
-          >Brand & Logo</NuxtLink
-        >
-        <span>·</span>
         <a
           href="mailto:mail@irfankurniawan.com"
           class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
