@@ -45,16 +45,26 @@
       </div>
     </div>
 
-    <!-- Project Tab Strip -->
-    <div class="no-scrollbar flex items-center gap-2 overflow-x-auto pb-1">
+    <!-- Project Tab Strip with Drag-to-Scroll & Touch Navigation -->
+    <div
+      ref="tabsContainerRef"
+      @mousedown="onMouseDown"
+      @mousemove="onMouseMove"
+      @mouseup="onMouseUp"
+      @mouseleave="onMouseLeave"
+      :class="[
+        'no-scrollbar flex touch-pan-x select-none items-center gap-2 overflow-x-auto scroll-smooth pb-1',
+        isDragging ? 'cursor-grabbing' : 'cursor-grab'
+      ]"
+    >
       <button
         v-for="(p, idx) in projects"
         :key="p.id || p.title"
-        @click="activeIndex = idx"
+        @click="selectTab(idx)"
         :class="[
           'mono-font flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs transition-all',
           activeIndex === idx
-            ? 'bg-[var(--text-primary)] font-semibold text-[var(--bg-canvas)] shadow-sm'
+            ? 'scale-[1.02] bg-[var(--text-primary)] font-semibold text-[var(--bg-canvas)] shadow-sm'
             : 'border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:border-[var(--border-medium)] hover:text-[var(--text-primary)]'
         ]"
       >
@@ -510,7 +520,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 
 export interface ProjectItem {
   id?: string
@@ -531,6 +541,13 @@ const props = defineProps<{
 }>()
 
 const activeIndex = ref(0)
+const tabsContainerRef = ref<HTMLElement | null>(null)
+
+// Drag-to-scroll state
+const isDragging = ref(false)
+const startX = ref(0)
+const scrollLeft = ref(0)
+let hasMoved = false
 
 const currentProject = computed<ProjectItem>(() => {
   const defaultProj: ProjectItem = {
@@ -544,12 +561,62 @@ const currentProject = computed<ProjectItem>(() => {
   return list[activeIndex.value] ?? list[0] ?? defaultProj
 })
 
+// Auto-track and smoothly scroll active button into view
+watch(activeIndex, async (idx) => {
+  await nextTick()
+  if (!tabsContainerRef.value) return
+  const buttons = tabsContainerRef.value.querySelectorAll('button')
+  const targetBtn = buttons[idx] as HTMLElement
+  if (targetBtn) {
+    targetBtn.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    })
+  }
+})
+
 const nextProject = () => {
+  if (!props.projects.length) return
   activeIndex.value = (activeIndex.value + 1) % props.projects.length
 }
 
 const prevProject = () => {
+  if (!props.projects.length) return
   activeIndex.value = (activeIndex.value - 1 + props.projects.length) % props.projects.length
+}
+
+const onMouseDown = (e: MouseEvent) => {
+  if (!tabsContainerRef.value) return
+  isDragging.value = true
+  hasMoved = false
+  startX.value = e.pageX - tabsContainerRef.value.offsetLeft
+  scrollLeft.value = tabsContainerRef.value.scrollLeft
+}
+
+const onMouseMove = (e: MouseEvent) => {
+  if (!isDragging.value || !tabsContainerRef.value) return
+  e.preventDefault()
+  const x = e.pageX - tabsContainerRef.value.offsetLeft
+  const walk = (x - startX.value) * 1.5
+  if (Math.abs(walk) > 4) {
+    hasMoved = true
+  }
+  tabsContainerRef.value.scrollLeft = scrollLeft.value - walk
+}
+
+const onMouseUp = () => {
+  isDragging.value = false
+}
+
+const onMouseLeave = () => {
+  isDragging.value = false
+}
+
+const selectTab = (idx: number) => {
+  if (!hasMoved) {
+    activeIndex.value = idx
+  }
 }
 
 const onKeyDown = (e: KeyboardEvent) => {
