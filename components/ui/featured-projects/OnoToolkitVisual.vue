@@ -172,21 +172,22 @@ onBeforeUnmount(() => {
 <style scoped>
 .product-scene,
 .architecture-scene {
-  min-height: 19rem;
+  height: 100%;
+  min-height: 0;
 }
 
 .product-scene {
   display: grid;
   place-items: center;
-  background: var(--bg-canvas);
+  background: #0a1b2d;
 }
 
 .product-image {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 19rem;
-  object-fit: cover;
+  min-height: 0;
+  object-fit: contain;
 }
 
 .architecture-scene {

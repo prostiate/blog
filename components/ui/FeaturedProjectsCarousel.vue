@@ -230,7 +230,7 @@ function cancelSwipe() {
 
         <div
           data-swipe-zone="text"
-          class="touch-pan-y space-y-5 p-6 sm:p-8"
+          class="featured-projects__details touch-pan-y space-y-5 p-6 sm:p-8"
           @pointerdown="startSwipe"
           @pointerup="finishSwipe"
           @pointercancel="cancelSwipe"
@@ -287,3 +287,23 @@ function cancelSwipe() {
     </AnimatePresence>
   </section>
 </template>
+
+<style scoped>
+@media (max-width: 374px) {
+  .featured-projects__details {
+    min-height: 27rem;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 639px) {
+  .featured-projects__details {
+    min-height: 24.25rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .featured-projects__details {
+    min-height: 18.625rem;
+  }
+}
+</style>

@@ -60,7 +60,8 @@ import ProjectXray from './ProjectXray.vue'
 <style scoped>
 .product-scene,
 .architecture-scene {
-  min-height: 19rem;
+  height: 100%;
+  min-height: 0;
 }
 
 .app-scene {
@@ -140,7 +141,7 @@ import ProjectXray from './ProjectXray.vue'
 
 .scene-node {
   display: grid;
-  min-height: 3.75rem;
+  min-height: 3.25rem;
   place-items: center;
   border: 1px solid var(--border-medium);
   border-radius: 0.75rem;

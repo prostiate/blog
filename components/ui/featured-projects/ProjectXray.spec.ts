@@ -29,6 +29,23 @@ describe('ProjectXray', () => {
     expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('100')
   })
 
+  it('exposes which explicit endpoint is selected', async () => {
+    const wrapper = mountXray()
+    const product = wrapper.get('[data-layer="product"]')
+    const architecture = wrapper.get('[data-layer="architecture"]')
+
+    expect(product.attributes('aria-pressed')).toBe('false')
+    expect(architecture.attributes('aria-pressed')).toBe('false')
+
+    await architecture.trigger('click')
+    expect(product.attributes('aria-pressed')).toBe('false')
+    expect(architecture.attributes('aria-pressed')).toBe('true')
+
+    await product.trigger('click')
+    expect(product.attributes('aria-pressed')).toBe('true')
+    expect(architecture.attributes('aria-pressed')).toBe('false')
+  })
+
   it('supports slider keyboard controls', async () => {
     const wrapper = mountXray()
     const slider = wrapper.get('[role="slider"]')

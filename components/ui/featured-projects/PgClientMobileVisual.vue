@@ -178,7 +178,8 @@ onBeforeUnmount(() => {
 <style scoped>
 .product-scene,
 .architecture-scene {
-  min-height: 19rem;
+  height: 100%;
+  min-height: 0;
 }
 
 .product-scene {
@@ -191,7 +192,7 @@ onBeforeUnmount(() => {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 19rem;
+  min-height: 0;
   object-fit: cover;
   object-position: top;
 }

@@ -88,11 +88,19 @@ onBeforeUnmount(() => {
         type="button"
         data-layer="product"
         :disabled="!productAvailable"
+        :aria-pressed="revealPercent === 100"
+        :class="{ 'project-xray__control--active': revealPercent === 100 }"
         @click="revealPercent = 100"
       >
         Product
       </button>
-      <button type="button" data-layer="architecture" @click="revealPercent = 0">
+      <button
+        type="button"
+        data-layer="architecture"
+        :aria-pressed="revealPercent === 0"
+        :class="{ 'project-xray__control--active': revealPercent === 0 }"
+        @click="revealPercent = 0"
+      >
         Architecture
       </button>
     </div>
@@ -135,13 +143,46 @@ onBeforeUnmount(() => {
 }
 
 .project-xray__controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  display: inline-flex;
+  width: fit-content;
+  gap: 0.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.625rem;
+  background: var(--bg-code);
+  padding: 0.25rem;
+}
+
+.project-xray__controls button {
+  min-height: 2rem;
+  border: 1px solid transparent;
+  border-radius: 0.4375rem;
+  padding: 0.375rem 0.625rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.project-xray__controls button:hover:not(:disabled),
+.project-xray__control--active {
+  border-color: var(--border-medium);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.project-xray__controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.project-xray__controls button:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
 }
 
 .project-xray__stage {
   position: relative;
+  height: 19rem;
   overflow: hidden;
   touch-action: none;
 }
@@ -158,13 +199,40 @@ onBeforeUnmount(() => {
 .project-xray__handle {
   position: absolute;
   inset-block: 0;
-  width: 1px;
+  z-index: 2;
+  width: 1rem;
   transform: translateX(-50%);
+  color: #16a34a;
   cursor: ew-resize;
 }
 
+.project-xray__handle::before,
+.project-xray__handle::after {
+  position: absolute;
+  left: 50%;
+  content: '';
+  transform: translateX(-50%);
+}
+
+.project-xray__handle::before {
+  inset-block: 0;
+  width: 2px;
+  background: currentColor;
+}
+
+.project-xray__handle::after {
+  top: 50%;
+  width: 0.875rem;
+  height: 2rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-subtle);
+  transform: translate(-50%, -50%);
+}
+
 .project-xray__handle:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid #10b981;
   outline-offset: 2px;
 }
 
@@ -172,6 +240,10 @@ onBeforeUnmount(() => {
   .project-xray__handle {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .project-xray__handle:focus-visible {
+    opacity: 1;
   }
 }
 </style>
