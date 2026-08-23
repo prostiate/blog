@@ -60,4 +60,15 @@ describe('project portfolio claims', () => {
     expect(existsSync('public/assets/projects/onotoolkit-showcase.webp')).toBe(true)
     expect(existsSync('public/assets/projects/pg-client-mobile-showcase.webp')).toBe(true)
   })
+
+  it('crops the OnoToolkit showcase above the prohibited sentence', () => {
+    const asset = readFileSync('public/assets/projects/onotoolkit-showcase.webp')
+    const dimensions = {
+      width: asset.readUInt16LE(26) & 0x3fff,
+      height: asset.readUInt16LE(28) & 0x3fff
+    }
+
+    expect(asset.subarray(8, 16).toString('ascii')).toBe('WEBPVP8 ')
+    expect(dimensions).toEqual({ width: 1280, height: 350 })
+  })
 })
