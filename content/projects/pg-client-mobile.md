@@ -1,10 +1,10 @@
 ---
 title: pg-client-mobile
-category: Mobile
+category: Mobile / Database Tooling
 description: Android-first Flutter GUI client for PostgreSQL with keystroke safety
   guards and connection management.
 featured: true
-order: 5
+order: 3
 liveUrl: null
 githubUrl: https://github.com/prostiate/pg-client-mobile
 tags:
@@ -24,4 +24,30 @@ architecture:
   - Native connection pool manager with encrypted local credential storage on device.
 ---
 
-Android-first Flutter GUI client for PostgreSQL.
+## Overview
+
+**pg-client-mobile** is an Android-first mobile PostgreSQL management tool built with **Flutter and Dart**. It allows backend engineers, DBAs, and platform administrators to inspect databases, run diagnostic queries, and analyze performance logs directly from mobile devices with built-in guardrails against destructive accidents.
+
+---
+
+## Safety-First Architecture
+
+### 1. SQL Execution Safeguards
+
+- Running queries on a touchscreen carries high accidental click risk. pg-client-mobile parses SQL input before execution to detect potentially destructive statements (`DROP`, `TRUNCATE`, `DELETE` without `WHERE`).
+- Prompts a secondary confirmation modal with explicit schema and affected row estimates before dispatching dangerous operations.
+
+### 2. High-Performance Grid Virtualization
+
+- Query results with thousands of rows are rendered using a 2D virtualized scrolling grid, preventing memory spikes and maintaining smooth 60 FPS scrolling on budget Android smartphones.
+
+### 3. Encrypted Local Storage
+
+- Connection strings, SSL certificates, and SSH tunnel private keys are encrypted on-device using Android Keystore and AES-256 GCM.
+
+---
+
+## Technical Highlights
+
+- **Commits & Ownership**: 100% solo design and development.
+- **Open Source**: Published under MIT License with comprehensive documentation and screenshot galleries.

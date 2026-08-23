@@ -108,7 +108,14 @@
         <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
           <div class="flex items-center gap-2.5">
             <span class="h-3 w-3 rounded-full bg-emerald-500"></span>
-            <h3 class="text-lg font-bold text-[var(--text-primary)]">OnoToolkit</h3>
+            <NuxtLink to="/projects/onotoolkit" class="group inline-flex items-center gap-1.5">
+              <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:underline">
+                OnoToolkit
+              </h3>
+              <span class="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
+                >→</span
+              >
+            </NuxtLink>
             <span
               class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-canvas)] px-2 py-0.5 text-xs text-[var(--text-muted)]"
               >Featured</span
@@ -171,27 +178,35 @@
           screen recording. Zero server uploads, zero accounts.
         </p>
 
-        <div class="flex flex-wrap gap-1.5 pt-1">
-          <span
-            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
-            >Nuxt 4</span
+        <div class="flex flex-col justify-between gap-3 pt-1 sm:flex-row sm:items-center">
+          <div class="flex flex-wrap gap-1.5">
+            <span
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+              >Nuxt 4</span
+            >
+            <span
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+              >WASM</span
+            >
+            <span
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+              >ONNX WebGPU</span
+            >
+            <span
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+              >Ghostscript</span
+            >
+            <span
+              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+              >IndexedDB</span
+            >
+          </div>
+          <NuxtLink
+            to="/projects/onotoolkit"
+            class="mono-font inline-flex items-center gap-1 text-xs font-semibold text-[var(--text-primary)] hover:underline"
           >
-          <span
-            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
-            >WASM</span
-          >
-          <span
-            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
-            >ONNX WebGPU</span
-          >
-          <span
-            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
-            >Ghostscript</span
-          >
-          <span
-            class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
-            >IndexedDB</span
-          >
+            Read Case Study →
+          </NuxtLink>
         </div>
       </div>
 
@@ -200,25 +215,51 @@
         <div
           v-for="project in secondaryProjects"
           :key="project.title"
-          class="space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-canvas)] p-5 transition-colors hover:bg-[var(--bg-surface)]"
+          class="flex flex-col justify-between space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-canvas)] p-5 transition-colors hover:bg-[var(--bg-surface)]"
         >
-          <div class="flex items-center justify-between">
-            <h4 class="text-base font-bold text-[var(--text-primary)]">{{ project.title }}</h4>
-            <span class="mono-font text-[11px] text-[var(--text-muted)]">{{
-              project.category
-            }}</span>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <NuxtLink
+                v-if="project.path"
+                :to="project.path"
+                class="group inline-flex items-center gap-1"
+              >
+                <h4 class="text-base font-bold text-[var(--text-primary)] group-hover:underline">
+                  {{ project.title }}
+                </h4>
+                <span
+                  class="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
+                  >→</span
+                >
+              </NuxtLink>
+              <h4 v-else class="text-base font-bold text-[var(--text-primary)]">
+                {{ project.title }}
+              </h4>
+              <span class="mono-font text-[11px] text-[var(--text-muted)]">{{
+                project.category
+              }}</span>
+            </div>
+            <p class="text-xs leading-relaxed text-[var(--text-secondary)]">
+              {{ project.description }}
+            </p>
           </div>
-          <p class="text-xs leading-relaxed text-[var(--text-secondary)]">
-            {{ project.description }}
-          </p>
-          <div class="flex flex-wrap gap-1 pt-1">
-            <span
-              v-for="tag in (project.tags || []).slice(0, 3)"
-              :key="tag"
-              class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]"
+          <div class="flex items-center justify-between pt-1">
+            <div class="flex flex-wrap gap-1">
+              <span
+                v-for="tag in (project.tags || []).slice(0, 3)"
+                :key="tag"
+                class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-[10px] text-[var(--text-muted)]"
+              >
+                {{ tag }}
+              </span>
+            </div>
+            <NuxtLink
+              v-if="project.path"
+              :to="project.path"
+              class="mono-font text-[11px] font-semibold text-[var(--text-primary)] hover:underline"
             >
-              {{ tag }}
-            </span>
+              Details →
+            </NuxtLink>
           </div>
         </div>
       </div>

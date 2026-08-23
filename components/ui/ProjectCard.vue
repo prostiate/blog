@@ -8,7 +8,19 @@
           class="mono-font block text-[11px] uppercase tracking-wider text-[var(--text-muted)]"
           >{{ project.category }}</span
         >
-        <h3 class="text-lg font-bold text-[var(--text-primary)]">{{ project.title }}</h3>
+        <NuxtLink
+          v-if="project.path"
+          :to="project.path"
+          class="group inline-flex items-center gap-1.5"
+        >
+          <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:underline">
+            {{ project.title }}
+          </h3>
+          <span class="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"
+            >→</span
+          >
+        </NuxtLink>
+        <h3 v-else class="text-lg font-bold text-[var(--text-primary)]">{{ project.title }}</h3>
       </div>
       <div class="mono-font flex items-center gap-3 text-xs">
         <a
@@ -30,10 +42,10 @@
             <circle cx="12" cy="12" r="10" />
             <line x1="2" y1="12" x2="22" y2="12" />
             <path
-              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"
             />
           </svg>
-          Live Site ↗
+          Live Demo ↗
         </a>
         <a
           v-if="project.githubUrl"
@@ -82,18 +94,27 @@
       </ul>
     </div>
 
-    <!-- Tech Badges -->
+    <!-- Footer: Tech Badges + Case Study Link -->
     <div
-      v-if="project.tags && project.tags.length"
-      class="flex flex-wrap gap-1.5 border-t border-[var(--border-subtle)] pt-2"
+      class="flex flex-col justify-between gap-3 border-t border-[var(--border-subtle)] pt-3 sm:flex-row sm:items-center"
     >
-      <span
-        v-for="tag in project.tags"
-        :key="tag"
-        class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+      <div v-if="project.tags && project.tags.length" class="flex flex-wrap gap-1.5">
+        <span
+          v-for="tag in project.tags"
+          :key="tag"
+          class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-[11px] text-[var(--text-secondary)]"
+        >
+          {{ tag }}
+        </span>
+      </div>
+
+      <NuxtLink
+        v-if="project.path"
+        :to="project.path"
+        class="mono-font inline-flex items-center gap-1 text-xs font-semibold text-[var(--text-primary)] hover:underline"
       >
-        {{ tag }}
-      </span>
+        View Case Study →
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -110,6 +131,7 @@ export interface Project {
   liveUrl?: string | null
   githubUrl?: string | null
   featured?: boolean
+  path?: string
 }
 
 defineProps<{

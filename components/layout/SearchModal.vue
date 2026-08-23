@@ -222,7 +222,7 @@ const suggestedItems = [
     type: 'Project',
     title: 'OnoToolkit',
     subtitle: 'Privacy-first suite of browser tools running via WASM, WebGPU, and ONNX Runtime Web',
-    link: '/projects'
+    link: '/projects/onotoolkit'
   },
   {
     type: 'Blog',
@@ -240,7 +240,7 @@ const suggestedItems = [
     type: 'Project',
     title: 'AccessButtons',
     subtitle: 'Premium floating media volume controller for Android built with Kotlin & Compose',
-    link: '/projects'
+    link: '/projects/access-buttons'
   }
 ]
 
@@ -249,37 +249,37 @@ const staticIndex = [
     type: 'Project',
     title: 'OnoToolkit',
     subtitle: 'Privacy-first suite of high-performance browser tools running via WASM & WebGPU',
-    link: '/projects'
+    link: '/projects/onotoolkit'
   },
   {
     type: 'Project',
     title: 'Amazone Monorepo',
     subtitle: 'Unified Bun + Turborepo monorepo powering 6 production retail apps',
-    link: '/projects'
+    link: '/projects/fe-amazone-monorepo'
   },
   {
     type: 'Project',
     title: 'pg-client-mobile',
     subtitle: 'Android-first Flutter GUI client for PostgreSQL with SQL safety guards',
-    link: '/projects'
+    link: '/projects/pg-client-mobile'
   },
   {
     type: 'Project',
     title: 'AccessButtons',
     subtitle: 'Premium floating media volume controller for Android built with Kotlin & Compose',
-    link: '/projects'
+    link: '/projects/access-buttons'
   },
   {
     type: 'Project',
     title: 'Amazone Auth Service',
     subtitle: 'In-house Go GraphQL authentication backend with revocable JWTs',
-    link: '/projects'
+    link: '/projects/amazone-auth-service'
   },
   {
     type: 'Project',
     title: 'Baremetal CI/CD & Platform Modernization',
     subtitle: 'Health-gated rolling deployment pipeline on Docker Compose + Jenkins',
-    link: '/projects'
+    link: '/projects/k8s-docker-migration'
   },
   {
     type: 'Blog',
