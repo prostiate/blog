@@ -112,7 +112,7 @@
         :to="project.path"
         class="mono-font inline-flex items-center gap-1 text-xs font-semibold text-[var(--text-primary)] hover:underline"
       >
-        View Case Study →
+        Details →
       </NuxtLink>
     </div>
   </div>
