@@ -102,23 +102,63 @@ onBeforeUnmount(() => {
           </g>
           <g data-layer="nodes">
             <g class="mobile-node" data-node="connection">
-              <rect x="20" y="20" width="150" height="45" rx="10" />
+              <rect
+                x="20"
+                y="20"
+                width="150"
+                height="45"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="95" y="42">Connection</text>
             </g>
             <g class="mobile-node" data-node="object-browser">
-              <rect x="230" y="20" width="150" height="45" rx="10" />
+              <rect
+                x="230"
+                y="20"
+                width="150"
+                height="45"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="305" y="42">Object browser</text>
             </g>
             <g class="mobile-node" data-node="sql-editor">
-              <rect x="230" y="105" width="150" height="45" rx="10" />
+              <rect
+                x="230"
+                y="105"
+                width="150"
+                height="45"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="305" y="127">SQL editor</text>
             </g>
             <g class="mobile-node mobile-node--accent" data-node="shortcut-guard">
-              <rect x="20" y="105" width="150" height="45" rx="10" />
+              <rect
+                x="20"
+                y="105"
+                width="150"
+                height="45"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="95" y="127">Shortcut guard</text>
             </g>
             <g class="mobile-node" data-node="results-and-logs">
-              <rect x="20" y="190" width="360" height="45" rx="10" />
+              <rect
+                x="20"
+                y="190"
+                width="360"
+                height="45"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="200" y="212">Results and logs</text>
             </g>
           </g>

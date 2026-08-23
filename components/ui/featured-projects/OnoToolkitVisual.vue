@@ -95,23 +95,63 @@ onBeforeUnmount(() => {
           </g>
           <g data-layer="nodes">
             <g class="mobile-node" data-node="local-file">
-              <rect x="20" y="20" width="150" height="50" rx="10" />
+              <rect
+                x="20"
+                y="20"
+                width="150"
+                height="50"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="95" y="45">Local file</text>
             </g>
             <g class="mobile-node mobile-node--accent" data-node="webgpu-wasm">
-              <rect x="20" y="100" width="150" height="50" rx="10" />
+              <rect
+                x="20"
+                y="100"
+                width="150"
+                height="50"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="95" y="125">WebGPU / WASM</text>
             </g>
             <g class="mobile-node" data-node="canvas-output">
-              <rect x="20" y="180" width="150" height="50" rx="10" />
+              <rect
+                x="20"
+                y="180"
+                width="150"
+                height="50"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="95" y="205">Canvas output</text>
             </g>
             <g class="mobile-node" data-node="download">
-              <rect x="20" y="260" width="150" height="50" rx="10" />
+              <rect
+                x="20"
+                y="260"
+                width="150"
+                height="50"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="95" y="285">Download</text>
             </g>
             <g class="mobile-node" data-node="indexeddb">
-              <rect x="220" y="100" width="150" height="50" rx="10" />
+              <rect
+                x="220"
+                y="100"
+                width="150"
+                height="50"
+                rx="10"
+                fill="var(--bg-surface)"
+                fill-opacity="1"
+              />
               <text x="295" y="125">IndexedDB</text>
             </g>
           </g>

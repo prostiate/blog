@@ -5,16 +5,35 @@ import AmazoneMonorepoVisual from './AmazoneMonorepoVisual.vue'
 import OnoToolkitVisual from './OnoToolkitVisual.vue'
 import PgClientMobileVisual from './PgClientMobileVisual.vue'
 
-function stubViewport(isMobile: boolean) {
-  vi.stubGlobal(
-    'matchMedia',
-    vi.fn().mockReturnValue({
-      matches: isMobile,
-      media: '(max-width: 639px)',
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn()
-    })
+function stubViewport(initialMobile: boolean) {
+  let isMobile = initialMobile
+  const listeners = new Set<(event: MediaQueryListEvent) => void>()
+  const addEventListener = vi.fn((type: string, listener: (event: MediaQueryListEvent) => void) => {
+    if (type === 'change') listeners.add(listener)
+  })
+  const removeEventListener = vi.fn(
+    (type: string, listener: (event: MediaQueryListEvent) => void) => {
+      if (type === 'change') listeners.delete(listener)
+    }
   )
+  const query = {
+    get matches() {
+      return isMobile
+    },
+    media: '(max-width: 639px)',
+    addEventListener,
+    removeEventListener
+  }
+
+  vi.stubGlobal('matchMedia', vi.fn().mockReturnValue(query))
+
+  return {
+    dispatch(matches: boolean) {
+      isMobile = matches
+      for (const listener of listeners) listener({ matches } as MediaQueryListEvent)
+    },
+    removeEventListener
+  }
 }
 
 function getRect(
@@ -77,7 +96,7 @@ describe('project-specific X-ray visuals', () => {
   })
 
   it('renders only the active connector variant at each responsive breakpoint', async () => {
-    stubViewport(false)
+    const viewport = stubViewport(false)
     const desktopOno = mount(OnoToolkitVisual)
     const desktopPg = mount(PgClientMobileVisual)
 
@@ -88,16 +107,27 @@ describe('project-specific X-ray visuals', () => {
     expect(desktopPg.find('.pg-lines--desktop').exists()).toBe(true)
     expect(desktopPg.find('.pg-lines--mobile').exists()).toBe(false)
 
-    stubViewport(true)
-    const mobileOno = mount(OnoToolkitVisual)
-    const mobilePg = mount(PgClientMobileVisual)
+    viewport.dispatch(true)
 
     await nextTick()
 
-    expect(mobileOno.find('.ono-lines--desktop').exists()).toBe(false)
-    expect(mobileOno.find('.ono-lines--mobile').exists()).toBe(true)
-    expect(mobilePg.find('.pg-lines--desktop').exists()).toBe(false)
-    expect(mobilePg.find('.pg-lines--mobile').exists()).toBe(true)
+    expect(desktopOno.find('.ono-lines--desktop').exists()).toBe(false)
+    expect(desktopOno.find('.ono-lines--mobile').exists()).toBe(true)
+    expect(desktopPg.find('.pg-lines--desktop').exists()).toBe(false)
+    expect(desktopPg.find('.pg-lines--mobile').exists()).toBe(true)
+
+    viewport.dispatch(false)
+
+    await nextTick()
+
+    expect(desktopOno.find('.ono-lines--desktop').exists()).toBe(true)
+    expect(desktopOno.find('.ono-lines--mobile').exists()).toBe(false)
+    expect(desktopPg.find('.pg-lines--desktop').exists()).toBe(true)
+    expect(desktopPg.find('.pg-lines--mobile').exists()).toBe(false)
+
+    desktopOno.unmount()
+    desktopPg.unmount()
+    expect(viewport.removeEventListener).toHaveBeenCalledTimes(2)
   })
 
   it('anchors mobile connectors to the OnoToolkit diagram card edges', async () => {
@@ -166,6 +196,25 @@ describe('project-specific X-ray visuals', () => {
     expect(getRect(ono, 'indexeddb')).toEqual({ x: 220, y: 100, width: 150, height: 50 })
     expect(getRect(pg, 'shortcut-guard')).toEqual({ x: 20, y: 105, width: 150, height: 45 })
     expect(getRect(pg, 'results-and-logs')).toEqual({ x: 20, y: 190, width: 360, height: 45 })
+  })
+
+  it('uses opaque surface fills on mobile cards that mask connector interiors', async () => {
+    stubViewport(true)
+    const ono = mount(OnoToolkitVisual)
+    const pg = mount(PgClientMobileVisual)
+
+    await nextTick()
+
+    const cards = [
+      ...ono.findAll('.ono-lines--mobile [data-node] rect'),
+      ...pg.findAll('.pg-lines--mobile [data-node] rect')
+    ]
+    expect(cards).toHaveLength(10)
+
+    for (const card of cards) {
+      expect(card.attributes('fill')).toBe('var(--bg-surface)')
+      expect(card.attributes('fill-opacity')).toBe('1')
+    }
   })
 
   it('attaches every mobile connector to its source and target card boundary', async () => {
