@@ -108,12 +108,13 @@ WASM execution, Canvas output, and download. It communicates that files remain o
 
 **Category:** `Frontend / Architecture`
 
-**Description:** Shared Bun and Turborepo workspace powering six production web applications
-through a reusable Nuxt layer.
+**Description:** Shared Bun and Turborepo workspace for three production Nuxt applications,
+with a separately packaged Cashier Desktop build.
 
 **Tags:** `Vue 3`, `Nuxt`, `Bun`, `Turborepo`, `Chrome 109`
 
-**Product layer:** An abstract, neutral set of application shells. It must not reproduce an
+**Product layer:** An abstract, neutral set of shells representing three production Nuxt
+applications and the separately packaged Cashier Desktop build. It must not reproduce an
 internal interface, expose data, or use a screenshot from the Amazone repositories.
 
 **Architecture layer:** A high-level topology showing the shared Nuxt layer and its
@@ -169,6 +170,8 @@ product stays primary while the architecture layer remains discoverable.
 - Desktop users drag the divider to reveal either layer.
 - Explicit `Product` and `Architecture` controls provide a precise alternative to dragging.
 - Mobile prioritizes the two explicit controls instead of requiring precise divider dragging.
+- The explicit controls form a named group associated with current reveal text such as
+  `70% product, 30% architecture`, which updates whenever the reveal changes.
 - The reveal control exposes an accessible name, current value, and keyboard operation.
 - The product title, description, tags, and links remain visible regardless of reveal state.
 
@@ -242,7 +245,7 @@ carousel images from third-party hosts at runtime.
 - If there are no featured projects, do not render an empty carousel shell.
 - If a public screenshot is missing, show the architecture layer as the complete visual.
 - If Motion fails to load or JavaScript is unavailable, the server-rendered first project,
-  its description, and its links remain readable.
+  its description, and its links remain visibly rendered with non-zero geometry.
 - The visual area reserves its final aspect ratio to prevent layout shift.
 - Global arrow-key listeners are prohibited. Keyboard events are scoped to the carousel.
 - Pointer capture is released on pointer cancellation and component unmount.

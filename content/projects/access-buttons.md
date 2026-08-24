@@ -1,58 +1,32 @@
 ---
 title: AccessButtons
 category: Mobile / Native Android
-description: Premium floating media volume controller for Android built with Kotlin,
-  Jetpack Compose, WindowManager overlays, and MIUI lifecycle resiliency.
-featured: true
+description: Floating media volume controls built for Android with Kotlin, Jetpack
+  Compose, and a resilient MIUI permission flow.
+featured: false
 order: 4
 liveUrl: null
 githubUrl: https://github.com/prostiate/access-buttons
 tags:
   - Kotlin
   - Jetpack Compose
-  - Android SDK
-  - Foreground Service
   - WindowManager
-  - Coroutines
-problemSolved: Hardware volume rocker wear-and-tear and awkward one-handed reaching
-  on large modern smartphones, combined with aggressive background service termination
-  on OEM ROMs (MIUI/Xiaomi).
+  - Foreground Service
+problemSolved: Provides draggable on-screen media volume controls and guides Xiaomi
+  users through the permissions needed to keep the overlay available.
 architecture:
-  - Custom WindowManager floating glass overlay with smooth drag and edge-snapping physics.
-  - Foreground Service architecture with persistent notification ensuring reliable background
-    retention on Android 11+.
-  - Integrated permission flow handling Display Over Other Apps, MIUI Autostart, and
-    Battery Optimization whitelists.
-  - Haptic click feedback integration for tactile button press responses.
+  - WindowManager floating overlay with drag and edge-snapping behavior.
+  - Foreground Service architecture for the overlay lifecycle.
+  - Haptic feedback for volume controls.
+  - MIUI permission flow for overlays, autostart, and battery optimization exclusions.
 ---
 
 ## Overview
 
-[AccessButtons](https://github.com/prostiate/access-buttons) is an Android utility engineered in **Kotlin** and **Jetpack Compose**. It provides an ergonomic, draggable floating glass overlay with `+` / `-` volume controls for `STREAM_MUSIC`, solving physical volume button wear-and-tear and awkward single-handed reaching on large smartphone displays.
+[AccessButtons](https://github.com/prostiate/access-buttons) is an Android media volume controller built in Kotlin and Jetpack Compose. It presents `+` and `-` controls in a draggable WindowManager overlay.
 
----
+## Native Android Implementation
 
-## Native Android Engineering
+The overlay supports dragging, edge snapping, and haptic feedback. A Foreground Service owns its ongoing lifecycle.
 
-### 1. WindowManager Floating Glass Overlay
-
-- Created a lightweight floating overlay attached directly via Android's `WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY`.
-- Built custom touch handlers supporting fluid dragging, inertial fling, and automatic edge-snapping physics along screen boundaries.
-
-### 2. OEM Background Resiliency (MIUI / HyperOS Hardening)
-
-- Modern Android skins (especially MIUI/Xiaomi and EMUI) aggressively terminate background processes.
-- Architected as a prioritized **Foreground Service** paired with a minimal low-priority system notification.
-- Included an onboarding permission manager guiding users through `Display Over Other Apps`, `MIUI Autostart`, and `Battery Optimization Whitelist` settings.
-
-### 3. Tactile Feedback & Volume Stream Sync
-
-- Listens directly to AudioManager stream volume changes and triggers subtle native haptic vibrator pulses on every discrete step change.
-
----
-
-## Source & Architecture
-
-- **Language**: Kotlin 2.x
-- **UI Toolkit**: Jetpack Compose & Material 3
-- **Repository**: [github.com/prostiate/access-buttons](https://github.com/prostiate/access-buttons)
+For Xiaomi devices, the permission flow guides users through Display Over Other Apps, MIUI Autostart, and Battery Optimization whitelist settings.

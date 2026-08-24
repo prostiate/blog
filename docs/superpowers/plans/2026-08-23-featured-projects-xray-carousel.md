@@ -49,6 +49,7 @@
 - `package.json` - Motion and test dependencies plus test scripts
 - `pnpm-lock.yaml` - resolved dependency graph; retain Three.js because `TopologyCanvas.client.vue` uses it in article content
 - `components/ui/FeaturedProjectsCarousel.vue` - single X-ray carousel orchestrator
+- `components/layout/SearchModal.vue` - verified Amazone project search summary
 - `pages/index.vue` - featured-only query and removal of the Three.js section
 - `content/projects/onotoolkit.md` - concise verified content
 - `content/projects/fe-amazone-monorepo.md` - verified metrics and architecture
@@ -104,14 +105,14 @@ Add these scripts to `package.json`:
 Create `vitest.config.ts`:
 
 ```ts
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vitest/config'
+import vue from "@vitejs/plugin-vue"
+import { defineConfig } from "vitest/config"
 
 export default defineConfig({
   plugins: [vue()],
   test: {
-    environment: 'happy-dom',
-    include: ['**/*.spec.ts']
+    environment: "happy-dom",
+    include: ["**/*.spec.ts"]
   }
 })
 ```
@@ -121,20 +122,20 @@ export default defineConfig({
 Create `utils/featured-projects.spec.ts`:
 
 ```ts
-import { describe, expect, it } from 'vitest'
-import { getFeaturedVisualId, getPanelMotion, wrapProjectIndex } from './featured-projects'
+import { describe, expect, it } from "vitest"
+import { getFeaturedVisualId, getPanelMotion, wrapProjectIndex } from "./featured-projects"
 
-describe('featured project helpers', () => {
+describe("featured project helpers", () => {
   it.each([
-    ['/projects/onotoolkit', 'onotoolkit'],
-    ['/projects/fe-amazone-monorepo', 'amazone-monorepo'],
-    ['/projects/pg-client-mobile', 'pg-client-mobile']
-  ] as const)('maps %s to %s', (path, visualId) => {
+    ["/projects/onotoolkit", "onotoolkit"],
+    ["/projects/fe-amazone-monorepo", "amazone-monorepo"],
+    ["/projects/pg-client-mobile", "pg-client-mobile"]
+  ] as const)("maps %s to %s", (path, visualId) => {
     expect(getFeaturedVisualId(path)).toBe(visualId)
   })
 
-  it('does not infer a visual from a display title', () => {
-    expect(getFeaturedVisualId('/projects/unknown')).toBeNull()
+  it("does not infer a visual from a display title", () => {
+    expect(getFeaturedVisualId("/projects/unknown")).toBeNull()
   })
 
   it.each([
@@ -143,11 +144,11 @@ describe('featured project helpers', () => {
     [3, 3, 0],
     [8, 3, 2],
     [1, 0, 0]
-  ])('wraps index %i for total %i', (index, total, expected) => {
+  ])("wraps index %i for total %i", (index, total, expected) => {
     expect(wrapProjectIndex(index, total)).toBe(expected)
   })
 
-  it('removes positional movement when reduced motion is active', () => {
+  it("removes positional movement when reduced motion is active", () => {
     expect(getPanelMotion(true)).toMatchObject({
       initial: { opacity: 0, y: 0 },
       exit: { opacity: 0, y: 0 },
@@ -169,7 +170,7 @@ Expected: FAIL because `utils/featured-projects.ts` does not exist.
 Create `types/project.ts`:
 
 ```ts
-export type FeaturedVisualId = 'onotoolkit' | 'amazone-monorepo' | 'pg-client-mobile'
+export type FeaturedVisualId = "onotoolkit" | "amazone-monorepo" | "pg-client-mobile"
 
 export interface ProjectItem {
   path?: string
@@ -186,16 +187,16 @@ export interface ProjectItem {
 Create `utils/featured-projects.ts`:
 
 ```ts
-import type { FeaturedVisualId } from '../types/project'
+import type { FeaturedVisualId } from "../types/project"
 
 const VISUAL_BY_PATH: Readonly<Record<string, FeaturedVisualId>> = {
-  '/projects/onotoolkit': 'onotoolkit',
-  '/projects/fe-amazone-monorepo': 'amazone-monorepo',
-  '/projects/pg-client-mobile': 'pg-client-mobile'
+  "/projects/onotoolkit": "onotoolkit",
+  "/projects/fe-amazone-monorepo": "amazone-monorepo",
+  "/projects/pg-client-mobile": "pg-client-mobile"
 }
 
 export function getFeaturedVisualId(path?: string): FeaturedVisualId | null {
-  return path ? VISUAL_BY_PATH[path] ?? null : null
+  return path ? (VISUAL_BY_PATH[path] ?? null) : null
 }
 
 export function wrapProjectIndex(index: number, total: number): number {
@@ -247,20 +248,20 @@ git commit -m "test: establish featured project contracts"
 Create `tests/content/project-content.spec.ts`:
 
 ```ts
-import { existsSync, readFileSync } from 'node:fs'
-import { describe, expect, it } from 'vitest'
+import { existsSync, readFileSync } from "node:fs"
+import { describe, expect, it } from "vitest"
 
-const read = (name: string) => readFileSync(`content/projects/${name}.md`, 'utf8')
+const read = (name: string) => readFileSync(`content/projects/${name}.md`, "utf8")
 
-describe('project portfolio claims', () => {
-  it('features exactly the three approved homepage projects', () => {
+describe("project portfolio claims", () => {
+  it("features exactly the three approved homepage projects", () => {
     const states = {
-      onotoolkit: /featured: true/.test(read('onotoolkit')),
-      monorepo: /featured: true/.test(read('fe-amazone-monorepo')),
-      pgClient: /featured: true/.test(read('pg-client-mobile')),
-      accessButtons: /featured: true/.test(read('access-buttons')),
-      auth: /featured: true/.test(read('amazone-auth-service')),
-      platform: /featured: true/.test(read('k8s-docker-migration'))
+      onotoolkit: /featured: true/.test(read("onotoolkit")),
+      monorepo: /featured: true/.test(read("fe-amazone-monorepo")),
+      pgClient: /featured: true/.test(read("pg-client-mobile")),
+      accessButtons: /featured: true/.test(read("access-buttons")),
+      auth: /featured: true/.test(read("amazone-auth-service")),
+      platform: /featured: true/.test(read("k8s-docker-migration"))
     }
     expect(states).toEqual({
       onotoolkit: true,
@@ -272,40 +273,42 @@ describe('project portfolio claims', () => {
     })
   })
 
-  it('does not publish unsupported claims', () => {
+  it("does not publish unsupported claims", () => {
     const all = [
-      'onotoolkit',
-      'fe-amazone-monorepo',
-      'pg-client-mobile',
-      'access-buttons',
-      'amazone-auth-service',
-      'k8s-docker-migration'
-    ].map(read).join('\n')
+      "onotoolkit",
+      "fe-amazone-monorepo",
+      "pg-client-mobile",
+      "access-buttons",
+      "amazone-auth-service",
+      "k8s-docker-migration"
+    ]
+      .map(read)
+      .join("\n")
 
     const forbidden = [
-      'reducing maintenance cycles by over 60%',
-      '95% down to under 25%',
-      '7 minutes to 1.5 minutes',
-      'Zero reported browser freezes',
-      'AST-based query inspection',
-      'affected row estimates',
-      'AES-256 GCM',
-      'SSH tunnel private keys',
-      'Redis session blacklist',
-      'Short-lived (15 minutes)',
-      '@hasPermission',
-      'Sub-Millisecond Auth Checks',
-      '20-component K8s stack',
-      '100% uptime'
+      "reducing maintenance cycles by over 60%",
+      "95% down to under 25%",
+      "7 minutes to 1.5 minutes",
+      "Zero reported browser freezes",
+      "AST-based query inspection",
+      "affected row estimates",
+      "AES-256 GCM",
+      "SSH tunnel private keys",
+      "Redis session blacklist",
+      "Short-lived (15 minutes)",
+      "@hasPermission",
+      "Sub-Millisecond Auth Checks",
+      "20-component K8s stack",
+      "100% uptime"
     ]
 
     for (const phrase of forbidden) expect(all).not.toContain(phrase)
-    expect(all).not.toContain('\u2014')
+    expect(all).not.toContain("\u2014")
   })
 
-  it('stores showcase assets locally', () => {
-    expect(existsSync('public/assets/projects/onotoolkit-showcase.webp')).toBe(true)
-    expect(existsSync('public/assets/projects/pg-client-mobile-showcase.webp')).toBe(true)
+  it("stores showcase assets locally", () => {
+    expect(existsSync("public/assets/projects/onotoolkit-showcase.webp")).toBe(true)
+    expect(existsSync("public/assets/projects/pg-client-mobile-showcase.webp")).toBe(true)
   })
 })
 ```
@@ -342,8 +345,8 @@ featured: true
 tags: [Nuxt 4, WASM, ONNX Runtime Web, IndexedDB]
 
 # fe-amazone-monorepo.md
-description: Shared Bun and Turborepo workspace powering 6 production web applications
-  through a reusable Nuxt layer.
+description: Shared Bun and Turborepo workspace for three production Nuxt applications,
+  with a separately packaged Cashier Desktop build.
 featured: true
 tags: [Vue 3, Nuxt, Bun, Turborepo, Chrome 109]
 
@@ -366,9 +369,9 @@ Use `../../irfan/all-irfan-cv/base-knowledge/04-skills-matrix.md`,
 sources. Apply these exact content boundaries:
 
 - OnoToolkit: keep browser-local PDF, ONNX, WebGPU with WASM fallback, MI-GAN, screen
-  recording, IndexedDB, JOSE, and the verified 23 MB bundle reduction. Remove claims about
-  server liability, guaranteed hardware behavior, or implementation details not stated in
-  the evidence source.
+  recording, IndexedDB, and JOSE. Remove the precise 23 MB bundle-reduction claim because it
+  is absent from the CV source of truth, along with claims about server liability, guaranteed
+  hardware behavior, or implementation details not stated in the evidence source.
 - Monorepo: describe three consolidated Nuxt frontends, the shared `@amazone/base` layer with
   27 components, Bun workspaces, Turborepo, the parameterized Docker build, and the verified
   median pipeline changes of 3.5 to 1.7 minutes in staging and 5.9 to 3.0 minutes in
@@ -432,52 +435,52 @@ git commit -m "content: align project stories with verified evidence"
 Create tests that mount the component with named slot text and assert this exact behavior:
 
 ```ts
-import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
-import { percentageFromPointer } from '../../../utils/xray'
-import ProjectXray from './ProjectXray.vue'
+import { mount } from "@vue/test-utils"
+import { describe, expect, it } from "vitest"
+import { percentageFromPointer } from "../../../utils/xray"
+import ProjectXray from "./ProjectXray.vue"
 
 const mountXray = () =>
   mount(ProjectXray, {
-    props: { label: 'OnoToolkit architecture reveal' },
-    slots: { product: 'Product layer', architecture: 'Architecture layer' }
+    props: { label: "OnoToolkit architecture reveal" },
+    slots: { product: "Product layer", architecture: "Architecture layer" }
   })
 
-describe('ProjectXray', () => {
-  it('starts at a 70 percent product reveal', () => {
-    expect(mountXray().get('[role="slider"]').attributes('aria-valuenow')).toBe('70')
+describe("ProjectXray", () => {
+  it("starts at a 70 percent product reveal", () => {
+    expect(mountXray().get('[role="slider"]').attributes("aria-valuenow")).toBe("70")
   })
 
-  it('supports explicit layer controls', async () => {
+  it("supports explicit layer controls", async () => {
     const wrapper = mountXray()
-    await wrapper.get('[data-layer="architecture"]').trigger('click')
-    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('0')
-    await wrapper.get('[data-layer="product"]').trigger('click')
-    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('100')
+    await wrapper.get('[data-layer="architecture"]').trigger("click")
+    expect(wrapper.get('[role="slider"]').attributes("aria-valuenow")).toBe("0")
+    await wrapper.get('[data-layer="product"]').trigger("click")
+    expect(wrapper.get('[role="slider"]').attributes("aria-valuenow")).toBe("100")
   })
 
-  it('supports slider keyboard controls', async () => {
+  it("supports slider keyboard controls", async () => {
     const wrapper = mountXray()
     const slider = wrapper.get('[role="slider"]')
-    await slider.trigger('keydown', { key: 'ArrowLeft' })
-    expect(slider.attributes('aria-valuenow')).toBe('65')
-    await slider.trigger('keydown', { key: 'Home' })
-    expect(slider.attributes('aria-valuenow')).toBe('0')
-    await slider.trigger('keydown', { key: 'End' })
-    expect(slider.attributes('aria-valuenow')).toBe('100')
+    await slider.trigger("keydown", { key: "ArrowLeft" })
+    expect(slider.attributes("aria-valuenow")).toBe("65")
+    await slider.trigger("keydown", { key: "Home" })
+    expect(slider.attributes("aria-valuenow")).toBe("0")
+    await slider.trigger("keydown", { key: "End" })
+    expect(slider.attributes("aria-valuenow")).toBe("100")
   })
 
-  it('clamps pointer positions to the visual bounds', () => {
+  it("clamps pointer positions to the visual bounds", () => {
     expect(percentageFromPointer(50, 100, 400)).toBe(0)
     expect(percentageFromPointer(300, 100, 400)).toBe(50)
     expect(percentageFromPointer(600, 100, 400)).toBe(100)
   })
 
-  it('falls back to the full architecture layer when product media fails', async () => {
+  it("falls back to the full architecture layer when product media fails", async () => {
     const wrapper = mountXray()
     await wrapper.setProps({ productAvailable: false })
-    expect(wrapper.get('[role="slider"]').attributes('aria-valuenow')).toBe('0')
-    expect(wrapper.get('[data-layer="product"]').attributes()).toHaveProperty('disabled')
+    expect(wrapper.get('[role="slider"]').attributes("aria-valuenow")).toBe("0")
+    expect(wrapper.get('[data-layer="product"]').attributes()).toHaveProperty("disabled")
   })
 })
 ```
@@ -519,10 +522,14 @@ watch(
 
 function onSliderKeydown(event: KeyboardEvent) {
   const next =
-    event.key === 'ArrowLeft' ? revealPercent.value - 5
-      : event.key === 'ArrowRight' ? revealPercent.value + 5
-        : event.key === 'Home' ? 0
-          : event.key === 'End' ? 100
+    event.key === "ArrowLeft"
+      ? revealPercent.value - 5
+      : event.key === "ArrowRight"
+        ? revealPercent.value + 5
+        : event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? 100
             : null
   if (next === null) return
   event.preventDefault()
@@ -534,7 +541,12 @@ The template must include:
 
 ```vue
 <div class="project-xray" :aria-label="label">
-  <div class="project-xray__controls" aria-label="Visual layer">
+  <div
+    class="project-xray__controls"
+    role="group"
+    aria-label="Visual layer"
+    :aria-describedby="revealStatusId"
+  >
     <button
       type="button"
       data-layer="product"
@@ -547,6 +559,9 @@ The template must include:
       Architecture
     </button>
   </div>
+  <p :id="revealStatusId" class="sr-only" role="status" aria-live="polite">
+    {{ revealPercent }}% product, {{ 100 - revealPercent }}% architecture
+  </p>
   <div ref="stage" class="project-xray__stage">
     <div class="project-xray__architecture"><slot name="architecture" /></div>
     <div
@@ -573,8 +588,8 @@ The template must include:
 
 Use pointer capture on the stage for `pointerdown`, `pointermove`, `pointerup`, and
 `pointercancel`. Calculate each update from `stage.getBoundingClientRect()`. Release capture
-on completion and unmount. Hide the draggable handle below the mobile breakpoint while
-leaving the two explicit buttons visible.
+on completion and unmount. Do not render the slider below the mobile breakpoint. Keep the two
+explicit buttons in a named group associated with the updating current reveal status.
 
 - [ ] **Step 4: Run the X-ray tests**
 
@@ -610,16 +625,18 @@ git commit -m "feat: add accessible project x-ray reveal"
 Create `ProjectVisuals.spec.ts` and mount each component. Assert:
 
 ```ts
-expect(ono.text()).toContain('Files stay on this device')
-expect(ono.find('img').attributes('src')).toBe('/assets/projects/onotoolkit-showcase.webp')
+expect(ono.text()).toContain("Files stay on this device")
+expect(ono.find("img").attributes("src")).toBe("/assets/projects/onotoolkit-showcase.webp")
 
-expect(amazone.text()).toContain('@amazone/base')
-expect(amazone.text()).toContain('6 production apps')
-expect(amazone.find('img').exists()).toBe(false)
+expect(amazone.text()).toContain("@amazone/base")
+expect(amazone.text()).toContain("3 production Nuxt apps")
+expect(amazone.text()).toContain("Separate desktop package")
+expect(amazone.text()).not.toContain("6 production apps")
+expect(amazone.find("img").exists()).toBe(false)
 expect(amazone.html()).not.toMatch(/revenue|cashier data|employee|customer/i)
 
-expect(pg.text()).toContain('Shortcut guard')
-expect(pg.find('img').attributes('src')).toBe('/assets/projects/pg-client-mobile-showcase.webp')
+expect(pg.text()).toContain("Shortcut guard")
+expect(pg.find("img").attributes("src")).toBe("/assets/projects/pg-client-mobile-showcase.webp")
 ```
 
 - [ ] **Step 2: Run the visual tests and confirm the expected failure**
@@ -646,8 +663,9 @@ hidden text.
 
 - [ ] **Step 4: Implement the Amazone monorepo scene**
 
-The product slot uses six neutral window outlines labeled only `App 1` through `App 6` and the
-caption `6 production apps`. The architecture slot uses these exact public-safe nodes:
+The product slot uses three neutral Nuxt application shells plus one distinct neutral shell for
+the separately packaged Cashier Desktop build. Its captions are `3 production Nuxt apps` and
+`Separate desktop package`. The architecture slot uses these exact public-safe nodes:
 
 ```text
 Backoffice   Auth Login   Cashier
@@ -708,7 +726,7 @@ Use three project fixtures with the approved paths. Mount the component with a `
 stub. Before mounting, provide the browser API used by Motion:
 
 ```ts
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockReturnValue({
     matches: false,
@@ -722,19 +740,19 @@ Assert:
 
 ```ts
 expect(wrapper.findAll('[role="tab"]')).toHaveLength(3)
-expect(wrapper.get('[role="tabpanel"]').text()).toContain('OnoToolkit')
-expect(wrapper.text()).not.toContain('Engineering Decision')
+expect(wrapper.get('[role="tabpanel"]').text()).toContain("OnoToolkit")
+expect(wrapper.text()).not.toContain("Engineering Decision")
 
-await wrapper.findAll('[role="tab"]')[1]!.trigger('click')
-expect(wrapper.get('[role="tabpanel"]').text()).toContain('Amazone Retail & POS Monorepo')
+await wrapper.findAll('[role="tab"]')[1]!.trigger("click")
+expect(wrapper.get('[role="tabpanel"]').text()).toContain("Amazone Retail & POS Monorepo")
 
-await wrapper.get('[data-nav="next"]').trigger('click')
-expect(wrapper.get('[role="tabpanel"]').text()).toContain('pg-client-mobile')
-await wrapper.get('[data-nav="next"]').trigger('click')
-expect(wrapper.get('[role="tabpanel"]').text()).toContain('OnoToolkit')
+await wrapper.get('[data-nav="next"]').trigger("click")
+expect(wrapper.get('[role="tabpanel"]').text()).toContain("pg-client-mobile")
+await wrapper.get('[data-nav="next"]').trigger("click")
+expect(wrapper.get('[role="tabpanel"]').text()).toContain("OnoToolkit")
 
-await wrapper.get('[role="tablist"]').trigger('keydown', { key: 'ArrowLeft' })
-expect(wrapper.get('[role="tabpanel"]').text()).toContain('pg-client-mobile')
+await wrapper.get('[role="tablist"]').trigger("keydown", { key: "ArrowLeft" })
+expect(wrapper.get('[role="tabpanel"]').text()).toContain("pg-client-mobile")
 ```
 
 Add a second test with `projects: []` and assert the section does not render.
@@ -752,8 +770,8 @@ Use an explicit component map:
 ```ts
 const visualComponents = {
   onotoolkit: OnoToolkitVisual,
-  'amazone-monorepo': AmazoneMonorepoVisual,
-  'pg-client-mobile': PgClientMobileVisual
+  "amazone-monorepo": AmazoneMonorepoVisual,
+  "pg-client-mobile": PgClientMobileVisual
 } as const
 
 const activeVisual = computed(() => {
@@ -834,11 +852,8 @@ git commit -m "feat: build featured project x-ray carousel"
 Replace the project query with:
 
 ```ts
-const { data: rawProjects } = await useAsyncData('home-projects', () => {
-  return queryCollection('projects')
-    .where('featured', '=', true)
-    .order('order', 'ASC')
-    .all()
+const { data: rawProjects } = await useAsyncData("home-projects", () => {
+  return queryCollection("projects").where("featured", "=", true).order("order", "ASC").all()
 })
 ```
 
@@ -908,8 +923,8 @@ Open `/` and exercise this sequence at 1440, 1024, 768, 390, and 320 CSS pixels:
 7. Enable reduced motion and repeat project navigation.
 8. Open `/projects` and confirm AccessButtons is still present.
 9. Open each of the three featured case-study routes.
-10. Disable JavaScript, reload `/`, and confirm the first project description and links remain
-    readable in the prerendered HTML.
+10. Disable JavaScript, reload `/`, and confirm the first panel has non-zero computed opacity,
+    visible computed visibility, and non-zero link geometry in the prerendered page.
 
 - [ ] **Step 2: Check exact visual requirements**
 

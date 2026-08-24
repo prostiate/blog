@@ -87,14 +87,8 @@
       </div>
     </section>
 
-    <!-- Option 3: Featured Projects Carousel (Interactive Architecture Console) -->
     <section>
       <UiFeaturedProjectsCarousel :projects="featuredProjectsList" />
-    </section>
-
-    <!-- Option 2: Featured Projects Showcase (Three.js WebGL 3D Mesh) -->
-    <section>
-      <UiFeaturedProjectsThree :projects="featuredProjectsList" />
     </section>
 
     <!-- Section 2: Blog Posts -->
@@ -142,7 +136,7 @@ const { data: posts } = await useAsyncData('home-posts', () => {
 })
 
 const { data: rawProjects } = await useAsyncData('home-projects', () => {
-  return queryCollection('projects').order('order', 'ASC').all()
+  return queryCollection('projects').where('featured', '=', true).order('order', 'ASC').all()
 })
 
 const featuredProjectsList = computed(() => {
