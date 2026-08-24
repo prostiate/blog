@@ -9,7 +9,7 @@ The developer-focused personal website, portfolio, and technical blog of **Muham
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) with custom **Warm Monochrome** design system
 - **Interactive Visualizations**: [Three.js](https://threejs.org/) for local-first node topology and interactive storage I/O simulators
 - **SEO & Discovery**: Automated XML sitemaps via `@nuxtjs/sitemap`, RSS feed (`/rss.xml`), and OpenGraph tags
-- **Hosting & Edge**: [Cloudflare Pages](https://pages.cloudflare.com/) (zero cold-starts, sub-30ms global latency)
+- **Hosting & Edge**: [Cloudflare Workers Static Assets](https://developers.cloudflare.com/workers/) (zero cold-starts, sub-30ms global latency)
 
 ---
 
@@ -37,7 +37,7 @@ pnpm generate
 # Preview local build
 pnpm preview
 
-# Deploy to Cloudflare Pages production
+# Deploy to Cloudflare Workers production
 pnpm deploy
 ```
 
