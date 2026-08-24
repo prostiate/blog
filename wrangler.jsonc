@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "irfankurniawan-blog",
+  "compatibility_date": "2026-08-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "irfankurniawan.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.irfankurniawan.com",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "vars": {
+    "SITE_URL": "https://irfankurniawan.com"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

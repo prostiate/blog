@@ -16,7 +16,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate": "pnpm format:check && pnpm lint && pnpm test && pnpm typecheck && pnpm generate",
-    "deploy": "pnpm validate && wrangler pages deploy dist --project-name=irfankurniawan-blog --branch=main --commit-dirty=true"
+    "deploy": "pnpm validate && wrangler deploy"
   },
   "keywords": [],
   "author": "",
