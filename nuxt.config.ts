@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss', '@nuxtjs/sitemap', '@nuxtjs/robots'],
 
   nitro: {
-    preset: 'cloudflare-pages',
+    preset: 'static',
     prerender: {
       crawlLinks: true,
       routes: ['/', '/projects', '/blog', '/about', '/logo', '/rss.xml']
