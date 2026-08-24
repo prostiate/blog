@@ -8,12 +8,24 @@ node_modules
 *.local
 .env
 .env.*
+.dev.vars
+.dev.vars.*
+
+# Security & Credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.sql
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
 
 # OS Files
 .DS_Store
@@ -22,3 +34,8 @@ Thumbs.db
 # Local agent design tooling
 .superpowers/
 .worktrees/
+.agents/
+.claude/
+.codex/
+.lavish/
+
