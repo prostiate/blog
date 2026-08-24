@@ -7,10 +7,6 @@
     {
       "pattern": "irfankurniawan.com",
       "custom_domain": true
-    },
-    {
-      "pattern": "www.irfankurniawan.com",
-      "custom_domain": true
     }
   ],
   "assets": {
