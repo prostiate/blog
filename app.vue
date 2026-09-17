@@ -14,6 +14,9 @@
     <!-- Global Search Modal (Cmd+K) -->
     <LayoutSearchModal />
 
+    <!-- Global Floating Scroll-To-Top Button -->
+    <LayoutScrollToTop />
+
     <!-- Minimalist Footer -->
     <LayoutAppFooter />
   </div>

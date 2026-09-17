@@ -1,6 +1,11 @@
 <template>
   <header
-    class="bg-[var(--color-bg)]/95 sticky top-0 z-40 border-b border-[var(--color-border)] backdrop-blur-sm transition-colors"
+    :class="[
+      'bg-[var(--color-bg)]/95 sticky top-0 z-40 border-b border-[var(--color-border)] backdrop-blur-sm transition-all duration-300 ease-in-out',
+      isMobileHidden
+        ? 'pointer-events-none -translate-y-full opacity-0 md:pointer-events-auto md:translate-y-0 md:opacity-100'
+        : 'pointer-events-auto translate-y-0 opacity-100'
+    ]"
   >
     <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
       <!-- Editorial Brand Lockup -->
@@ -116,10 +121,52 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const { openSearch } = useSearch()
+const { openSearch, isSearchOpen } = useSearch()
 
 const isCurrent = (path: string) => {
   if (path === '/') return route.path === '/' || route.path.startsWith('/blog')
   return route.path.startsWith(path)
 }
+
+const isMobileHidden = ref(false)
+let lastScrollY = 0
+let ticking = false
+
+const handleScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const currentScrollY = window.scrollY
+
+      // If search modal is open or near top of the page, keep header visible
+      if (isSearchOpen.value || currentScrollY <= 40) {
+        isMobileHidden.value = false
+      } else if (currentScrollY > lastScrollY + 8) {
+        // Scrolling down past threshold -> hide on mobile
+        isMobileHidden.value = true
+      } else if (currentScrollY < lastScrollY - 8) {
+        // Scrolling up -> reveal
+        isMobileHidden.value = false
+      }
+
+      lastScrollY = Math.max(0, currentScrollY)
+      ticking = false
+    })
+    ticking = true
+  }
+}
+
+watch(
+  () => route.fullPath,
+  () => {
+    isMobileHidden.value = false
+  }
+)
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>

@@ -2,7 +2,7 @@
   <div
     id="reading-progress"
     :style="{ width: `${progress}%` }"
-    class="fixed left-0 top-0 z-50 h-[2.5px] bg-[var(--text-primary)] transition-all duration-75"
+    class="fixed left-0 top-0 z-50 h-[2.5px] bg-[var(--color-accent)] transition-all duration-75"
   ></div>
 </template>
 
