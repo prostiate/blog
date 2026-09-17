@@ -5,12 +5,12 @@
     @click.self="closeSearch"
   >
     <div
-      class="animate-fade-up w-full max-w-lg overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-canvas)] shadow-2xl"
+      class="animate-fade-up w-full max-w-lg overflow-hidden rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg)]"
     >
       <!-- Search Input Bar -->
-      <div class="flex items-center gap-2 border-b border-[var(--border-subtle)] p-3">
+      <div class="flex items-center gap-2 border-b border-[var(--color-border)] p-3">
         <svg
-          class="h-4 w-4 text-[var(--text-muted)]"
+          class="h-4 w-4 text-[var(--color-text-muted)]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -26,12 +26,12 @@
           ref="inputRef"
           v-model="searchQuery"
           type="text"
-          placeholder="Search projects, blog posts, technologies..."
-          class="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
+          placeholder="Search writings, projects, architecture..."
+          class="w-full bg-transparent text-sm text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:outline-none"
         />
         <button
           @click="closeSearch"
-          class="rounded border border-[var(--border-subtle)] px-1.5 py-0.5 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+          class="rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-1.5 py-0.5 font-mono text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
         >
           ESC
         </button>
@@ -57,17 +57,19 @@
             :key="idx"
             :to="item.link"
             @click="closeSearch"
-            class="block cursor-pointer rounded-lg p-2.5 transition-colors hover:bg-[var(--bg-surface)]"
+            class="block cursor-pointer rounded-[2px] p-2.5 no-underline transition-colors hover:bg-[var(--color-bg-surface)]"
           >
             <div class="mb-0.5 flex items-center justify-between">
-              <span class="font-semibold text-[var(--text-primary)]">{{ item.title }}</span>
+              <span class="font-semibold text-[var(--color-text)]">{{ item.title }}</span>
               <span
-                class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-1.5 py-0.5 text-xs text-[var(--text-muted)]"
+                class="mono-font rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-code)] px-1.5 py-0.5 text-xs text-[var(--color-text-muted)]"
               >
                 {{ item.type }}
               </span>
             </div>
-            <p class="line-clamp-1 text-xs text-[var(--text-secondary)]">{{ item.subtitle }}</p>
+            <p class="mb-0 line-clamp-1 text-xs text-[var(--color-text-muted)]">
+              {{ item.subtitle }}
+            </p>
           </NuxtLink>
         </div>
 
@@ -76,7 +78,7 @@
           <!-- Section 1: Navigation -->
           <div>
             <span
-              class="mono-font mb-2 block px-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]"
+              class="mono-font mb-2 block px-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]"
             >
               Quick Navigation
             </span>
@@ -84,7 +86,7 @@
               <NuxtLink
                 to="/"
                 @click="closeSearch"
-                class="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3 py-2 text-xs font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--border-medium)] hover:bg-[var(--bg-code)]"
+                class="flex items-center gap-2 rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 py-2 text-xs font-medium text-[var(--color-text)] no-underline transition-colors hover:border-[var(--color-accent)]"
               >
                 <svg
                   class="h-4 w-4 text-[var(--text-muted)]"

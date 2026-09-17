@@ -1,39 +1,42 @@
 <template>
-  <div class="animate-fade-up mx-auto max-w-4xl space-y-8 px-4 py-8 sm:px-6 sm:py-12">
-    <div class="space-y-2 border-b border-[var(--border-subtle)] pb-6">
-      <h1 class="text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-        Projects
+  <div class="mx-auto max-w-4xl space-y-8 px-4 py-8 sm:px-6 sm:py-12">
+    <header class="border-b border-[var(--color-border)] pb-8">
+      <p class="section-label">Engineering Index</p>
+      <h1
+        class="mb-3 font-serif text-3xl font-semibold tracking-tight text-[var(--color-text)] sm:text-4xl"
+      >
+        Systems & Projects
       </h1>
-      <p class="text-sm text-[var(--text-secondary)]">
+      <p class="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)]">
         A curated record of production systems, local-first web applications, and developer tooling.
       </p>
 
       <!-- Category Filter Tabs -->
-      <div class="flex flex-wrap gap-1.5 pt-4">
+      <div class="flex flex-wrap gap-2">
         <button
           v-for="cat in ['All', 'Full Stack', 'Frontend', 'Mobile', 'Backend', 'DevOps / Platform']"
           :key="cat"
           @click="activeCategory = cat"
           :class="[
-            'rounded-lg px-3 py-1.5 text-xs font-medium transition-colors',
+            'mono-font rounded-[2px] border px-3 py-1 text-xs font-medium transition-colors',
             activeCategory === cat
-              ? 'bg-[var(--text-primary)] text-[var(--bg-canvas)]'
-              : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-white'
+              : 'border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-text)]'
           ]"
         >
           {{ cat }}
         </button>
       </div>
-    </div>
+    </header>
 
     <!-- Project List -->
-    <div class="space-y-6">
+    <main class="space-y-6">
       <UiProjectCard
         v-for="project in filteredProjects"
         :key="project.path || project.title"
         :project="project"
       />
-    </div>
+    </main>
   </div>
 </template>
 

@@ -1,22 +1,27 @@
 <template>
   <div
-    class="space-y-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 transition-all hover:border-[var(--border-medium)]"
+    class="space-y-4 rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-6 transition-all hover:border-[var(--color-accent)]"
   >
     <div class="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
       <div>
-        <span class="mono-font block text-xs uppercase tracking-wider text-[var(--text-muted)]">{{
-          project.category
-        }}</span>
+        <span
+          class="mono-font block text-xs uppercase tracking-wider text-[var(--color-text-muted)]"
+          >{{ project.category }}</span
+        >
         <NuxtLink
           v-if="project.path"
           :to="project.path"
-          class="group inline-flex items-center gap-1.5"
+          class="group inline-flex items-center gap-1.5 no-underline"
         >
-          <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:underline">
+          <h3
+            class="font-serif text-lg font-semibold text-[var(--color-text)] transition-colors group-hover:text-[var(--color-accent)]"
+          >
             {{ project.title }}
           </h3>
         </NuxtLink>
-        <h3 v-else class="text-lg font-bold text-[var(--text-primary)]">{{ project.title }}</h3>
+        <h3 v-else class="font-serif text-lg font-semibold text-[var(--color-text)]">
+          {{ project.title }}
+        </h3>
       </div>
       <div class="mono-font flex items-center gap-3 text-xs">
         <a
@@ -24,7 +29,7 @@
           :href="project.liveUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1.5 font-semibold text-emerald-600 hover:underline dark:text-emerald-400"
+          class="flex items-center gap-1 font-semibold text-[var(--color-accent)] hover:underline"
         >
           <svg
             class="h-3.5 w-3.5"
@@ -48,7 +53,7 @@
           :href="project.githubUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:underline"
         >
           <svg
             class="h-3.5 w-3.5"
@@ -69,45 +74,42 @@
       </div>
     </div>
 
-    <p class="text-sm leading-relaxed text-[var(--text-secondary)]">
+    <p class="text-sm leading-relaxed text-[var(--color-text-muted)]">
       {{ project.description }}
     </p>
 
     <!-- Problem Solved Section -->
     <div
       v-if="project.problemSolved"
-      class="space-y-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-canvas)] p-3.5 text-xs"
+      class="space-y-1 rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg)] p-3.5 text-xs"
     >
-      <span class="block font-semibold text-[var(--text-primary)]">Problem Solved:</span>
-      <p class="leading-relaxed text-[var(--text-secondary)]">{{ project.problemSolved }}</p>
+      <span class="block font-semibold text-[var(--color-text)]">Problem Solved:</span>
+      <p class="mb-0 leading-relaxed text-[var(--color-text-muted)]">{{ project.problemSolved }}</p>
     </div>
 
     <!-- Architecture Highlights -->
     <div v-if="project.architecture && project.architecture.length" class="space-y-1.5 text-xs">
-      <span class="block font-semibold text-[var(--text-primary)]">Architecture Highlights:</span>
-      <ul class="list-disc space-y-1 pl-4 text-[var(--text-secondary)]">
+      <span class="block font-semibold text-[var(--color-text)]">Architecture Highlights:</span>
+      <ul class="list-disc space-y-1 pl-4 text-[var(--color-text-muted)]">
         <li v-for="(arch, idx) in project.architecture" :key="idx">{{ arch }}</li>
       </ul>
     </div>
 
-    <!-- Footer: Tech Badges + Case Study Link -->
+    <!-- Footer: Tech Line (Dot-separated text, no pills) + Details Link -->
     <div
-      class="flex flex-col justify-between gap-3 border-t border-[var(--border-subtle)] pt-3 sm:flex-row sm:items-center"
+      class="flex flex-col justify-between gap-3 border-t border-[var(--color-border)] pt-3 sm:flex-row sm:items-center"
     >
-      <div v-if="project.tags && project.tags.length" class="flex flex-wrap gap-1.5">
-        <span
-          v-for="tag in project.tags"
-          :key="tag"
-          class="mono-font rounded border border-[var(--border-subtle)] bg-[var(--bg-code)] px-2 py-0.5 text-xs text-[var(--text-secondary)]"
-        >
-          {{ tag }}
-        </span>
+      <div
+        v-if="project.tags && project.tags.length"
+        class="mono-font text-xs text-[var(--color-text-muted)]"
+      >
+        {{ project.tags.join(' · ') }}
       </div>
 
       <NuxtLink
         v-if="project.path"
         :to="project.path"
-        class="mono-font inline-flex items-center gap-1 text-xs font-semibold text-[var(--text-primary)] hover:underline"
+        class="mono-font ml-auto inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-accent)] hover:underline"
       >
         Details →
       </NuxtLink>

@@ -1,12 +1,12 @@
 <template>
   <button
     @click="toggleTheme"
-    class="rounded-lg p-2 text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--border-medium)]"
-    :title="isDark ? 'Switch to warm paper light mode' : 'Switch to soft charcoal dark mode'"
+    class="flex items-center justify-center rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-1.5 text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text)]"
+    :title="isDark ? 'Switch to warm paper light mode' : 'Switch to warm dark console mode'"
     aria-label="Toggle theme"
   >
     <!-- Sun icon (Light mode trigger) -->
-    <svg v-if="isDark" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg v-if="isDark" class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -15,7 +15,7 @@
       ></path>
     </svg>
     <!-- Moon icon (Dark mode trigger) -->
-    <svg v-else class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg v-else class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
