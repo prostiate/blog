@@ -14,7 +14,6 @@
       <!-- Main Article Column (Strictly 68ch max width for reading focus) -->
       <article class="w-full max-w-[68ch] flex-grow">
         <header class="mb-8 border-b border-[var(--color-border)] pb-8">
-          <p class="section-label">My Writings</p>
           <div
             class="mono-font mb-3 flex items-center gap-2 text-xs text-[var(--color-text-muted)]"
           >
@@ -24,17 +23,10 @@
           </div>
 
           <h1
-            class="mb-4 font-serif text-3xl font-semibold leading-tight tracking-tight text-[var(--color-text)] sm:text-4xl"
+            class="font-serif text-3xl font-semibold leading-tight tracking-tight text-[var(--color-text)] sm:text-4xl"
           >
             {{ post.title }}
           </h1>
-
-          <p
-            v-if="post.description"
-            class="mb-0 text-base leading-relaxed text-[var(--color-text-muted)]"
-          >
-            {{ post.description }}
-          </p>
         </header>
 
         <!-- Markdown Body -->
