@@ -9,23 +9,28 @@
         About & Engineering Background
       </h1>
       <p class="mb-0 text-base leading-relaxed text-[var(--color-text-muted)]">
-        Senior Full Stack Engineer based in Jakarta, Indonesia with 8+ years of professional
-        engineering experience spanning web applications, IoT streaming, distributed systems, and
-        edge infrastructure.
+        Senior Full Stack & Systems Engineer based in Jakarta, Indonesia. 8+ years of experience
+        architecting, shipping, and maintaining high-concurrency retail platforms, internal systems,
+        and distributed web applications—taking products from schema design to baremetal deployment.
       </p>
     </header>
 
     <!-- Career Trajectory -->
     <section class="space-y-6">
-      <h2 class="font-serif text-2xl font-semibold text-[var(--color-text)]">Career Trajectory</h2>
+      <div class="flex items-baseline justify-between">
+        <h2 class="font-serif text-2xl font-semibold text-[var(--color-text)]">
+          Career Trajectory
+        </h2>
+        <span class="mono-font text-xs text-[var(--color-text-muted)]">2019 — Present</span>
+      </div>
       <div
-        class="relative space-y-8 pl-6 before:absolute before:bottom-2 before:left-2 before:top-2 before:w-[1px] before:bg-[var(--color-border)]"
+        class="relative space-y-10 pl-6 before:absolute before:bottom-2 before:left-2 before:top-2 before:w-[1px] before:bg-[var(--color-border)]"
       >
         <div v-for="(job, idx) in careerTrajectory" :key="idx" class="group relative">
           <span
             class="absolute -left-[27px] top-2 h-2.5 w-2.5 rounded-full border border-[var(--color-border)] bg-[var(--color-accent)]"
           ></span>
-          <div class="space-y-1.5">
+          <div class="space-y-2">
             <div class="flex flex-wrap items-baseline justify-between gap-2">
               <h3 class="font-serif text-base font-semibold text-[var(--color-text)]">
                 {{ job.role }} ·
@@ -38,16 +43,18 @@
             <p class="text-sm leading-relaxed text-[var(--color-text-muted)]">{{ job.summary }}</p>
             <ul
               v-if="job.highlights"
-              class="list-disc space-y-1 pl-4 pt-1 text-sm text-[var(--color-text-muted)]"
+              class="list-disc space-y-1.5 pl-4 pt-1 text-sm text-[var(--color-text-muted)]"
             >
-              <li v-for="(hl, hIdx) in job.highlights" :key="hIdx">{{ hl }}</li>
+              <li v-for="(hl, hIdx) in job.highlights" :key="hIdx" class="leading-relaxed">
+                {{ hl }}
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Engineering Values -->
+    <!-- Engineering Principles -->
     <section class="space-y-6">
       <h2 class="font-serif text-2xl font-semibold text-[var(--color-text)]">
         Engineering Principles
@@ -111,24 +118,26 @@ const careerTrajectory = [
     company: 'Amazone Indonesia',
     location: 'Jakarta',
     summary:
-      'Senior individual contributor owning the frontend monorepo (Bun + Turborepo), Go/GraphQL authentication services, and production deployment topology across 6 business-critical retail applications.',
+      'Sole frontend and application infrastructure owner across 6 live production systems (Head Office Backoffice, Nationwide Cashier/POS, Multi-tenant Inventory, HSE, Payout, and Auth Admin) for a nationwide retail arcade group.',
     highlights: [
-      'Consolidated 3 separate Nuxt applications into a unified Bun + Turborepo monorepo with shared @amazone/base layer.',
-      'Engineered an in-house Go/GraphQL authentication service with revocable JWT tokens replacing Firebase across all backoffice and POS systems.',
-      'Conducted storage benchmarks on baremetal servers, leading the technical decision to retire K3s in favor of zero-downtime Docker Compose rolling deploys.'
+      'Consolidated 3 independent Nuxt applications into a Bun + Turborepo monorepo with a shared @amazone/base layer (27 components, 8 composables, unified auth contract), cutting CI/CD build times by ~2x.',
+      'Designed and built an in-house Go/GraphQL authentication service and Nuxt admin console replacing Firebase Auth across 5 backends and 6 frontends with revocable server sessions, rotating refresh tokens, and zero cutover downtime.',
+      'Piloted a K3s GitOps cluster, benchmarked storage I/O, and made the evidence-based call to retire it after exposing a baremetal SAS HDD bottleneck (10–15 MB/s); rebuilt zero-downtime rolling deploys on Docker Compose + Jenkins with per-node rollback isolation.',
+      'Diagnosed and resolved severe form freezes on aging in-store terminals (Chrome 109 / Windows 7) by re-architecting the interaction into server-paginated flows instead of requiring expensive store hardware upgrades.'
     ]
   },
   {
     period: 'Jan 2023 - May 2025',
     role: 'Senior Full Stack Developer',
-    company: 'Kompas Gramedia MNP',
+    company: 'Kompas Gramedia (MNP)',
     location: 'Tangerang',
     summary:
-      'Sole engineer designing and developing the university academic information ecosystem (SIAKAD), digital library systems, and infrastructure observability.',
+      'Sole engineer designing, developing, and operating the academic information ecosystem (SIA/SIAKAD), digital library systems, and infrastructure end-to-end.',
     highlights: [
-      'Built full-stack platforms using Yii, NestJS, React, Next.js, Oracle, and MySQL with Keycloak RBAC and Kong API Gateway.',
-      'Automated CI/CD pipelines with GitHub Actions and Jenkins, and established observability with Prometheus, Grafana, Loki, and Jaeger.',
-      'Implemented computer-vision visitor tracking with Python, Kafka, and NestJS.'
+      'Engineered full-stack educational platforms with Yii (PHP), NestJS, React, Next.js, Oracle, and MySQL.',
+      'Unified cross-service identity with Keycloak RBAC and integrated a Kong API Gateway for secure traffic management.',
+      'Automated multi-environment CI/CD with Jenkins and GitHub Actions on Docker, and established full observability with Grafana, Prometheus, Loki, and Jaeger.',
+      'Built an AI library visitor tracking system using Python, OpenCV, Kafka, and NestJS, reaching 95% check-in accuracy.'
     ]
   },
   {
@@ -137,7 +146,7 @@ const careerTrajectory = [
     company: 'Manufacturing Client',
     location: 'Cikarang',
     summary:
-      'Built real-time IoT monitoring dashboards visualizing streaming metrics from 50+ production robotic devices via WebSockets, Laravel, and React.'
+      'Engineered real-time IoT monitoring dashboards visualizing streaming metrics from 50+ production robotic devices across factory lines via WebSockets, Laravel, MySQL, and React.'
   },
   {
     period: 'May 2020 - Nov 2022',
@@ -145,7 +154,7 @@ const careerTrajectory = [
     company: 'PT Bank Rakyat Indonesia Tbk (BRI)',
     location: 'Jakarta',
     summary:
-      'Sole developer building internal Human Resource Management Systems (HRMS) and Asset Monitoring applications with CodeIgniter and MySQL.'
+      'Single-fighter developer building internal enterprise tooling, including a Human Resource Management System (HRMS) and Asset Monitoring applications with PHP and MySQL (+20% operational efficiency).'
   },
   {
     period: 'Apr 2019 - Apr 2020',
@@ -153,35 +162,35 @@ const careerTrajectory = [
     company: 'Vastech Indonesia',
     location: 'Bekasi',
     summary:
-      'Mastered accounting domain concepts from scratch (Chart of Accounts, journal ledgers) to build and deploy an inventory and financial management platform reaching 15 pilot customers in 6 months.'
+      'Joined an early-stage team to build an enterprise accounting and inventory management SaaS from the ground up, mastering financial accounting concepts (Chart of Accounts, journal ledgers, inventory tracking) and deploying to 15 pilot customers in 6 months.'
   }
 ]
 
 const engineeringValues = [
   {
-    title: 'Curiosity as the Primary Engine',
-    desc: 'Adopting technologies out of genuine desire to understand how they work under the hood - exploring WebGPU in the browser, compiling Ghostscript to WASM, and building edge-native services.'
+    title: 'Finisher, Not a Prototyper',
+    desc: 'Six live production applications currently operate under my ownership. I build systems intended for real users under real operational constraints, not just demos.'
   },
   {
-    title: 'Perseverance in Production',
-    desc: 'Staying with complex engineering problems until they are truly resolved for real users - whether troubleshooting disk I/O bottlenecks on baremetal or optimizing UI threads on 10-year-old cashier hardware.'
+    title: 'Evidence Over Hype',
+    desc: 'Willing to make pragmatic calls based on measured data—such as retiring Kubernetes when baremetal disk I/O bottlenecks were exposed, and rebuilding reliable rolling deploys on Docker Compose instead.'
   },
   {
-    title: 'Pragmatic Engineering over Hype',
-    desc: 'Unapologetically choosing simpler, rock-solid architectures (like Docker Compose over Kubernetes) when hardware constraints demand it, and writing clear documentation for teammates.'
+    title: 'Engineering for Constrained Reality',
+    desc: 'Prioritizing real end-users on aging, slow field hardware (like in-store Chrome 109 / Windows 7 cashiers), solving performance bottlenecks through architecture rather than demanding costly fleet upgrades.'
   },
   {
-    title: 'Understanding the Full Vertical',
-    desc: 'Taking pride in owning features from database schema design and edge APIs through component implementation and deployment pipelines.'
+    title: 'High Clarity & Written Documentation',
+    desc: 'Belief that written documentation is a core engineering deliverable. Authored 57+ implementation rounds, gap analyses, and integration guides to keep teams aligned with zero friction.'
   }
 ]
 
 useSeoMeta({
   title: 'About - Muhammad Irfan Kurniawan',
   description:
-    'Career trajectory, engineering values, and technical background of Muhammad Irfan Kurniawan.',
+    'Career trajectory, engineering principles, and technical background of Muhammad Irfan Kurniawan.',
   ogTitle: 'About - Muhammad Irfan Kurniawan',
   ogDescription:
-    'Career trajectory, engineering values, and technical background of Muhammad Irfan Kurniawan.'
+    'Career trajectory, engineering principles, and technical background of Muhammad Irfan Kurniawan.'
 })
 </script>
