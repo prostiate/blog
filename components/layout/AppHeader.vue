@@ -1,58 +1,49 @@
 <template>
   <header
-    class="bg-[var(--bg-canvas)]/90 sticky top-0 z-40 border-b border-[var(--border-subtle)] backdrop-blur-md transition-colors"
+    class="bg-[var(--color-bg)]/95 sticky top-0 z-40 border-b border-[var(--color-border)] backdrop-blur-sm transition-colors"
   >
-    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-      <!-- Brand Logo Lockup -->
-      <NuxtLink to="/" class="group flex items-center gap-2.5">
-        <UiLogoMark />
-        <span class="text-sm font-semibold tracking-tight text-[var(--text-primary)]"
-          >Muhammad Irfan Kurniawan</span
+    <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <!-- Editorial Brand Lockup -->
+      <NuxtLink to="/" class="text-decoration-none group flex items-center gap-2">
+        <UiLogoMark custom-class="w-6 h-6 text-[var(--color-text)]" />
+        <span
+          class="font-serif text-base font-semibold tracking-tight text-[var(--color-text)] transition-colors group-hover:text-[var(--color-accent)]"
         >
+          Muhammad Irfan Kurniawan
+        </span>
       </NuxtLink>
 
       <!-- Desktop Nav -->
-      <nav class="hidden items-center gap-1 text-sm font-medium md:flex">
+      <nav class="hidden items-center gap-6 font-mono text-xs md:flex">
         <NuxtLink
           to="/"
           :class="[
-            'rounded-lg px-3 py-1.5 transition-colors',
+            'transition-colors hover:text-[var(--color-accent)] hover:no-underline',
             isCurrent('/')
-              ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              ? 'font-semibold text-[var(--color-accent)] underline decoration-1 underline-offset-4'
+              : 'text-[var(--color-text-muted)] no-underline'
           ]"
         >
-          Home
+          Writing
         </NuxtLink>
         <NuxtLink
           to="/projects"
           :class="[
-            'rounded-lg px-3 py-1.5 transition-colors',
+            'transition-colors hover:text-[var(--color-accent)] hover:no-underline',
             isCurrent('/projects')
-              ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              ? 'font-semibold text-[var(--color-accent)] underline decoration-1 underline-offset-4'
+              : 'text-[var(--color-text-muted)] no-underline'
           ]"
         >
           Projects
         </NuxtLink>
         <NuxtLink
-          to="/blog"
-          :class="[
-            'rounded-lg px-3 py-1.5 transition-colors',
-            isCurrent('/blog')
-              ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-          ]"
-        >
-          Blog
-        </NuxtLink>
-        <NuxtLink
           to="/about"
           :class="[
-            'rounded-lg px-3 py-1.5 transition-colors',
+            'transition-colors hover:text-[var(--color-accent)] hover:no-underline',
             isCurrent('/about')
-              ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              ? 'font-semibold text-[var(--color-accent)] underline decoration-1 underline-offset-4'
+              : 'text-[var(--color-text-muted)] no-underline'
           ]"
         >
           About
@@ -60,14 +51,14 @@
       </nav>
 
       <!-- Right Actions: Search + Theme Switcher -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
         <button
           @click="openSearch"
-          class="flex items-center gap-1.5 rounded-lg p-2 text-xs text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-surface)] hover:text-[var(--text-primary)]"
+          class="mono-font flex items-center gap-1.5 rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-2 py-1 text-xs text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text)]"
           title="Search (Cmd+K)"
           aria-label="Search"
         >
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -75,10 +66,7 @@
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
-          <span
-            class="mono-font hidden rounded border border-[var(--border-subtle)] bg-[var(--bg-canvas)] px-1.5 py-0.5 text-[11px] sm:inline-block"
-            >⌘K</span
-          >
+          <span class="hidden sm:inline-block">⌘K</span>
         </button>
 
         <UiThemeToggle />
@@ -87,48 +75,41 @@
 
     <!-- Mobile Subnavigation Bar -->
     <div
-      class="flex items-center justify-around border-t border-[var(--border-subtle)] px-2 py-1.5 text-xs font-medium md:hidden"
+      class="flex items-center justify-around border-t border-[var(--color-border)] bg-[var(--color-bg)] px-2 py-2 font-mono text-xs md:hidden"
     >
       <NuxtLink
         to="/"
         :class="[
-          'rounded-md px-3 py-1',
+          'no-underline transition-colors',
           isCurrent('/')
-            ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-            : 'text-[var(--text-secondary)]'
+            ? 'font-semibold text-[var(--color-accent)]'
+            : 'text-[var(--color-text-muted)]'
         ]"
-        >Home</NuxtLink
       >
+        Writing
+      </NuxtLink>
       <NuxtLink
         to="/projects"
         :class="[
-          'rounded-md px-3 py-1',
+          'no-underline transition-colors',
           isCurrent('/projects')
-            ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-            : 'text-[var(--text-secondary)]'
+            ? 'font-semibold text-[var(--color-accent)]'
+            : 'text-[var(--color-text-muted)]'
         ]"
-        >Projects</NuxtLink
       >
-      <NuxtLink
-        to="/blog"
-        :class="[
-          'rounded-md px-3 py-1',
-          isCurrent('/blog')
-            ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-            : 'text-[var(--text-secondary)]'
-        ]"
-        >Blog</NuxtLink
-      >
+        Projects
+      </NuxtLink>
       <NuxtLink
         to="/about"
         :class="[
-          'rounded-md px-3 py-1',
+          'no-underline transition-colors',
           isCurrent('/about')
-            ? 'bg-[var(--bg-surface)] font-semibold text-[var(--text-primary)]'
-            : 'text-[var(--text-secondary)]'
+            ? 'font-semibold text-[var(--color-accent)]'
+            : 'text-[var(--color-text-muted)]'
         ]"
-        >About</NuxtLink
       >
+        About
+      </NuxtLink>
     </div>
   </header>
 </template>
@@ -138,7 +119,7 @@ const route = useRoute()
 const { openSearch } = useSearch()
 
 const isCurrent = (path: string) => {
-  if (path === '/') return route.path === '/'
+  if (path === '/') return route.path === '/' || route.path.startsWith('/blog')
   return route.path.startsWith(path)
 }
 </script>

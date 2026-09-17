@@ -14,6 +14,9 @@ export default ts.config(
       'node_modules/**',
       '.data/**',
       '.wrangler/**',
+      '.agents/**',
+      '.lavish/**',
+      'docs/**',
       '**/*.d.ts'
     ]
   },

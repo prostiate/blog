@@ -57,14 +57,14 @@ export default defineNuxtConfig({
           content:
             'Senior Full Stack Engineer based in Jakarta. Specializing in high-performance frontend architecture, local-first systems, and resilient infrastructure.'
         },
-        { name: 'theme-color', content: '#FAF9F5' },
+        { name: 'theme-color', content: '#f5f2ed' },
         { property: 'og:site_name', content: 'Muhammad Irfan Kurniawan' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'Muhammad Irfan Kurniawan - Full Stack Engineer' },
         {
           property: 'og:description',
           content:
-            'Senior Full Stack Engineer based in Jakarta. Driven by relentless curiosity, sustained by perseverance.'
+            'Senior Full Stack Engineer based in Jakarta. Specializing in production architecture, frontend ergonomics, and systems engineering.'
         },
         { property: 'og:url', content: 'https://irfankurniawan.com' },
         {
@@ -76,7 +76,7 @@ export default defineNuxtConfig({
         {
           name: 'twitter:description',
           content:
-            'Senior Full Stack Engineer based in Jakarta. Driven by relentless curiosity, sustained by perseverance.'
+            'Senior Full Stack Engineer based in Jakarta. Specializing in production architecture, frontend ergonomics, and systems engineering.'
         },
         {
           name: 'twitter:image',
@@ -89,7 +89,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap'
+          href: 'https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap'
         }
       ]
     }

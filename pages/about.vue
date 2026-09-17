@@ -1,48 +1,44 @@
 <template>
-  <div
-    class="animate-fade-up reading-column mx-auto max-w-4xl space-y-12 px-4 py-8 sm:px-6 sm:py-12"
-  >
+  <div class="mx-auto max-w-4xl space-y-12 px-4 py-8 sm:px-6 sm:py-12">
     <!-- Header -->
-    <div class="space-y-4 border-b border-[var(--border-subtle)] pb-6">
-      <h1 class="text-2xl font-bold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-        About & Background
-      </h1>
-      <p class="text-base leading-relaxed text-[var(--text-secondary)]">
-        I am a Senior Full Stack Engineer based in Jakarta, Indonesia with 8+ years of professional
-        engineering experience spanning web applications, IoT streaming, and distributed edge
-        infrastructure.
-      </p>
-      <div
-        class="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4 text-xs italic text-[var(--text-primary)]"
+    <header class="border-b border-[var(--color-border)] pb-8">
+      <p class="section-label">Background & Trajectory</p>
+      <h1
+        class="mb-3 font-serif text-3xl font-semibold tracking-tight text-[var(--color-text)] sm:text-4xl"
       >
-        "Driven by relentless curiosity, sustained by perseverance."
-      </div>
-    </div>
+        About & Engineering Background
+      </h1>
+      <p class="mb-0 text-base leading-relaxed text-[var(--color-text-muted)]">
+        Senior Full Stack Engineer based in Jakarta, Indonesia with 8+ years of professional
+        engineering experience spanning web applications, IoT streaming, distributed systems, and
+        edge infrastructure.
+      </p>
+    </header>
 
     <!-- Career Trajectory -->
     <section class="space-y-6">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-        Career Trajectory
-      </h2>
+      <h2 class="font-serif text-2xl font-semibold text-[var(--color-text)]">Career Trajectory</h2>
       <div
-        class="relative space-y-8 pl-6 before:absolute before:bottom-2 before:left-2 before:top-2 before:w-[2px] before:bg-[var(--border-medium)]"
+        class="relative space-y-8 pl-6 before:absolute before:bottom-2 before:left-2 before:top-2 before:w-[1px] before:bg-[var(--color-border)]"
       >
         <div v-for="(job, idx) in careerTrajectory" :key="idx" class="group relative">
           <span
-            class="absolute -left-[29px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-[var(--bg-canvas)] bg-[var(--text-primary)]"
+            class="absolute -left-[27px] top-2 h-2.5 w-2.5 rounded-full border border-[var(--color-border)] bg-[var(--color-accent)]"
           ></span>
           <div class="space-y-1.5">
-            <div class="flex flex-wrap items-baseline justify-between gap-1">
-              <h3 class="text-base font-bold text-[var(--text-primary)]">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="font-serif text-base font-semibold text-[var(--color-text)]">
                 {{ job.role }} ·
-                <span class="font-medium text-[var(--text-secondary)]">{{ job.company }}</span>
+                <span class="font-sans font-medium text-[var(--color-text-muted)]">{{
+                  job.company
+                }}</span>
               </h3>
-              <span class="mono-font text-xs text-[var(--text-muted)]">{{ job.period }}</span>
+              <span class="mono-font text-xs text-[var(--color-text-muted)]">{{ job.period }}</span>
             </div>
-            <p class="text-sm leading-relaxed text-[var(--text-secondary)]">{{ job.summary }}</p>
+            <p class="text-sm leading-relaxed text-[var(--color-text-muted)]">{{ job.summary }}</p>
             <ul
               v-if="job.highlights"
-              class="list-disc space-y-1 pl-4 pt-1 text-sm text-[var(--text-secondary)]"
+              class="list-disc space-y-1 pl-4 pt-1 text-sm text-[var(--color-text-muted)]"
             >
               <li v-for="(hl, hIdx) in job.highlights" :key="hIdx">{{ hl }}</li>
             </ul>
@@ -53,92 +49,53 @@
 
     <!-- Engineering Values -->
     <section class="space-y-6">
-      <h2 class="text-xl font-bold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-        Engineering Values
+      <h2 class="font-serif text-2xl font-semibold text-[var(--color-text)]">
+        Engineering Principles
       </h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div
           v-for="(val, idx) in engineeringValues"
           :key="idx"
-          class="space-y-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5"
+          class="space-y-2 rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-5"
         >
-          <h3 class="text-base font-bold text-[var(--text-primary)]">{{ val.title }}</h3>
-          <p class="text-sm leading-relaxed text-[var(--text-secondary)]">{{ val.desc }}</p>
+          <h3 class="font-serif text-base font-semibold text-[var(--color-text)]">
+            {{ val.title }}
+          </h3>
+          <p class="text-sm leading-relaxed text-[var(--color-text-muted)]">{{ val.desc }}</p>
         </div>
       </div>
     </section>
 
     <!-- Canonical Contact Block -->
     <div
-      class="mono-font space-y-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-code)] p-6 text-center text-xs"
+      class="mono-font space-y-3 rounded-[2px] border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-6 text-center text-xs"
     >
-      <p class="font-semibold text-[var(--text-primary)]">Jakarta, Indonesia</p>
+      <p class="font-semibold text-[var(--color-text)]">Jakarta, Indonesia</p>
       <div
-        class="flex flex-wrap items-center justify-center gap-4 text-xs text-[var(--text-secondary)]"
+        class="flex flex-wrap items-center justify-center gap-4 text-xs text-[var(--color-text-muted)]"
       >
         <a
           href="mailto:mail@irfankurniawan.com"
-          class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1.5 hover:text-[var(--color-accent)]"
         >
-          <svg
-            class="h-3.5 w-3.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect width="20" height="16" x="2" y="4" rx="2" />
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-          </svg>
           mail@irfankurniawan.com
         </a>
-        <span class="text-[var(--border-medium)]">·</span>
+        <span class="text-[var(--color-border)]">·</span>
         <a
           href="https://github.com/prostiate"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1.5 hover:text-[var(--color-accent)]"
         >
-          <svg
-            class="h-3.5 w-3.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-            />
-            <path d="M9 18c-4.51 2-5-2-7-2" />
-          </svg>
           github.com/prostiate
         </a>
-        <span class="text-[var(--border-medium)]">·</span>
+        <span class="text-[var(--color-border)]">·</span>
         <a
           href="https://www.linkedin.com/in/muhammad-irfan-kurniawan/"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1.5 hover:text-[var(--text-primary)] hover:underline"
+          class="flex items-center gap-1.5 hover:text-[var(--color-accent)]"
         >
-          <svg
-            class="h-3.5 w-3.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-            />
-            <rect width="4" height="12" x="2" y="9" />
-            <circle cx="4" cy="4" r="2" />
-          </svg>
           LinkedIn
         </a>
       </div>
